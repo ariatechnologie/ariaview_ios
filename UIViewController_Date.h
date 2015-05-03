@@ -10,14 +10,20 @@
 #define test_UIViewController_Date_h
 #import <UIKit/UIKit.h>
 #import "XMLToObjectParser.h"
-#import "Site.h"
+#import "Filtre.h"
+#import "Factory.h"
+#import "UIViewController_Map.h"
+#import "UIViewController_SW.h"
 
 @interface UIViewController_Date : UIViewController <UITableViewDelegate, UITableViewDataSource> {
-    NSMutableArray *myDates;
     __weak IBOutlet UITableView *myTable;
     NSString *name;
     NSInteger *intervalTime;
     NSString *modelLocalOffset;
+    Factory *factory;
+    @public
+    Filtre *filtre;
+    NSMutableArray *myDates;
 }
 
 // Create array from content xml

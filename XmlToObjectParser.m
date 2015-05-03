@@ -21,20 +21,21 @@
     
     NSString* xmlToNSString = [[NSString alloc] initWithData:xmlContent encoding:NSUTF8StringEncoding];
     
-    NSString *xmlWithout;
-    xmlWithout = [xmlToNSString stringByReplacingOccurrencesOfString:@"\r\n" withString:@""];
-    xmlWithout = [xmlWithout stringByReplacingOccurrencesOfString:@"\r" withString:@""];
-    xmlWithout = [xmlWithout stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-    xmlWithout = [xmlWithout stringByReplacingOccurrencesOfString:@"\t" withString:@""];
+    // remove tabulation and new line
+    NSString *xmlWithoutSpace;
+    xmlWithoutSpace = [xmlToNSString stringByReplacingOccurrencesOfString:@"\r\n" withString:@""];
+    xmlWithoutSpace = [xmlWithoutSpace stringByReplacingOccurrencesOfString:@"\r" withString:@""];
+    xmlWithoutSpace = [xmlWithoutSpace stringByReplacingOccurrencesOfString:@"\n" withString:@""];
+    xmlWithoutSpace = [xmlWithoutSpace stringByReplacingOccurrencesOfString:@"\t" withString:@""];
     
-    xmlContent = [xmlWithout dataUsingEncoding:NSUTF8StringEncoding];
+    xmlContent = [xmlWithoutSpace dataUsingEncoding:NSUTF8StringEncoding];
     
+    // init data
     isRoot = true;
-    
     currentNodeContent = [[NSMutableString alloc] init];
     NSXMLParser *parser = [[NSXMLParser alloc] initWithData:xmlContent];
     [parser setDelegate:self];
-    [parser parse];
+    [parser parse]; // parse the document
     
     if([parser parserError] && error) {
         *error = [parser parserError];
@@ -58,13 +59,12 @@ didStartElement:(NSString *)elementName
         items = itemTmp;
         root = itemTmp;
         isRoot = false;
-        NSLog(@"open tag root : %@ items tag: %@", elementName, items);
     } else {
         itemTmp->up = items;
         [items->tags addObject:itemTmp];
         items = itemTmp;
-        NSLog(@"open tag: %@ items tag: %@", elementName, items);
     }
+//    NSLog(@"open tag: %@ items tag: %@", elementName, items);
 }
 
 - (void)parser:(NSXMLParser *)parser
@@ -72,7 +72,7 @@ didStartElement:(NSString *)elementName
   namespaceURI:(NSString *)namespaceURI
  qualifiedName:(NSString *)qName
 {
-    NSLog(@"items tag: %@ Close tag: %@", items, elementName);
+//    NSLog(@"items tag: %@ Close tag: %@", items, elementName);
     items = items->up;
 }
 
@@ -81,7 +81,7 @@ foundCharacters:(NSString *)string
 {
     NSString *found = [string stringByReplacingOccurrencesOfString:@" " withString:@""];
     if([found length] > 0) {
-        NSLog(@"found caractere c: %@ items tag: %@", string, items);
+//        NSLog(@"found caractere c: %@ items tag: %@", string, items);
         items->content = string;
     }
 }

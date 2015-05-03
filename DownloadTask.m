@@ -11,12 +11,12 @@
 @implementation DownloadTask
 
 
-- (void)executeRequest:(NSString*) url : (NSString*) pathToWrite_  {
+- (NSURLConnection*)executeRequest:(NSString*) url : (NSString*) pathToWrite_  {
     pathToWrite = pathToWrite_;
     NSURL *stringToUrl = [NSURL URLWithString:url];
     NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:stringToUrl cachePolicy:NSURLRequestReloadIgnoringLocalCacheData timeoutInterval:60];
     
-    [[NSURLConnection alloc] initWithRequest:request delegate:self];
+    return [[NSURLConnection alloc] initWithRequest:request delegate:self];
 }
 
 -(void)writeInFile:(NSData *)content {
@@ -28,7 +28,7 @@
     reponseEncode = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
 }
 
-- (void)executeRequest:(NSString*) url : (NSString*) login : (NSString*) password : (NSString*) pathToWrite_  {
+- (NSURLConnection*)executeRequest:(NSString*) url : (NSString*) login : (NSString*) password : (NSString*) pathToWrite_  {
     pathToWrite = pathToWrite_;
     NSURL *stringToUrl = [NSURL URLWithString:url];
     
@@ -42,7 +42,7 @@
     [request setValue:@"application/x-www-form-urlencoded charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     [request setHTTPBody:postData];
 
-    [[NSURLConnection alloc] initWithRequest:request delegate:self];
+    return [[NSURLConnection alloc] initWithRequest:request delegate:self];
 }
 
 - (void)connection:(NSURLConnection *)connection didReceiveResponse:(NSURLResponse *)response

@@ -8,14 +8,17 @@
 
 #import <UIKit/UIKit.h>
 #import "UIViewController_Site.h"
+#import "DownloadTaskSync.h"
+#import "Factory.h"
+#import "UIViewController_Error.h"
 
 @interface ViewController : UIViewController {
     NSString *path;
     NSString *url;
-    NSString *urlBouchon;
+    NSString *urlStub;
     NSString *loginXML;
     NSFileManager *ariaDirectory;
-    
+    Factory *factory;
     NSString *login;
     NSString *password;
 

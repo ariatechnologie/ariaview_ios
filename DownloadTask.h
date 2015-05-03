@@ -17,8 +17,8 @@
     NSString* reponseEncode;
 }
 
-- (void)executeRequest:(NSString*) url : (NSString*) pathToWrite_;
-- (void)executeRequest:(NSString*) url : (NSString*) login : (NSString*) password : (NSString*) pathToWrite_ ;
+- (NSURLConnection*)executeRequest:(NSString*) url : (NSString*) pathToWrite_;
+- (NSURLConnection*)executeRequest:(NSString*) url : (NSString*) login : (NSString*) password : (NSString*) pathToWrite_ ;
 - (NSData*)encodeDictionary:(NSDictionary*)dictionary;
 -(void)writeInFile:(NSData*) content;
 

@@ -11,15 +11,19 @@
 
 #import <UIKit/UIKit.h>
 #import "DownloadTaskSync.h"
+#import "Factory.h"
+#import <Foundation/Foundation.h>
+#import "XMLToObjectParser.h"
+#import "UIViewController_Date.h"
+#import "Filtre.h"
 
 @interface UIViewController_Site : UIViewController <UITableViewDelegate, UITableViewDataSource> {
-    NSMutableArray *myLocations; // Location for one customer
     __weak IBOutlet UITableView *myTable;
-    NSString *url;
-    NSString *urlBouchon;
-    NSString *datesXML;
-    NSString *infosXML;
-    NSString *path;
+    NSString *url, *urlStub, *datesXML, *infosXML, *path;
+    @public
+    Filtre *filtre;
+    Factory *factory;
+    NSMutableArray *myLocations; // Location for one customer
 }
 
 // Create array from content xml

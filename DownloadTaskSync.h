@@ -15,9 +15,9 @@
     NSString* pathToWrite;
     NSString* reponseEncode;
 }
-- (void)executeRequest:(NSString*) url : (NSString*) pathToWrite_;
-- (void)executeRequest:(NSString*) url : (NSString*) login : (NSString*) password : (NSString*) pathToWrite_ ;
-- (void)executeRequest:(NSString*) url : (NSString*) libelleSite : (NSString*) pathToWrite_ ;
+- (NSInteger)executeRequest:(NSString*) url : (NSString*) pathToWrite_;
+- (NSInteger)executeRequest:(NSString*) url : (NSString*) login : (NSString*) password : (NSString*) pathToWrite_ ;
+- (NSInteger)executeRequest:(NSString*) url : (NSString*) login : (NSString*) password : (NSString*) libelleSite : (NSString*) pathToWrite_;
 - (NSData*)encodeDictionary:(NSDictionary*)dictionary;
 -(void)writeInFile:(NSData*) content;
 
