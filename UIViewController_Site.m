@@ -18,7 +18,7 @@
     urlStub = @"https://raw.githubusercontent.com/ariatechnologie/ariaview_android/master/testFile";
     url = @"http://web.aria.fr/webservices/ARIAVIEW/infosite.php";
     datesXML = @"dates.xml";
-    infosXML = @"infosite.xml";
+    infosXML = @"infos.xml";
     path = @"/tmp/ariaview/";
     // Hide previous button
     self.navigationItem.hidesBackButton = YES;
@@ -67,11 +67,11 @@
         NSMutableString *path_to_log = [[NSMutableString alloc] init];
         // [path_to_log appendString:url];
         [path_to_log appendString:url];
-        NSLog(@"Connecting to %@", path_to_log);
+//        NSLog(@"Connecting to %@", path_to_log);
         NSMutableString *path_to_storage = [[NSMutableString alloc] init];
         [path_to_storage appendString:path];
         [path_to_storage appendString:infosXML];
-        NSLog(@"path_to_storage in %@", path_to_storage);
+//        NSLog(@"path_to_storage in %@", path_to_storage);
        
         // Get site selected
         UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
@@ -125,7 +125,7 @@
             NSString *model = modelParsed->content;
             NSString *nest = nestParsed->content;
         
-            NSLog(@"hote %@, url %@, dateFile %@, model %@, nest %@", hote, urlAriaView, dateFile, model, nest);
+//            NSLog(@"hote %@, url %@, dateFile %@, model %@, nest %@", hote, urlAriaView, dateFile, model, nest);
             
             // create url
             path_to_log = [[NSMutableString alloc] init];
@@ -141,11 +141,11 @@
             [path_to_log appendString:@"/"];
             [path_to_log appendString:dateFile];
         
-            NSLog(@"Connecting to %@", path_to_log);
+//            NSLog(@"Connecting to %@", path_to_log);
             path_to_storage = [[NSMutableString alloc] init];
             [path_to_storage appendString:path];
             [path_to_storage appendString:datesXML];
-            NSLog(@"path_to_storage in %@", path_to_storage);
+//            NSLog(@"path_to_storage in %@", path_to_storage);
         
             // Download the xml content, to get dates from site
             error = [downloadTask executeRequest:path_to_log :path_to_storage];

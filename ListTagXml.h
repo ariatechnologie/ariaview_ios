@@ -14,6 +14,7 @@
     ListTagXml *up;
     NSString *name;
     NSMutableArray *tags;
+    NSDictionary *attributes;
     NSString *content;
 }
     

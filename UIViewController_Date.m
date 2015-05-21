@@ -15,6 +15,8 @@
 @implementation UIViewController_Date
 
 - (void) viewDidLoad {
+    infosXML = @"infos.xml";
+    path = @"/tmp/ariaview/";
     [myTable setDataSource:self];
     [myTable setDelegate:self];
     factory = [[Factory alloc] init];
@@ -32,17 +34,12 @@
     NSInteger indexDates = 3;
     
     if(root != nil && [root->tags objectAtIndex:indexDates] != nil) {
-        NSLog(@"root: %@", root->tags);
-        
+//        NSLog(@"root: %@", root->tags);
         ListTagXml *xmlParsed = [root->tags objectAtIndex:indexDates];
-        
-        NSLog(@"Count: %lu", (unsigned long)[xmlParsed->tags count]);
-        
+//        NSLog(@"Count: %lu", (unsigned long)[xmlParsed->tags count]);
         for(int i = 0; i < [xmlParsed->tags count]; i++) {
             ListTagXml *tag = [xmlParsed->tags objectAtIndex:i];
-            
-            NSLog(@"Libelle: %@", tag->content);
-            
+//            NSLog(@"Libelle: %@", tag->content);
             [liste addObject:tag->content];
         }
         myDates = [liste copy];
@@ -50,7 +47,6 @@
         [Factory alertMessage:factory->titleNoDateError:factory->messageNoDateError:self];
     // save dates in filter
     filtre->site->myDates = [myDates copy];
-    
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -59,18 +55,50 @@
     return 1;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     // Get site selected
     UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
     NSString *date = cell.textLabel.text;
     
-    // init view and set data in table
-    UIViewController_SW *mapView = [self.storyboard instantiateViewControllerWithIdentifier:@"SWGoogleMapView"];
-    filtre->date = date;
-    mapView->filtre = filtre;
-    [self.navigationController pushViewController:mapView animated:YES];
+    if([Factory getConnectionState ]) {
+        // Create url to get infos and create file path where will be stored data
+        DownloadTaskSync *downloadTask = [[DownloadTaskSync alloc] init];
+        NSMutableString *path_to_log = [[NSMutableString alloc] init];
+        // Build structure url
+        NSMutableString *pathDirectory  = [[NSMutableString alloc] init];
+        [pathDirectory appendString:@"http://web.aria.fr/awa/destination/ARIAVIEW/"];
+        [pathDirectory appendString:filtre->site->libelle];
+        [pathDirectory appendString:@"/GEARTH/RESULT_LcS/"];
+        NSString *dateForUrl = (NSString*)[myDates objectAtIndex:indexPath.row];
+        [pathDirectory appendString:dateForUrl];
+        [pathDirectory appendString:@"/"];
+        [path_to_log appendString:pathDirectory];
+        [path_to_log appendString:dateForUrl];
+        [path_to_log appendString:@".kml"];
+        NSLog(@"Connecting to %@", path_to_log);
+        
+        NSMutableString *path_to_storage = [[NSMutableString alloc] init];
+        [path_to_storage appendString:path];
+        [path_to_storage appendString:infosXML];
+//        NSLog(@"path_to_storage in %@", path_to_storage);
+
+        // Download the xml content, to get infos about polution
+        [downloadTask executeRequest:path_to_log:path_to_storage];
+        XMLToObjectParser *myParser = [XMLToObjectParser alloc];
+        [myParser parseXml:downloadTask->responseData parseError:nil];
+        AirModelXml* airModelXml = [myParser parseKml:myParser->root];
+        
+//         init view and set data in table
+        UIViewController_SW *mapView = [self.storyboard instantiateViewControllerWithIdentifier:@"SWGoogleMapView"];
+        filtre->date = date;
+        mapView->pathDirectory = pathDirectory;
+        mapView->filtre = filtre;
+        mapView->airModelXml = airModelXml;
+        [self.navigationController pushViewController:mapView animated:YES];
+        
+    } else {
+        [Factory alertMessage:factory->titleConnextionError:factory->messageConnextionError:self];
+    }
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

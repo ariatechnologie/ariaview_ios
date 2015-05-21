@@ -20,8 +20,8 @@
     path = @"/tmp/ariaview/";
     urlStub = @"https://raw.githubusercontent.com/ariatechnologie/ariaview_android/master/testFile/login.xml";
     url = @"http://web.aria.fr/webservices/ARIAVIEW/login.php";
-    loginXML = @"login.xml";
-    
+    infosXML = @"infos.xml";
+     
     // Hide previous button
     self.navigationItem.hidesBackButton = YES;
     
@@ -35,6 +35,7 @@
         else
              NSLog(@"Directory created");
     }
+ 
 }
 
 
@@ -61,7 +62,7 @@
         NSLog(@"Connecting to %@", path_to_log);
         NSMutableString *path_to_storage = [[NSMutableString alloc] init];
         [path_to_storage appendString:path];
-        [path_to_storage appendString:loginXML];
+        [path_to_storage appendString:infosXML];
         NSLog(@"path_to_storage in %@", path_to_storage);
         
     //  Download the xml content, to get sites from account(login/password)

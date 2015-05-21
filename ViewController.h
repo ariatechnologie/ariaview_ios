@@ -13,14 +13,10 @@
 #import "UIViewController_Error.h"
 
 @interface ViewController : UIViewController {
-    NSString *path;
-    NSString *url;
-    NSString *urlStub;
-    NSString *loginXML;
+    NSString *path, *url, *urlStub, *infosXML;
     NSFileManager *ariaDirectory;
     Factory *factory;
-    NSString *login;
-    NSString *password;
+    NSString *login, *password;
 
 }
 

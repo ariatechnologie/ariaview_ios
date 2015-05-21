@@ -11,9 +11,14 @@
 #import "SWRevealViewController.h"
 #import "Filtre.h"
 #import "UIViewController_Menu.h"
+#import "AirModelXml.h"
 
 @interface UIViewController_SW : SWRevealViewController {
-     @public Filtre *filtre;
+    @public
+    Filtre *filtre;
+    AirModelXml *airModelXml;
+    NSMutableString *pathDirectory;
+    __weak IBOutlet UIStepper *stepper;
 }
 @end
 #endif

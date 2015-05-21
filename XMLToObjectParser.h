@@ -11,6 +11,7 @@
 
 #import <Foundation/Foundation.h>
 #import "ListTagXml.h"
+#import "AirModelXml.h"
 
 @interface XMLToObjectParser : NSObject <NSXMLParserDelegate> {
     NSString *className;
@@ -24,6 +25,7 @@
 }
 - (NSArray *)items;
 - (NSMutableArray*) parseXml:(NSData*) xmlContent parseError:(NSError **)error;
+- (AirModelXml*) parseKml:(ListTagXml*) kmlContent;
 
 @end
 

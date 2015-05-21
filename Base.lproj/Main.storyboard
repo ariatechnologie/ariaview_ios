@@ -128,7 +128,7 @@
         <!--Map-->
         <scene sceneID="9Fg-wN-kYd">
             <objects>
-                <viewController storyboardIdentifier="SWGoogleMapView" id="aQJ-1z-cLd" customClass="UIViewController_SW" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="SWGoogleMapView" modalPresentationStyle="currentContext" id="aQJ-1z-cLd" customClass="UIViewController_SW" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ws4-qs-iTT"/>
                         <viewControllerLayoutGuide type="bottom" id="VMI-m7-Per"/>
@@ -142,6 +142,8 @@
                         <barButtonItem key="rightBarButtonItem" image="menu.png" id="dnL-Al-uVQ"/>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="600" height="600"/>
                     <connections>
                         <segue destination="Qsx-Ur-Rov" kind="custom" identifier="sw_front" customClass="SWRevealViewControllerSegueSetController" id="kyE-1R-BGD"/>
                         <segue destination="B6L-bb-db4" kind="custom" identifier="sw_right" customClass="SWRevealViewControllerSegueSetController" id="wtV-PS-1fG"/>
@@ -149,7 +151,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2XW-jK-kLQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2282" y="1070"/>
+            <point key="canvasLocation" x="2292" y="1070"/>
         </scene>
         <!--Selection de la date-->
         <scene sceneID="MI9-l1-gzi">
@@ -189,17 +191,124 @@
                         <viewControllerLayoutGuide type="bottom" id="lqw-XI-MHc"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Tgt-gX-JH6">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="64" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <subviews>
+                            <view autoresizesSubviews="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="O25-vJ-PZQ">
+                                <rect key="frame" x="-7" y="100" width="382" height="567"/>
+                            </view>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="feE-mj-3hK">
+                                <rect key="frame" x="35" y="65" width="30" height="35"/>
+                                <state key="normal" image="_318-10123.jpg">
+                                    <color key="titleShadowColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="changeInterval:" destination="Qsx-Ur-Rov" eventType="touchDown" id="sYi-2e-ama"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nbA-e5-wQU">
+                                <rect key="frame" x="0.0" y="65" width="30" height="36"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal" title="-">
+                                    <color key="titleShadowColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="lessInterval:" destination="Qsx-Ur-Rov" eventType="touchDown" id="B3q-tr-FEG"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vH6-at-fx7">
+                                <rect key="frame" x="70" y="65" width="30" height="36"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal" title="+">
+                                    <color key="titleShadowColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="moreInterval:" destination="Qsx-Ur-Rov" eventType="touchDown" id="dHF-TC-41P"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MJS-Ao-pLa">
+                                <rect key="frame" x="310" y="68" width="30" height="30"/>
+                                <state key="normal" image="google-location-icon-location-map-512.png">
+                                    <color key="titleShadowColor" cocoaTouchSystemColor="darkTextColor"/>
+                                </state>
+                                <connections>
+                                    <action selector="recenterCamera:" destination="Qsx-Ur-Rov" eventType="touchDown" id="im6-gx-sQQ"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RoG-Lu-6lQ">
+                                <rect key="frame" x="345" y="65" width="30" height="36"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal" title="+">
+                                    <color key="titleShadowColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="zoom:" destination="Qsx-Ur-Rov" eventType="touchDown" id="afq-9C-XWe"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e1O-r5-Tjn">
+                                <rect key="frame" x="275" y="65" width="30" height="36"/>
+                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                                <state key="normal" title="-">
+                                    <color key="titleShadowColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="unzoom:" destination="Qsx-Ur-Rov" eventType="touchDown" id="bSG-Uh-RuI"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="[01:30] - [02:00]" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NGj-Gr-oay">
+                                <rect key="frame" x="131" y="71" width="120" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
                     <toolbarItems/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
-                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="mapViewSB" destination="O25-vJ-PZQ" id="zXe-Yu-gAe"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6IK-zG-aiA" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2989" y="1070"/>
+            <point key="canvasLocation" x="3044" y="1070"/>
+        </scene>
+        <!--Selection de l'interval-->
+        <scene sceneID="1Gb-rw-mBv">
+            <objects>
+                <viewController storyboardIdentifier="PickerViewDate" id="rOq-ei-MFt" customClass="UIViewController_Interval" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="ga3-cn-uDf"/>
+                        <viewControllerLayoutGuide type="bottom" id="QSK-rV-9zo"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="I4B-lM-NK4">
+                        <rect key="frame" x="0.0" y="64" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pK4-47-ECz">
+                                <rect key="frame" x="0.0" y="64" width="382" height="162"/>
+                            </pickerView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <navigationItem key="navigationItem" title="Selection de l'interval" id="VMg-Wm-5Ae">
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="nTz-Af-4mC">
+                            <connections>
+                                <action selector="onclick:" destination="rOq-ei-MFt" id="BSc-Ix-YWQ"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                    <connections>
+                        <outlet property="picker" destination="pK4-47-ECz" id="pUl-UR-Jv1"/>
+                        <outlet property="pickerView" destination="pK4-47-ECz" id="qWz-cg-eNu"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="n9h-IJ-q5r" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3739" y="1067"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="MAl-gg-GLm">
@@ -250,6 +359,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="_318-10123.jpg" width="626" height="573"/>
+        <image name="google-location-icon-location-map-512.png" width="512" height="512"/>
         <image name="menu.png" width="28" height="20"/>
     </resources>
 </document>

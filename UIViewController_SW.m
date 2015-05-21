@@ -22,6 +22,11 @@
     if ([[segue identifier] isEqualToString:@"sw_right"]) {
         UIViewController_Menu *uivMenu = (UIViewController_Menu*)[segue destinationViewController];
         uivMenu->filtre = filtre;
+    } else if ([[segue identifier] isEqualToString:@"sw_front"]) {
+        UIViewController_Map *uivMap = (UIViewController_Map*)[segue destinationViewController];
+        uivMap->airModelXml = airModelXml;
+        uivMap->filtre = filtre;
+        uivMap->pathDirectory = pathDirectory;
     }
 }
 

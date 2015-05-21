@@ -14,10 +14,11 @@
 #import "Factory.h"
 #import "UIViewController_Map.h"
 #import "UIViewController_SW.h"
+#import "AirModelXml.h"
 
 @interface UIViewController_Date : UIViewController <UITableViewDelegate, UITableViewDataSource> {
     __weak IBOutlet UITableView *myTable;
-    NSString *name;
+    NSString *name, *infosXML, *path;
     NSInteger *intervalTime;
     NSString *modelLocalOffset;
     Factory *factory;

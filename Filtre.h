@@ -9,8 +9,6 @@
 #ifndef test_Filtre_h
 #define test_Filtre_h
 
-#import "Filtre.h"
-
 @interface Site : NSObject {
     @public
     NSString *libelle;
