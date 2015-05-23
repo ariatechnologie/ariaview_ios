@@ -12,6 +12,7 @@
 #import <Foundation/Foundation.h>
 #import "ListTagXml.h"
 #import "AirModelXml.h"
+#import "Factory.h"
 
 @interface XMLToObjectParser : NSObject <NSXMLParserDelegate> {
     NSString *className;

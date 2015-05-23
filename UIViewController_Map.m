@@ -13,27 +13,24 @@
 
 @implementation UIViewController_Map
 
+- (id)initWithIndexInterval:(int) _index {
+    self = [super init];
+    if(self)
+    {
+        indexInterval = _index;
+    }
+    return self;
+}
+
 - (void) viewDidLoad {
     [super viewDidLoad];
-    indexInterval = 0;
+    
     zoomDefault = 15;
     zoomCurrent = zoomDefault;
+    NSLog(@"Index interval = %d", indexInterval);
     GroundOverLay *firstInterval = [self->airModelXml->polutionInterval->groundOverLayList objectAtIndex:indexInterval];
     
-//    NSDate *dateStart, *dateEnd;
-//    dateStart = firstInterval->timeStampBegin;
-//    dateEnd = firstInterval->timeStampEnd;
-//
-//    NSCalendar *calendar = [NSCalendar currentCalendar];
-//    NSDateComponents *components = [calendar components:(NSCalendarUnitHour | NSCalendarUnitMinute) fromDate:dateStart];
-//    NSInteger hourStart = [components hour];
-//    NSInteger minuteStart = [components minute];
-//    components = [calendar components:(NSCalendarUnitHour | NSCalendarUnitMinute) fromDate:dateEnd];
-//    NSInteger hourEnd = [components hour];
-//    NSInteger minuteEnd = [components minute];
-//    
-//    NSString *label = [NSString stringWithFormat:@"%ld H %ld - %ld H %ld", hourStart, minuteStart, hourEnd, minuteEnd];
-    
+    intervalTitle.text = [Factory getFormatSelectionDateString:firstInterval->timeStampBegin :firstInterval->timeStampEnd];
     latitude = (firstInterval->latLongNorth + firstInterval->latLongSouth)/2;
     
     longitude = (firstInterval->latLongEast + firstInterval->latLongWest)/2;
@@ -106,19 +103,7 @@
         
         GroundOverLay *interval = [self->airModelXml->polutionInterval->groundOverLayList objectAtIndex:indexInterval];
         
-        //    NSDate *dateStart, *dateEnd;
-        //    dateStart = interval->timeStampBegin;
-        //    dateEnd = interval->timeStampEnd;
-        //
-        //    NSCalendar *calendar = [NSCalendar currentCalendar];
-        //    NSDateComponents *components = [calendar components:(NSCalendarUnitHour | NSCalendarUnitMinute) fromDate:dateStart];
-        //    NSInteger hourStart = [components hour];
-        //    NSInteger minuteStart = [components minute];
-        //    components = [calendar components:(NSCalendarUnitHour | NSCalendarUnitMinute) fromDate:dateEnd];
-        //    NSInteger hourEnd = [components hour];
-        //    NSInteger minuteEnd = [components minute];
-        //
-        //    NSString *label = [NSString stringWithFormat:@"%ld H %ld - %ld H %ld", hourStart, minuteStart, hourEnd, minuteEnd];
+        intervalTitle.text = [Factory getFormatSelectionDateString:interval->timeStampBegin :interval->timeStampEnd];
         
         /*
          * Put the image on the map
@@ -134,6 +119,7 @@
 //        CLLocationCoordinate2D coordinates =  CLLocationCoordinate2DMake(latitude,longitude);
 //        GMSCameraUpdate *updatedCamera = [GMSCameraUpdate setTarget:coordinates zoom:zoomDefault];
 //        [mapView animateWithCameraUpdate:updatedCamera];
+        
         NSMutableString *sourceFile = [[NSMutableString alloc] init];
         [sourceFile appendString:pathDirectory];
         [sourceFile appendString:interval->iconPath];
@@ -157,19 +143,7 @@
         
         GroundOverLay *interval = [self->airModelXml->polutionInterval->groundOverLayList objectAtIndex:indexInterval];
         
-        //    NSDate *dateStart, *dateEnd;
-        //    dateStart = interval->timeStampBegin;
-        //    dateEnd = interval->timeStampEnd;
-        //
-        //    NSCalendar *calendar = [NSCalendar currentCalendar];
-        //    NSDateComponents *components = [calendar components:(NSCalendarUnitHour | NSCalendarUnitMinute) fromDate:dateStart];
-        //    NSInteger hourStart = [components hour];
-        //    NSInteger minuteStart = [components minute];
-        //    components = [calendar components:(NSCalendarUnitHour | NSCalendarUnitMinute) fromDate:dateEnd];
-        //    NSInteger hourEnd = [components hour];
-        //    NSInteger minuteEnd = [components minute];
-        //
-        //    NSString *label = [NSString stringWithFormat:@"%ld H %ld - %ld H %ld", hourStart, minuteStart, hourEnd, minuteEnd];
+        intervalTitle.text = [Factory getFormatSelectionDateString:interval->timeStampBegin :interval->timeStampEnd];
         
         /*
          * Put the image on the map

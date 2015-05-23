@@ -95,52 +95,10 @@
         // TimeStamp
         // Example format = "2013-02-23T01:30:00+01:00"
         ListTagXml *timeStamp = (ListTagXml*)[groundOverLay->tags objectAtIndex:3];
-        int year, month, day, hours, minuts, seconds;
-        NSDateComponents *dc; NSDate *date;
         NSString *timeStampStartNotFormated = ((ListTagXml*)[timeStamp->tags objectAtIndex:0])->content;
         NSString *timeStampEndNotFormated = ((ListTagXml*)[timeStamp->tags objectAtIndex:1])->content;
-
-        year = [[timeStampStartNotFormated substringToIndex:4] intValue];
-        month = [[[timeStampStartNotFormated substringToIndex:7] substringFromIndex:5] intValue];
-        day = [[[timeStampStartNotFormated substringToIndex:10] substringFromIndex:8] intValue];
-        hours = [[[timeStampStartNotFormated substringFromIndex:11] substringToIndex:2] intValue];
-        minuts = [[[timeStampStartNotFormated substringFromIndex:14] substringToIndex:2] intValue];
-        seconds = [[[timeStampStartNotFormated substringFromIndex:17] substringToIndex:2] intValue];
-        
-        dc = [[NSDateComponents alloc] init];
-        [dc setDay:day];
-        [dc setMonth:month];
-        [dc setYear:year];
-        [dc setHour:hours];
-        [dc setMinute:minuts];
-        [dc setSecond:seconds];
-        date = [dc date];
-        
-        groundOverLayModel->timeStampBegin = date;
-        
-        NSLog(@"%f", [[[NSCalendar currentCalendar] dateFromComponents:dc] timeIntervalSince1970]);
-        
-        year = [[timeStampEndNotFormated substringToIndex:4] intValue];
-        month = [[[timeStampEndNotFormated substringToIndex:7] substringFromIndex:5] intValue];
-        day = [[[timeStampEndNotFormated substringToIndex:10] substringFromIndex:8] intValue];
-        hours = [[[timeStampEndNotFormated substringFromIndex:11] substringToIndex:2] intValue];
-        minuts = [[[timeStampEndNotFormated substringFromIndex:14] substringToIndex:2] intValue];
-        seconds = [[[timeStampEndNotFormated substringFromIndex:17] substringToIndex:2] intValue];
-        
-        dc = [[NSDateComponents alloc] init];
-        [dc setYear:year];
-        [dc setMonth:month];
-        [dc setDay:day];
-        [dc setHour:hours];
-        [dc setMinute:minuts];
-        [dc setSecond:seconds];
-        date = [dc date];
-        
-        groundOverLayModel->timeStampEnd = date;
-        
-        NSLog(@"%f", [[[NSCalendar currentCalendar] dateFromComponents:dc] timeIntervalSince1970]);
-        
-
+        groundOverLayModel->timeStampBegin = [Factory getDateFromFormatKml:timeStampStartNotFormated];
+        groundOverLayModel->timeStampEnd = [Factory getDateFromFormatKml:timeStampEndNotFormated];
         
         // Add GroundOverLay into list
         [airModelXml->polutionInterval->groundOverLayList addObject:groundOverLayModel];

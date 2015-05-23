@@ -29,7 +29,8 @@
 
 + (BOOL) getConnectionState;
 + (void) alertMessage : (NSString*) title : (NSString*) message : (UIViewController*) delegate;
-
++ (NSString*) getFormatSelectionDateString: (NSDate*) dateStart : (NSDate*) dateEnd;
++ (NSDate*) getDateFromFormatKml: (NSString*) date;
 @end
 
 #endif

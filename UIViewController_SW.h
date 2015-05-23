@@ -19,6 +19,8 @@
     AirModelXml *airModelXml;
     NSMutableString *pathDirectory;
     __weak IBOutlet UIStepper *stepper;
+    int indexInterval;
 }
+- (id)initWithIndexInterval:(int) _index;
 @end
 #endif

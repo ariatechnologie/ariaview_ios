@@ -12,10 +12,12 @@
 #import <UIKit/UIKit.h>
 #import "UIViewController_Map.h"
 #import "UIViewController_SW.h"
+#import "Factory.h"
 
 @interface UIViewController_Interval : UIViewController<UIPickerViewDataSource, UIPickerViewDelegate> {
-    NSArray *_pickerData;
+    NSMutableArray *_pickerData;
     __weak IBOutlet UIPickerView *pickerView;
+    Factory *factory;
     @public
     UIViewController_Map *map;
 }
