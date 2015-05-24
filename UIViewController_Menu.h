@@ -19,7 +19,7 @@
 @interface UIViewController_Menu : UIViewController  <UITableViewDelegate, UITableViewDataSource> {
     __weak IBOutlet UITableView *tableViewMenu;
     NSMutableArray *myOptions;
-    int CHANGE_SITE, CHANGE_DATE, SIGNOUT;
+    int CHANGE_SITE, CHANGE_DATE, SIGNOUT, CHANGE_POLLUTANT;
     Factory *factory;
     @public
     Filtre *filtre;

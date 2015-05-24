@@ -26,12 +26,12 @@
     /*
      * Add action event list button (slide out menu)
      */
-    SWRevealViewController *revealViewController = self.revealViewController;
+    SWRevealViewController *revealViewController = self;
     if ( revealViewController )
     {
-        [self.sidebarButton setTarget: self.revealViewController];
+        [self.sidebarButton setTarget: self];
         [self.sidebarButton setAction: @selector( revealToggle: )];
-        [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
+        [self.view addGestureRecognizer:self.panGestureRecognizer];
     }
 }
 

@@ -25,6 +25,8 @@
     NSString *titleNoDateError;
     NSString *messageNoSiteError;
     NSString *titleNoSiteError;
+    NSString *messageNoPollutantError;
+    NSString *titleNoPolluttantError;
 }
 
 + (BOOL) getConnectionState;

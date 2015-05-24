@@ -29,6 +29,8 @@
         titleNoSiteError = @"Avertissement";
         messageNoDateError = @"Il n'existe pas d'historisation de poluant pour ce site.";
         titleNoDateError = @"Avertissement";
+        messageNoPollutantError = @"Il n'existe pas d'historisation de poluant pour ce site.";
+        titleNoPollutantError = @"Avertissement";
 
     }
     return self;

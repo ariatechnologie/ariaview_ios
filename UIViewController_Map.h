@@ -19,6 +19,9 @@
 
 @interface UIViewController_Map : UIViewController<SWRevealViewControllerDelegate>  {
     __weak IBOutlet UILabel *intervalTitle;
+    __weak IBOutlet UIButton *buttonPlay;
+    BOOL isPlaying;
+    NSTimer* myTimer;
     @public
     Filtre *filtre;
     AirModelXml *airModelXml;
@@ -29,10 +32,12 @@
     double latitude, longitude;
     __weak IBOutlet UIPickerView *pickerView;
 }
+- (IBAction)play:(id)sender;
 - (id)initWithIndexInterval:(int) _index;
 - (IBAction)recenterCamera:(id)sender;
 - (IBAction)zoom:(id)sender;
 - (IBAction)unzoom:(id)sender;
+- (void)playingInterval:(NSTimer*) t;
 - (IBAction)moreInterval:(id)sender;
 - (IBAction)lessInterval:(id)sender;
 - (IBAction)changeInterval:(id)sender;

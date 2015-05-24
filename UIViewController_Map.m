@@ -13,10 +13,71 @@
 
 @implementation UIViewController_Map
 
+- (void)playingInterval:(NSTimer*) t  {
+    NSLog(@"playing");
+    if([self->airModelXml->polutionInterval->groundOverLayList count] > indexInterval+1)
+        indexInterval = indexInterval + 1;
+    else
+        indexInterval = 0;
+    /*
+     * remove all ouverlay
+     */
+    [mapView clear];
+    
+    NSLog(@"Index interval = %d", indexInterval);
+    GroundOverLay *interval = [self->airModelXml->polutionInterval->groundOverLayList objectAtIndex:indexInterval];
+    NSLog(@"date start = %@", interval->timeStampBegin);
+    intervalTitle.text = [Factory getFormatSelectionDateString:interval->timeStampBegin :interval->timeStampEnd];
+    
+    /*
+     * Put the image on the map
+     */
+    
+    CLLocationCoordinate2D southWest = CLLocationCoordinate2DMake(interval->latLongSouth,interval->latLongWest);
+    CLLocationCoordinate2D northEast = CLLocationCoordinate2DMake(interval->latLongNorth, interval->latLongEast);
+    GMSCoordinateBounds *overlayBounds = [[GMSCoordinateBounds alloc] initWithCoordinate:southWest
+                                                                              coordinate:northEast];
+    //        /*
+    //         *  Set new position of the camera
+    //         */
+    //        CLLocationCoordinate2D coordinates =  CLLocationCoordinate2DMake(latitude,longitude);
+    //        GMSCameraUpdate *updatedCamera = [GMSCameraUpdate setTarget:coordinates zoom:zoomDefault];
+    //        [mapView animateWithCameraUpdate:updatedCamera];
+    
+    NSMutableString *sourceFile = [[NSMutableString alloc] init];
+    [sourceFile appendString:pathDirectory];
+    [sourceFile appendString:interval->iconPath];
+    // Image
+    UIImage *icon = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:sourceFile]]];
+    GMSGroundOverlay *overlay =
+    [GMSGroundOverlay groundOverlayWithBounds:overlayBounds icon:icon];
+    overlay.bearing = 0;
+    overlay.map = mapView;
+}
+
+- (IBAction)play:(id)sender {
+    if(!isPlaying) {
+        NSLog(@"playing");
+        isPlaying = true;
+        [buttonPlay setImage:nil forState:UIControlStateNormal];
+        [buttonPlay setImage:[UIImage imageNamed:@"play.png"] forState:UIControlStateNormal];
+        myTimer = [NSTimer scheduledTimerWithTimeInterval: 1 target: self
+                                                 selector: @selector(playingInterval:) userInfo: nil repeats: YES];
+    } else {
+        NSLog(@"stopped");
+        isPlaying = false;
+        [buttonPlay setImage:nil forState:UIControlStateNormal];
+        [buttonPlay setImage:[UIImage imageNamed:@"stop.png"] forState:UIControlStateNormal];
+        [myTimer invalidate];
+    }
+}
+
 - (id)initWithIndexInterval:(int) _index {
     if(self)
     {
         indexInterval = _index;
+        isPlaying = false;
+        zoomDefault = 15;
     }
     return self;
 }
@@ -24,7 +85,6 @@
 - (void) viewDidLoad {
     [super viewDidLoad];
     
-    zoomDefault = 15;
     zoomCurrent = zoomDefault;
     NSLog(@"Index interval = %d", indexInterval);
     

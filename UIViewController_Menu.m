@@ -14,11 +14,12 @@
 -(void) viewDidLoad {
     factory = [[Factory alloc] init];
     //set const var
-    CHANGE_SITE = 0; CHANGE_DATE = 1; SIGNOUT = 2;
+    CHANGE_SITE = 0; CHANGE_DATE = 1; SIGNOUT = 2; CHANGE_POLLUTANT = 3;
     // set options from slide out menu
     myOptions = [[NSMutableArray alloc] init];
     [myOptions addObject:@"Modifier le site"];
     [myOptions addObject:@"Modifier la date"];
+    [myOptions addObject:@"Modifier la poluant"];
     [myOptions addObject:@"Deconnexion"];
     // set date source and listenner(this class)
     [tableViewMenu setDataSource:self];
@@ -87,6 +88,10 @@
         [self.navigationController pushViewController:mainView animated:YES];
         
     }
+    else if (indexPath.row == CHANGE_POLLUTANT) {
+        
+    }
+        
     }
 }
 
