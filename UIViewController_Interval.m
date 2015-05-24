@@ -61,8 +61,8 @@
      * Connexion is Ok, then reload map and polution sky
      */
     if([Factory getConnectionState ]) {
-        map->indexInterval = (int)[pickerView selectedRowInComponent:0];
-        UIViewController_SW *mapView = [self.storyboard instantiateViewControllerWithIdentifier:@"SWGoogleMapView"];
+        int indexInterval = (int)[pickerView selectedRowInComponent:0];
+        UIViewController_SW *mapView = [[self.storyboard instantiateViewControllerWithIdentifier:@"SWGoogleMapView"] initWithIndexInterval:indexInterval];
         mapView->pathDirectory = map->pathDirectory;
         mapView->filtre = map->filtre;
         mapView->airModelXml = map->airModelXml;

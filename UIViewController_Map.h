@@ -19,7 +19,6 @@
 
 @interface UIViewController_Map : UIViewController<SWRevealViewControllerDelegate>  {
     __weak IBOutlet UILabel *intervalTitle;
-    __weak IBOutlet UIBarButtonItem *sidebarButton;
     @public
     Filtre *filtre;
     AirModelXml *airModelXml;

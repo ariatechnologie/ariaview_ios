@@ -21,8 +21,18 @@
 }
 
 -(void) viewDidLoad {
-    self.rightViewRevealWidth = 190;
+    self.rightViewRevealWidth = (int)(375/2);
     self.navigationItem.hidesBackButton = YES;
+    /*
+     * Add action event list button (slide out menu)
+     */
+    SWRevealViewController *revealViewController = self.revealViewController;
+    if ( revealViewController )
+    {
+        [self.sidebarButton setTarget: self.revealViewController];
+        [self.sidebarButton setAction: @selector( revealToggle: )];
+        [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
+    }
 }
 
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender

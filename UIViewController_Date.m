@@ -90,14 +90,13 @@
         
         if (airModelXml != nil || airModelXml->polutionInterval != nil || airModelXml->polutionInterval->groundOverLayList != nil || [airModelXml->polutionInterval->groundOverLayList count] > 0) {
  
-        GroundOverLay* interval = [airModelXml->polutionInterval->groundOverLayList objectAtIndex:0];
-        
 //         init view and set data in table
             UIViewController_SW *mapView = [[self.storyboard instantiateViewControllerWithIdentifier:@"SWGoogleMapView"] initWithIndexInterval:0];
             filtre->date = date;
             mapView->pathDirectory = pathDirectory;
             mapView->filtre = filtre;
             mapView->airModelXml = airModelXml;
+        
             [self.navigationController pushViewController:mapView animated:YES];
         } else {
             [Factory alertMessage:factory->titleNoDateError:factory->messageNoDateError:self];

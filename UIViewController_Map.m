@@ -14,7 +14,6 @@
 @implementation UIViewController_Map
 
 - (id)initWithIndexInterval:(int) _index {
-    self = [super init];
     if(self)
     {
         indexInterval = _index;
@@ -28,12 +27,14 @@
     zoomDefault = 15;
     zoomCurrent = zoomDefault;
     NSLog(@"Index interval = %d", indexInterval);
-    GroundOverLay *firstInterval = [self->airModelXml->polutionInterval->groundOverLayList objectAtIndex:indexInterval];
     
-    intervalTitle.text = [Factory getFormatSelectionDateString:firstInterval->timeStampBegin :firstInterval->timeStampEnd];
-    latitude = (firstInterval->latLongNorth + firstInterval->latLongSouth)/2;
+    GroundOverLay *interval = [self->airModelXml->polutionInterval->groundOverLayList objectAtIndex:indexInterval];
     
-    longitude = (firstInterval->latLongEast + firstInterval->latLongWest)/2;
+    intervalTitle.text = [Factory getFormatSelectionDateString:interval->timeStampBegin :interval->timeStampEnd];
+    
+    latitude = (interval->latLongNorth + interval->latLongSouth)/2;
+    
+    longitude = (interval->latLongEast + interval->latLongWest)/2;
     
     GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:latitude longitude:longitude zoom:zoomDefault];
     
@@ -43,13 +44,13 @@
      * Put the image on the map
      */
     
-    CLLocationCoordinate2D southWest = CLLocationCoordinate2DMake(firstInterval->latLongSouth,firstInterval->latLongWest);
-    CLLocationCoordinate2D northEast = CLLocationCoordinate2DMake(firstInterval->latLongNorth, firstInterval->latLongEast);
+    CLLocationCoordinate2D southWest = CLLocationCoordinate2DMake(interval->latLongSouth,interval->latLongWest);
+    CLLocationCoordinate2D northEast = CLLocationCoordinate2DMake(interval->latLongNorth, interval->latLongEast);
     GMSCoordinateBounds *overlayBounds = [[GMSCoordinateBounds alloc] initWithCoordinate:southWest
                                                                               coordinate:northEast];
     NSMutableString *sourceFile = [[NSMutableString alloc] init];
     [sourceFile appendString:pathDirectory];
-    [sourceFile appendString:firstInterval->iconPath];
+    [sourceFile appendString:interval->iconPath];
     // Image
     UIImage *icon = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:sourceFile]]];
     GMSGroundOverlay *overlay =
@@ -101,8 +102,9 @@
          */
         [mapView clear];
         
+        NSLog(@"Index interval = %d", indexInterval);
         GroundOverLay *interval = [self->airModelXml->polutionInterval->groundOverLayList objectAtIndex:indexInterval];
-        
+        NSLog(@"date start = %@", interval->timeStampBegin);
         intervalTitle.text = [Factory getFormatSelectionDateString:interval->timeStampBegin :interval->timeStampEnd];
         
         /*
@@ -140,9 +142,9 @@
          * remove all ouverlay
          */
         [mapView clear];
-        
+        NSLog(@"Index interval = %d", indexInterval);
         GroundOverLay *interval = [self->airModelXml->polutionInterval->groundOverLayList objectAtIndex:indexInterval];
-        
+        NSLog(@"date start = %@", interval->timeStampBegin);
         intervalTitle.text = [Factory getFormatSelectionDateString:interval->timeStampBegin :interval->timeStampEnd];
         
         /*
@@ -175,11 +177,6 @@
 - (IBAction)changeInterval:(id)sender {
     UIViewController_Interval *viewArrayInterval = [self.storyboard instantiateViewControllerWithIdentifier:@"PickerViewDate"];
     viewArrayInterval->map = self;
-//    NSArray *dates[[airModelXml->polutionInterval->groundOverLayList count]];
-//    for(int i = 0; i < [airModelXml->polutionInterval->groundOverLayList count];i++) {
-//        int timeBegin =
-//        dates[i] = ((GroundOverLay*) airModelXml->polutionInterval->groundOverLayList[i])->timeStampBegin;
-//    }
     [self.navigationController pushViewController:viewArrayInterval animated:YES];
 }
 

@@ -107,9 +107,9 @@
     NSString *option = (NSString*)[myOptions objectAtIndex:indexPath.row];
     
     cell.textLabel.text = option;
-    cell.textLabel.textAlignment = NSTextAlignmentLeft;
-    return cell;
     
+    return cell;
+
 }
 
 @end

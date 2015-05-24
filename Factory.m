@@ -65,7 +65,7 @@
         NSInteger minuteEnd = [components minute];
         NSString *hourStartString, *minuteStartString, *hourEndString, *minuteEndString;
         
-        if(hourStart >= 0 && hourEnd >= 0 && minuteStart > 0 && minuteEnd >= 0 &&
+        if(hourStart >= 0 && hourEnd >= 0 && minuteStart >= 0 && minuteEnd >= 0 &&
            hourStart <= 24 && hourEnd <= 24 && minuteStart <= 60 && minuteEnd <= 60) {
         /*
          * Add 0 if number have just one number because format is date
@@ -88,7 +88,7 @@
         else
             minuteEndString = [NSString stringWithFormat:@"%ld", (long)minuteEnd];
         
-        label = [NSString stringWithFormat:@"[%@ H %@ - %@ H %@]", hourStartString, minuteStartString, hourEndString, minuteEndString];
+        label = [NSString stringWithFormat:@"[%@:%@ - %@:%@]", hourStartString, minuteStartString, hourEndString, minuteEndString];
         }
         
     }
