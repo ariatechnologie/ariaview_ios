@@ -18,9 +18,8 @@
     Filtre *filtre;
     AirModelXml *airModelXml;
     NSMutableString *pathDirectory;
-    int indexInterval;
 }
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *sidebarButton;
-- (id)initWithIndexInterval:(int) _index;
+- (id)initWithData: (Filtre*) _filtre;
 @end
 #endif

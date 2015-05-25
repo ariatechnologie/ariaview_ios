@@ -11,11 +11,11 @@
  
 @implementation UIViewController_SW
 
-- (id)initWithIndexInterval:(int) _index {
+- (id)initWithData:(Filtre*) _filtre{
     self = [super init];
     if(self)
     {
-        indexInterval = _index;
+        filtre = _filtre;
     }
     return self;
 }
@@ -42,10 +42,7 @@
         UIViewController_Menu *uivMenu = (UIViewController_Menu*)[segue destinationViewController];
         uivMenu->filtre = filtre;
     } else if ([[segue identifier] isEqualToString:@"sw_front"]) {
-        UIViewController_Map *uivMap = [(UIViewController_Map*)[segue destinationViewController] initWithIndexInterval:indexInterval];
-        uivMap->airModelXml = airModelXml;
-        uivMap->filtre = filtre;
-        uivMap->pathDirectory = pathDirectory;
+        UIViewController_Map *uivMap = [(UIViewController_Map*)[segue destinationViewController] initWith:filtre];
     }
 }
 

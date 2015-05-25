@@ -9,10 +9,15 @@
 #ifndef test_Filtre_h
 #define test_Filtre_h
 
+#import "AirModelXml.h"
+
 @interface Site : NSObject {
     @public
     NSString *libelle;
     NSMutableArray *myDates;
+    NSMutableArray *myPollutants;
+    NSString *urlDirectory;
+    AirModelXml *modelKml;
 }
 
 @property (nonatomic, retain) NSString *libelle;
@@ -36,6 +41,9 @@
     Site *site;
     User *user;
     NSString *date;
+    NSString *pollutant;
+    int indexPollutant;
+    int indexInterval;
 }
 @end
 

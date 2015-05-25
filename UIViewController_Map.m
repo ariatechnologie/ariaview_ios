@@ -15,17 +15,17 @@
 
 - (void)playingInterval:(NSTimer*) t  {
     NSLog(@"playing");
-    if([self->airModelXml->polutionInterval->groundOverLayList count] > indexInterval+1)
-        indexInterval = indexInterval + 1;
+    if([((Pollutant*)[filtre->site->modelKml->myPollutants objectAtIndex:filtre->indexPollutant])->polutionInterval->groundOverLayList count] > filtre->indexInterval+1)
+        filtre->indexInterval = filtre->indexInterval + 1;
     else
-        indexInterval = 0;
+        filtre->indexInterval = 0;
     /*
      * remove all ouverlay
      */
     [mapView clear];
     
-    NSLog(@"Index interval = %d", indexInterval);
-    GroundOverLay *interval = [self->airModelXml->polutionInterval->groundOverLayList objectAtIndex:indexInterval];
+    NSLog(@"Index interval = %d", filtre->indexInterval);
+    GroundOverLay *interval = [((Pollutant*)[filtre->site->modelKml->myPollutants objectAtIndex:filtre->indexPollutant])->polutionInterval->groundOverLayList objectAtIndex:filtre->indexInterval];
     NSLog(@"date start = %@", interval->timeStampBegin);
     intervalTitle.text = [Factory getFormatSelectionDateString:interval->timeStampBegin :interval->timeStampEnd];
     
@@ -45,7 +45,7 @@
     //        [mapView animateWithCameraUpdate:updatedCamera];
     
     NSMutableString *sourceFile = [[NSMutableString alloc] init];
-    [sourceFile appendString:pathDirectory];
+    [sourceFile appendString:filtre->site->urlDirectory];
     [sourceFile appendString:interval->iconPath];
     // Image
     UIImage *icon = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:sourceFile]]];
@@ -72,12 +72,12 @@
     }
 }
 
-- (id)initWithIndexInterval:(int) _index {
+- (id)initWith:(Filtre*)_filtre {
     if(self)
     {
-        indexInterval = _index;
         isPlaying = false;
         zoomDefault = 15;
+        filtre = _filtre;
     }
     return self;
 }
@@ -86,9 +86,9 @@
     [super viewDidLoad];
     
     zoomCurrent = zoomDefault;
-    NSLog(@"Index interval = %d", indexInterval);
+    NSLog(@"Index interval = %d", filtre->indexInterval);
     
-    GroundOverLay *interval = [self->airModelXml->polutionInterval->groundOverLayList objectAtIndex:indexInterval];
+    GroundOverLay *interval = [((Pollutant*)[filtre->site->modelKml->myPollutants objectAtIndex:filtre->indexPollutant])->polutionInterval->groundOverLayList objectAtIndex:filtre->indexInterval];
     
     intervalTitle.text = [Factory getFormatSelectionDateString:interval->timeStampBegin :interval->timeStampEnd];
     
@@ -109,7 +109,7 @@
     GMSCoordinateBounds *overlayBounds = [[GMSCoordinateBounds alloc] initWithCoordinate:southWest
                                                                               coordinate:northEast];
     NSMutableString *sourceFile = [[NSMutableString alloc] init];
-    [sourceFile appendString:pathDirectory];
+    [sourceFile appendString:filtre->site->urlDirectory];
     [sourceFile appendString:interval->iconPath];
     // Image
     UIImage *icon = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:sourceFile]]];
@@ -129,7 +129,8 @@
 - (IBAction)recenterCamera:(id)sender {
     // set latitude and longitude of the first interval
     // Set also the default zoom
-    GroundOverLay *firstInterval = [self->airModelXml->polutionInterval->groundOverLayList objectAtIndex:indexInterval];
+    GroundOverLay *firstInterval = [((Pollutant*)[filtre->site->modelKml->myPollutants objectAtIndex:filtre->indexPollutant])->polutionInterval->groundOverLayList objectAtIndex:filtre->indexInterval];
+
     latitude = (firstInterval->latLongNorth + firstInterval->latLongSouth)/2;
     longitude = (firstInterval->latLongEast + firstInterval->latLongWest)/2;
     CLLocationCoordinate2D coordinates =  CLLocationCoordinate2DMake(latitude,longitude);
@@ -155,15 +156,15 @@
 }
 
 - (IBAction)moreInterval:(id)sender {
-    if([self->airModelXml->polutionInterval->groundOverLayList count] > indexInterval+1) {
-        indexInterval = indexInterval + 1;
+        if([((Pollutant*)[filtre->site->modelKml->myPollutants objectAtIndex:filtre->indexPollutant])->polutionInterval->groundOverLayList count] > filtre->indexInterval+1) {
+        filtre->indexInterval = filtre->indexInterval + 1;
         /*
          * remove all ouverlay
          */
         [mapView clear];
         
-        NSLog(@"Index interval = %d", indexInterval);
-        GroundOverLay *interval = [self->airModelXml->polutionInterval->groundOverLayList objectAtIndex:indexInterval];
+        NSLog(@"Index interval = %d", filtre->indexInterval);
+        GroundOverLay *interval = [((Pollutant*)[filtre->site->modelKml->myPollutants objectAtIndex:filtre->indexPollutant])->polutionInterval->groundOverLayList objectAtIndex:filtre->indexInterval];
         NSLog(@"date start = %@", interval->timeStampBegin);
         intervalTitle.text = [Factory getFormatSelectionDateString:interval->timeStampBegin :interval->timeStampEnd];
         
@@ -183,7 +184,7 @@
 //        [mapView animateWithCameraUpdate:updatedCamera];
         
         NSMutableString *sourceFile = [[NSMutableString alloc] init];
-        [sourceFile appendString:pathDirectory];
+        [sourceFile appendString:filtre->site->urlDirectory];
         [sourceFile appendString:interval->iconPath];
         // Image
         UIImage *icon = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:sourceFile]]];
@@ -195,15 +196,15 @@
 }
 
 - (IBAction)lessInterval:(id)sender {
-    if(indexInterval-1 >= 0) {
-        indexInterval = indexInterval - 1;
+    if(filtre->indexInterval-1 >= 0) {
+        filtre->indexInterval = filtre->indexInterval - 1;
         
         /*
          * remove all ouverlay
          */
         [mapView clear];
-        NSLog(@"Index interval = %d", indexInterval);
-        GroundOverLay *interval = [self->airModelXml->polutionInterval->groundOverLayList objectAtIndex:indexInterval];
+        NSLog(@"Index interval = %d", filtre->indexInterval);
+        GroundOverLay *interval = [((Pollutant*)[filtre->site->modelKml->myPollutants objectAtIndex:filtre->indexPollutant])->polutionInterval->groundOverLayList objectAtIndex:filtre->indexInterval];
         NSLog(@"date start = %@", interval->timeStampBegin);
         intervalTitle.text = [Factory getFormatSelectionDateString:interval->timeStampBegin :interval->timeStampEnd];
         
@@ -222,7 +223,7 @@
 //        GMSCameraUpdate *updatedCamera = [GMSCameraUpdate setTarget:coordinates zoom:zoomDefault];
 //        [mapView animateWithCameraUpdate:updatedCamera];
         NSMutableString *sourceFile = [[NSMutableString alloc] init];
-        [sourceFile appendString:pathDirectory];
+        [sourceFile appendString:filtre->site->urlDirectory];
         [sourceFile appendString:interval->iconPath];
         // Image
         UIImage *icon = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:sourceFile]]];

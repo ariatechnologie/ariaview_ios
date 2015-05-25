@@ -10,13 +10,13 @@
 #define AriaViewIOS_AirModelXml_h
 #import "ScreenOverLay.h"
 #import "PolutionInterval.h"
+#import "Pollutant.h"
 
 @interface AirModelXml : NSObject {
     @public
-    NSString *name, *nameRootFolder;
-    int visibility, visibilityRootFolder;
-    ScreenOverlay *screenOverLay;
-    PolutionInterval *polutionInterval;
+    NSString *name;
+    int visibility;
+    NSMutableArray *myPollutants;
 }
 
 

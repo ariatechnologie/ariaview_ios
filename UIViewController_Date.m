@@ -42,11 +42,10 @@
 //            NSLog(@"Libelle: %@", tag->content);
             [liste addObject:tag->content];
         }
-        myDates = [liste copy];
+        // save dates in filter
+        filtre->site->myDates = [liste copy];
     } else
         [Factory alertMessage:factory->titleNoDateError:factory->messageNoDateError:self];
-    // save dates in filter
-    filtre->site->myDates = [myDates copy];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -69,7 +68,7 @@
         [pathDirectory appendString:@"http://web.aria.fr/awa/destination/ARIAVIEW/"];
         [pathDirectory appendString:filtre->site->libelle];
         [pathDirectory appendString:@"/GEARTH/RESULT_LcS/"];
-        NSString *dateForUrl = (NSString*)[myDates objectAtIndex:indexPath.row];
+        NSString *dateForUrl = (NSString*)[filtre->site->myDates objectAtIndex:indexPath.row];
         [pathDirectory appendString:dateForUrl];
         [pathDirectory appendString:@"/"];
         [path_to_log appendString:pathDirectory];
@@ -88,16 +87,20 @@
         [myParser parseXml:downloadTask->responseData parseError:nil];
         AirModelXml* airModelXml = [myParser parseKml:myParser->root];
         
-        if (airModelXml != nil || airModelXml->polutionInterval != nil || airModelXml->polutionInterval->groundOverLayList != nil || [airModelXml->polutionInterval->groundOverLayList count] > 0) {
+        /*
+         * Big condition, but at least, every data must to be ok
+         * At least one pollutant and one pollutant sky
+         */
+        if (airModelXml != nil && airModelXml->myPollutants != nil && [airModelXml->myPollutants count] > 0 && ((Pollutant*)[airModelXml->myPollutants objectAtIndex:0])->polutionInterval != nil && ((Pollutant*)[airModelXml->myPollutants objectAtIndex:0])->polutionInterval->groundOverLayList != nil && [((Pollutant*)[airModelXml->myPollutants objectAtIndex:0])->polutionInterval->groundOverLayList count] > 0) {
  
-//         init view and set data in table
-            UIViewController_SW *mapView = [[self.storyboard instantiateViewControllerWithIdentifier:@"SWGoogleMapView"] initWithIndexInterval:0];
             filtre->date = date;
-            mapView->pathDirectory = pathDirectory;
-            mapView->filtre = filtre;
-            mapView->airModelXml = airModelXml;
-        
-            [self.navigationController pushViewController:mapView animated:YES];
+            filtre->site->urlDirectory = pathDirectory;
+            filtre->site->modelKml = airModelXml;
+            
+//         init view and set data in table
+            UIViewController_Pollutant *pollutantView = [[self.storyboard instantiateViewControllerWithIdentifier:@"TableViewPollutant"] initWithFiltre:filtre];
+
+            [self.navigationController pushViewController:pollutantView animated:YES];
         } else {
             [Factory alertMessage:factory->titleNoDateError:factory->messageNoDateError:self];
         }
@@ -108,7 +111,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [myDates count];
+    return [filtre->site->myDates count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -120,7 +123,7 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
 
-    NSString *date = (NSString*)[myDates objectAtIndex:indexPath.row];
+    NSString *date = (NSString*)[filtre->site->myDates objectAtIndex:indexPath.row];
     
     NSString *year, *month, *day;
     year = [date substringToIndex:4];

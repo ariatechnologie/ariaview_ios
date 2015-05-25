@@ -13,7 +13,7 @@
 #import "Filtre.h"
 #import "Factory.h"
 #import "UIViewController_Map.h"
-#import "UIViewController_SW.h"
+#import "UIViewController_Pollutant.h"
 #import "AirModelXml.h"
 
 @interface UIViewController_Date : UIViewController <UITableViewDelegate, UITableViewDataSource> {
@@ -24,7 +24,6 @@
     Factory *factory;
     @public
     Filtre *filtre;
-    NSMutableArray *myDates;
 }
 
 // Create array from content xml

@@ -19,11 +19,8 @@
     __weak IBOutlet UITableView *myTable;
     Factory *factory;
     @public
-    NSMutableString *pathDirectory;
     Filtre *filtre;
-    NSMutableArray *myDates;NSMutableArray *myPollutant;
-    AirModelXml *airModelXml;
 }
-
+- (id)initWithFiltre:(Filtre*) _filtre;
 @end
 #endif

@@ -24,16 +24,14 @@
     NSTimer* myTimer;
     @public
     Filtre *filtre;
-    AirModelXml *airModelXml;
-    NSMutableString *pathDirectory;
     GMSMapView *mapView;
-    int zoomDefault, zoomCurrent, indexInterval;
+    int zoomDefault, zoomCurrent;
     __weak IBOutlet UIView *mapViewSB;
     double latitude, longitude;
     __weak IBOutlet UIPickerView *pickerView;
 }
+- (id)initWith:(Filtre*)_filtre;
 - (IBAction)play:(id)sender;
-- (id)initWithIndexInterval:(int) _index;
 - (IBAction)recenterCamera:(id)sender;
 - (IBAction)zoom:(id)sender;
 - (IBAction)unzoom:(id)sender;

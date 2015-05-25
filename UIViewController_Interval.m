@@ -16,8 +16,8 @@
     [super viewDidLoad];
     factory = [[Factory alloc] init];
     // Initialize Data
-    if(map != nil || map->airModelXml != nil || map->airModelXml->polutionInterval != nil || map->airModelXml->polutionInterval->groundOverLayList != nil) {
-        PolutionInterval *polutioninterval = map->airModelXml->polutionInterval;
+    if(map != nil && map->filtre != nil && map->filtre->site != nil && map->filtre->site->modelKml != nil && map->filtre->site->modelKml->myPollutants != nil &&  [map->filtre->site->modelKml->myPollutants objectAtIndex:map->filtre->indexPollutant] != nil && ((Pollutant*)[map->filtre->site->modelKml->myPollutants objectAtIndex:map->filtre->indexPollutant])->polutionInterval != nil && ((Pollutant*)[map->filtre->site->modelKml->myPollutants objectAtIndex:map->filtre->indexPollutant])->polutionInterval->groundOverLayList != nil && [((Pollutant*)[map->filtre->site->modelKml->myPollutants objectAtIndex:map->filtre->indexPollutant])->polutionInterval->groundOverLayList count] > 0) {
+        PolutionInterval *polutioninterval = ((Pollutant*)[map->filtre->site->modelKml->myPollutants objectAtIndex:map->filtre->indexPollutant])->polutionInterval;
         NSLog(@"number of interval =%lu", (unsigned long)[polutioninterval->groundOverLayList count]);
         _pickerData = [[NSMutableArray alloc] init];
         NSLog(@"begin insert into table pickerDate");
@@ -62,10 +62,7 @@
      */
     if([Factory getConnectionState ]) {
         int indexInterval = (int)[pickerView selectedRowInComponent:0];
-        UIViewController_SW *mapView = [[self.storyboard instantiateViewControllerWithIdentifier:@"SWGoogleMapView"] initWithIndexInterval:indexInterval];
-        mapView->pathDirectory = map->pathDirectory;
-        mapView->filtre = map->filtre;
-        mapView->airModelXml = map->airModelXml;
+        UIViewController_SW *mapView = [[self.storyboard instantiateViewControllerWithIdentifier:@"SWGoogleMapView"] initWithFiltre:map->filtre];
         [self.navigationController pushViewController:mapView animated:YES];
     } else {
         [Factory alertMessage:factory->titleConnextionError:factory->messageConnextionError:self];
