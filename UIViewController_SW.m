@@ -11,7 +11,7 @@
  
 @implementation UIViewController_SW
 
-- (id)initWithData:(Filtre*) _filtre{
+- (id)initWithData:(Filtre*) _filtre {
     self = [super init];
     if(self)
     {

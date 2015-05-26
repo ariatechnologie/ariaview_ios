@@ -27,7 +27,6 @@
 @interface User : NSObject {
     @public
     NSString *login, *password;
-    NSMutableArray *myLocations;
 }
 
 @property (nonatomic, retain) NSString *login;
@@ -40,10 +39,10 @@
     @public
     Site *site;
     User *user;
+    NSMutableArray *myLocations;
     NSString *date;
     NSString *pollutant;
-    int indexPollutant;
-    int indexInterval;
+    int indexPollutant, indexInterval, indexSite;
 }
 @end
 

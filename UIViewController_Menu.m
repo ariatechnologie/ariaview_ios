@@ -64,7 +64,6 @@
         filtre->site = nil;
         filtre->date = nil;
         viewArraySite->filtre = filtre;
-        viewArraySite->myLocations = filtre->user->myLocations;
         
         [self.navigationController pushViewController:viewArraySite animated:YES];
         
@@ -76,7 +75,6 @@
         // reinit filtre and set it to the new view
         filtre->date = nil;
         viewDates->filtre = filtre;
-        viewDates->myDates = filtre->site->myDates;
         
         [self.navigationController pushViewController:viewDates animated:YES];
         

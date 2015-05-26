@@ -25,8 +25,7 @@
 }
 
 - (void)viewDidLoad {
-    GroundOverLay *firstInterval = [mapSuper->airModelXml->polutionInterval->groundOverLayList objectAtIndex:0];
-    
+    GroundOverLay *firstInterval = [((Pollutant*)[mapSuper->filtre->site->modelKml->myPollutants objectAtIndex:mapSuper->filtre->indexPollutant])->polutionInterval->groundOverLayList objectAtIndex:mapSuper->filtre->indexInterval];
     GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:(firstInterval->latLongNorth + firstInterval->latLongSouth)/2
                                                             longitude:(firstInterval->latLongEast + firstInterval->latLongWest)/2
                                                                  zoom:15];
@@ -51,7 +50,7 @@
     GMSCoordinateBounds *overlayBounds = [[GMSCoordinateBounds alloc] initWithCoordinate:southWest
                                                                               coordinate:northEast];
     NSMutableString *sourceFile = [[NSMutableString alloc] init];
-    [sourceFile appendString:mapSuper->pathDirectory];
+    [sourceFile appendString:mapSuper->filtre->site->urlDirectory];
     [sourceFile appendString:firstInterval->iconPath];
     // Image
     UIImage *icon = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:sourceFile]]];

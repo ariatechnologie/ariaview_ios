@@ -92,10 +92,11 @@
          * At least one pollutant and one pollutant sky
          */
         if (airModelXml != nil && airModelXml->myPollutants != nil && [airModelXml->myPollutants count] > 0 && ((Pollutant*)[airModelXml->myPollutants objectAtIndex:0])->polutionInterval != nil && ((Pollutant*)[airModelXml->myPollutants objectAtIndex:0])->polutionInterval->groundOverLayList != nil && [((Pollutant*)[airModelXml->myPollutants objectAtIndex:0])->polutionInterval->groundOverLayList count] > 0) {
- 
+            
             filtre->date = date;
             filtre->site->urlDirectory = pathDirectory;
             filtre->site->modelKml = airModelXml;
+            filtre->site->myPollutants = [airModelXml->myPollutants copy];
             
 //         init view and set data in table
             UIViewController_Pollutant *pollutantView = [[self.storyboard instantiateViewControllerWithIdentifier:@"TableViewPollutant"] initWithFiltre:filtre];
@@ -134,7 +135,6 @@
     [dc setYear:[year integerValue]];
     [dc setMonth:[month integerValue]];
     [dc setDay:[day integerValue]];
-//    NSDate *dateFormat = [dc date];
     
     cell.textLabel.text = [NSString stringWithFormat:@"%@ / %@ / %@", day, month, year];
     

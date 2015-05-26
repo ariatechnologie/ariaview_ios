@@ -23,7 +23,6 @@
     @public
     Filtre *filtre;
     Factory *factory;
-    NSMutableArray *myLocations; // Location for one customer
 }
 
 // Create array from content xml

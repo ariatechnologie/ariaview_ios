@@ -17,5 +17,5 @@
 @end
 
 @implementation User
-@synthesize login, password, myLocations;
+@synthesize login, password;
 @end

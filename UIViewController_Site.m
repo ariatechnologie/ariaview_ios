@@ -45,12 +45,10 @@
 //          NSLog(@"Libelle: %@", [site libelle]);
             [liste addObject:site];
         }
-        myLocations = [liste copy];
+        filtre->myLocations = [liste copy];
     } else {
         [Factory alertMessage:factory->titleNoSiteError:factory->messageNoSiteError:self];
     }
-    // save locations in filter
-    filtre->user->myLocations = [myLocations copy];
 }
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
@@ -77,7 +75,7 @@
         UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
         NSString *cellText = cell.textLabel.text;
         
-        Site *siteSelected = [myLocations objectAtIndex:indexPath.row];
+        Site *siteSelected = [filtre->myLocations objectAtIndex:indexPath.row];
         
         // Download the xml content, to get infos from site
         NSInteger error = [downloadTask executeRequest:path_to_log :filtre->user->login:filtre->user->password:cellText:path_to_storage];
@@ -154,6 +152,7 @@
                 // init view and set data in table
                 UIViewController_Date *viewArrayDate = [self.storyboard instantiateViewControllerWithIdentifier:@"TableViewDate"];
                 // Set filtre (data)
+                filtre->indexSite = (int)indexPath;
                 filtre->site = siteSelected;
                 viewArrayDate->filtre = filtre;
                 
@@ -172,7 +171,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [myLocations count];
+    return [filtre->myLocations count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -183,7 +182,7 @@
     if (cell == nil) {
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
-    Site *site = (Site*)[myLocations objectAtIndex:indexPath.row];
+    Site *site = (Site*)[filtre->myLocations objectAtIndex:indexPath.row];
     cell.textLabel.text = [site libelle];
     
     return cell;

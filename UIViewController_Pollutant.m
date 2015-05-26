@@ -12,9 +12,10 @@
 @implementation UIViewController_Pollutant
 
 - (id)initWithFiltre:(Filtre*) _filtre {
-    self = [super init];
+//    self = [super init];
     if(self)
     {
+        NSLog(@"initWithFiltre");
         filtre = _filtre;
     }
     return self;
@@ -27,25 +28,29 @@
     [myTable setDelegate:self];
     factory = [[Factory alloc] init];
     self.navigationItem.hidesBackButton = YES;
+    
+    NSLog(@"viewDidLoad");
 }
 
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     // Return the number of sections.
+    NSLog(@"numberOfSectionsInTableView");
     return 1;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    
+    NSLog(@"didSelectRowAtIndexPath");
     if([Factory getConnectionState ]) {
         /*
          * Pollutant selection must to exist in table
          */
-        if (filtre->site->myPollutant != nil && [filtre->site->myPollutant objectAtIndex:(int)indexPath] != nil) {
-            
+        if (filtre->site->myPollutants != nil && [filtre->site->myPollutants objectAtIndex:(int)indexPath] != nil) {
+            filtre->indexPollutant = (int)indexPath;
             //  init view and set data
-            UIViewController_SW *mapView = [[self.storyboard instantiateViewControllerWithIdentifier:@"SWGoogleMapView"] initWith:0:filtre:(int)indexPath];
+            
+            UIViewController_SW *mapView = [[self.storyboard instantiateViewControllerWithIdentifier:@"SWGoogleMapView"] initWithData:filtre];
             
             [self.navigationController pushViewController:mapView animated:YES];
         } else {
@@ -58,7 +63,8 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return [filtre->site->myPollutant count];
+    NSLog(@"numberOfRowsInSection");
+    return [filtre->site->myPollutants count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -70,9 +76,11 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     
-    Pollutant *pollutant = (Pollutant*)[filtre->site->myPollutant objectAtIndex:indexPath.row];
-
+    Pollutant *pollutant = (Pollutant*)[filtre->site->myPollutants objectAtIndex:indexPath.row];
+    
     cell.textLabel.text = pollutant->name;
+    
+    NSLog(@"cellForRowAtIndexPath");
     
     return cell;
     
