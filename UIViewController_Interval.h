@@ -15,8 +15,9 @@
 #import "Factory.h"
 
 @interface UIViewController_Interval : UIViewController<UIPickerViewDataSource, UIPickerViewDelegate> {
+    __weak IBOutlet UINavigationItem *navBar;
+     __weak IBOutlet UIPickerView *pickerView;
     NSMutableArray *_pickerData;
-    __weak IBOutlet UIPickerView *pickerView;
     Factory *factory;
     @public
     UIViewController_Map *map;

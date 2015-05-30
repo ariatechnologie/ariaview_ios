@@ -12,10 +12,8 @@
 @implementation UIViewController_Pollutant
 
 - (id)initWithFiltre:(Filtre*) _filtre {
-//    self = [super init];
     if(self)
     {
-        NSLog(@"initWithFiltre");
         filtre = _filtre;
     }
     return self;
@@ -26,10 +24,9 @@
     path = @"/tmp/ariaview/";
     [myTable setDataSource:self];
     [myTable setDelegate:self];
-    factory = [[Factory alloc] init];
+    factory = [[Factory alloc] initWithLanguage:filtre->indexLanguage];
+    navBar.title = factory->titleHeaderPollutant;
     self.navigationItem.hidesBackButton = YES;
-    
-    NSLog(@"viewDidLoad");
 }
 
 
@@ -46,11 +43,12 @@
         /*
          * Pollutant selection must to exist in table
          */
-        if (filtre->site->myPollutants != nil && [filtre->site->myPollutants objectAtIndex:(int)indexPath] != nil) {
-            filtre->indexPollutant = (int)indexPath;
+        NSLog(@"%@", indexPath);
+        if (filtre->site->myPollutants != nil && [filtre->site->myPollutants count] > (int)indexPath.row && [filtre->site->myPollutants objectAtIndex:(int)indexPath.row] != nil) {
+            filtre->indexPollutant = (int)indexPath.row;
             //  init view and set data
             
-            UIViewController_SW *mapView = [[self.storyboard instantiateViewControllerWithIdentifier:@"SWGoogleMapView"] initWithData:filtre];
+            UIViewController_SW *mapView = [[self.storyboard instantiateViewControllerWithIdentifier:@"SWGoogleMapView"] initWithFiltre:filtre];
             
             [self.navigationController pushViewController:mapView animated:YES];
         } else {

@@ -11,16 +11,15 @@
 
 @implementation UIViewController_Interval
 
-
 -(void) viewDidLoad {
     [super viewDidLoad];
-    factory = [[Factory alloc] init];
+    factory = [[Factory alloc] initWithLanguage:map->filtre->indexLanguage];
+    navBar.title = factory->titleHeaderInterval;
     // Initialize Data
     if(map != nil && map->filtre != nil && map->filtre->site != nil && map->filtre->site->modelKml != nil && map->filtre->site->modelKml->myPollutants != nil &&  [map->filtre->site->modelKml->myPollutants objectAtIndex:map->filtre->indexPollutant] != nil && ((Pollutant*)[map->filtre->site->modelKml->myPollutants objectAtIndex:map->filtre->indexPollutant])->polutionInterval != nil && ((Pollutant*)[map->filtre->site->modelKml->myPollutants objectAtIndex:map->filtre->indexPollutant])->polutionInterval->groundOverLayList != nil && [((Pollutant*)[map->filtre->site->modelKml->myPollutants objectAtIndex:map->filtre->indexPollutant])->polutionInterval->groundOverLayList count] > 0) {
         PolutionInterval *polutioninterval = ((Pollutant*)[map->filtre->site->modelKml->myPollutants objectAtIndex:map->filtre->indexPollutant])->polutionInterval;
         NSLog(@"number of interval =%lu", (unsigned long)[polutioninterval->groundOverLayList count]);
         _pickerData = [[NSMutableArray alloc] init];
-        NSLog(@"begin insert into table pickerDate");
         for (int i = 0; i < [polutioninterval->groundOverLayList count]; i++) {
             GroundOverLay *gol = [polutioninterval->groundOverLayList objectAtIndex:i];
             if(gol != nil || gol->timeStampBegin != nil || gol->timeStampEnd != nil) {
@@ -61,7 +60,7 @@
      * Connexion is Ok, then reload map and polution sky
      */
     if([Factory getConnectionState ]) {
-        int indexInterval = (int)[pickerView selectedRowInComponent:0];
+        map->filtre->indexInterval = (int)[pickerView selectedRowInComponent:0];
         UIViewController_SW *mapView = [[self.storyboard instantiateViewControllerWithIdentifier:@"SWGoogleMapView"] initWithFiltre:map->filtre];
         [self.navigationController pushViewController:mapView animated:YES];
     } else {

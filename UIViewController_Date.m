@@ -14,12 +14,21 @@
 
 @implementation UIViewController_Date
 
+-(id)initWithFiltre:(Filtre *)_filtre
+{
+    if (self) {
+        filtre = _filtre;
+    }
+    return self;
+}
+
 - (void) viewDidLoad {
     infosXML = @"infos.xml";
     path = @"/tmp/ariaview/";
     [myTable setDataSource:self];
     [myTable setDelegate:self];
-    factory = [[Factory alloc] init];
+    factory = [[Factory alloc] initWithLanguage:filtre->indexLanguage];
+    navBar.title = factory->titleHeaderDate;
     self.navigationItem.hidesBackButton = YES;
 }
 

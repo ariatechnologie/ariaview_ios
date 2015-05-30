@@ -14,15 +14,24 @@
 
 @implementation UIViewController_Site
 
+-(id)initWithFiltre:(Filtre *)_filtre
+{
+    if (self) {
+        filtre = _filtre;
+    }
+    return self;
+}
+
 - (void) viewDidLoad {
-    urlStub = @"https://raw.githubusercontent.com/ariatechnologie/ariaview_android/master/testFile";
     url = @"http://web.aria.fr/webservices/ARIAVIEW/infosite.php";
     datesXML = @"dates.xml";
     infosXML = @"infos.xml";
     path = @"/tmp/ariaview/";
+    
     // Hide previous button
     self.navigationItem.hidesBackButton = YES;
-    factory = [[Factory alloc] init];
+    factory = [[Factory alloc] initWithLanguage:filtre->indexLanguage];
+    navBar.title = factory->titleHeaderSite;
     [myTable setDataSource:self];
     [myTable setDelegate:self];
 }
@@ -149,12 +158,12 @@
             error = [downloadTask executeRequest:path_to_log :path_to_storage];
 
             if(error == 200 && [downloadTask->responseData length] > 0) {
-                // init view and set data in table
-                UIViewController_Date *viewArrayDate = [self.storyboard instantiateViewControllerWithIdentifier:@"TableViewDate"];
                 // Set filtre (data)
                 filtre->indexSite = (int)indexPath;
                 filtre->site = siteSelected;
-                viewArrayDate->filtre = filtre;
+                
+                // init view and set data in table
+                UIViewController_Date *viewArrayDate = [[self.storyboard instantiateViewControllerWithIdentifier:@"TableViewDate"] initWithFiltre:filtre];
                 
                 [viewArrayDate createDates:downloadTask->responseData];
                 [self.navigationController pushViewController:viewArrayDate animated:YES];

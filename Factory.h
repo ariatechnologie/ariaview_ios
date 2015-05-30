@@ -12,23 +12,19 @@
 #import <UIKit/UIKit.h>
 
 @interface Factory : NSObject {
+    
     @public
-    NSString *messageConnextionError;
-    NSString *titleConnextionError;
-    NSString *messageAuthError;
-    NSString *titleAuthError;
-    NSString *messageWebServiceDownError;
-    NSString *titleWebServiceDownError;
-    NSString *messageTechnicalError;
-    NSString *titleTechnicalError;
-    NSString *messageNoDateError;
-    NSString *titleNoDateError;
-    NSString *messageNoSiteError;
-    NSString *titleNoSiteError;
-    NSString *messageNoPollutantError;
-    NSString *titleNoPollutantError;
+    
+    NSString *messageConnextionError, *titleConnextionError,*messageAuthError, *titleAuthError,
+    *messageWebServiceDownError, *titleWebServiceDownError, *messageTechnicalError,
+    *titleTechnicalError, *messageNoDateError, *titleNoDateError, *messageNoSiteError,
+    *titleNoSiteError, *messageNoPollutantError, *titleNoPollutantError, *titleMenuSite,
+    *titleMenuDate, *titleMenuPollutant, *titleMenuSignout, *titleHeaderAuthent, *titleHeaderSite,
+    *titleHeaderDate, *titleHeaderPollutant, *titleHeaderPollution, *titleHeaderInterval,
+    *loginLabelText, *passwordLabelText, *connexionButtonText, *menuButtonText;
 }
 
+-(id) initWithLanguage:(int) indexLanguage;
 + (BOOL) getConnectionState;
 + (void) alertMessage : (NSString*) title : (NSString*) message : (UIViewController*) delegate;
 + (NSString*) getFormatSelectionDateString: (NSDate*) dateStart : (NSDate*) dateEnd;

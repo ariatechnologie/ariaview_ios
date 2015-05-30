@@ -36,6 +36,129 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>Languages</key>
+	<array>
+		<dict>
+			<key>picture</key>
+			<string>fr.png</string>
+			<key>messageConnexionError</key>
+			<string>Connexion internet non fonctionnelle, vérifier votre connexion.</string>
+			<key>titleConnexionError</key>
+			<string>Etat connexion</string>
+			<key>messageAuthError</key>
+			<string>Les identifiants saisis sont incorrectes.</string>
+			<key>titleAuthError</key>
+			<string>Authentification</string>
+			<key>messageWebServiceDownError</key>
+			<string>Impossible d&apos;atteindre le serveur, veuillez réessayer ultérieurement.</string>
+			<key>titleWebServiceDownError</key>
+			<string>Web service</string>
+			<key>messageTechnicalError</key>
+			<string>Une erreur technique est survenue, veuillez réessayer ultérieurement.</string>
+			<key>titleTechnicalError</key>
+			<string>Web service</string>
+			<key>messageNoSiteError</key>
+			<string>Il n&apos;existe pas de site repertorié pour votre compte.</string>
+			<key>titleNoSiteError</key>
+			<string>Avertissement</string>
+			<key>messageNoDateError</key>
+			<string>Il n&apos;existe pas d&apos;historisation de poluant pour ce site.</string>
+			<key>titleNoDateError</key>
+			<string>Avertissement</string>
+			<key>messageNoPollutantError</key>
+			<string>Il n&apos;existe pas d&apos;historisation de poluant pour ce site.</string>
+			<key>titleNoPollutantError</key>
+			<string>Avertissement</string>
+			<key>titleMenuSignout</key>
+			<string>Deconnexion</string>
+			<key>titleMenuPollutant</key>
+			<string>Modifier le polluant</string>
+			<key>titleMenuDate</key>
+			<string>Modifier la date</string>
+			<key>titleMenuSite</key>
+			<string>Modifier le site</string>
+			<key>titleHeaderPollution</key>
+			<string>Carte : nuage de pollution</string>
+			<key>titleHeaderPollutant</key>
+			<string>Selection du polluant</string>
+			<key>titleHeaderDate</key>
+			<string>Selection de la date</string>
+			<key>titleHeaderSite</key>
+			<string>Selection du site</string>
+			<key>titleHeaderInterval</key>
+			<string>Selection de l&apos;interval</string>
+			<key>titleHeaderAuthent</key>
+			<string>Authentification</string>
+			<key>menuButtonText</key>
+			<string>Menu</string>
+			<key>connexionButtonText</key>
+			<string>Se connecter</string>
+			<key>passwordLabelText</key>
+			<string>Mot de passe</string>
+			<key>loginLabelText</key>
+			<string>Pseudo</string>
+		</dict>
+		<dict>
+			<key>picture</key>
+			<string>fr.png</string>
+			<key>messageConnexionError</key>
+			<string>Internet connection down, check your connection.</string>
+			<key>titleConnexionError</key>
+			<string>Connection State</string>
+			<key>messageAuthError</key>
+			<string>bad login or passsword.</string>
+			<key>titleAuthError</key>
+			<string>Authentification</string>
+			<key>messageWebServiceDownError</key>
+			<string>Unable access server, sorry for disagreement.</string>
+			<key>titleWebServiceDownError</key>
+			<string>Web service</string>
+			<key>messageTechnicalError</key>
+			<string>An internal error occured, please try later.</string>
+			<key>titleTechnicalError</key>
+			<string>Web service</string>
+			<key>messageNoSiteError</key>
+			<string>There is no one site for your account.</string>
+			<key>titleNoSiteError</key>
+			<string>Warning</string>
+			<key>messageNoDateError</key>
+			<string>No pollutant history for this site.</string>
+			<key>titleNoDateError</key>
+			<string>Warning</string>
+			<key>messageNoPollutantError</key>
+			<string>No pollutant history for this site.</string>
+			<key>titleNoPollutantError</key>
+			<string>Warning</string>
+			<key>titleMenuSignout</key>
+			<string>Sign out</string>
+			<key>titleMenuPollutant</key>
+			<string>Modify pollutant</string>
+			<key>titleMenuDate</key>
+			<string>Modify date</string>
+			<key>titleMenuSite</key>
+			<string>Modify site</string>
+			<key>titleHeaderPollution</key>
+			<string>Map : pollutant sky</string>
+			<key>titleHeaderPollutant</key>
+			<string>Select a pollutant</string>
+			<key>titleHeaderDate</key>
+			<string>Select a date</string>
+			<key>titleHeaderSite</key>
+			<string>Select a site</string>
+			<key>titleHeaderInterval</key>
+			<string>Select an interval</string>
+			<key>titleHeaderAuthent</key>
+			<string>Authentification</string>
+			<key>menuButtonText</key>
+			<string>Menu</string>
+			<key>connexionButtonText</key>
+			<string>Sign in</string>
+			<key>passwordLabelText</key>
+			<string>Password</string>
+			<key>loginLabelText</key>
+			<string>Login</string>
+		</dict>
+	</array>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

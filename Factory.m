@@ -12,26 +12,63 @@
 
 @implementation Factory
 
--(id) init
+-(id) initWithLanguage:(int) indexLanguage
 {
     self = [super init];
     if(self)
     {
-        messageConnextionError = @"Connexion internet non fonctionnelle, vérifier votre connexion.";
-        titleConnextionError = @"Etat connexion";
-        messageAuthError = @"Les identifiants saisis sont incorrectes.";
-        titleAuthError = @"Authentification";
-        messageWebServiceDownError = @"Impossible d'atteindre le serveur, veuillez réessayer ultérieurement.";
-        titleWebServiceDownError = @"Web service";
-        messageTechnicalError = @"Une erreur technique est survenue, veuillez réessayer ultérieurement.";
-        titleTechnicalError = @"Web service";
-        messageNoSiteError = @"Il n'existe pas de site repertorié pour votre compte.";
-        titleNoSiteError = @"Avertissement";
-        messageNoDateError = @"Il n'existe pas d'historisation de poluant pour ce site.";
-        titleNoDateError = @"Avertissement";
-        messageNoPollutantError = @"Il n'existe pas d'historisation de poluant pour ce site.";
-        titleNoPollutantError = @"Avertissement";
-
+        /*
+         * 0 = French
+         * 1 = English
+         */
+        
+        NSArray *languages = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"Languages"];
+        NSDictionary *language = [languages objectAtIndex:indexLanguage];
+        
+        messageConnextionError = [language objectForKey:@"messageConnextionError"];
+        titleConnextionError = [language objectForKey:@"titleConnextionError"];
+        messageAuthError = [language objectForKey:@"messageAuthError"];
+        titleAuthError = [language objectForKey:@"titleAuthError"];
+        messageWebServiceDownError = [language objectForKey:@"messageWebServiceDownError"];;
+        titleWebServiceDownError = [language objectForKey:@"titleWebServiceDownError"];
+        messageTechnicalError = [language objectForKey:@"messageTechnicalError"];
+        titleTechnicalError = [language objectForKey:@"titleTechnicalError"];
+        messageNoSiteError = [language objectForKey:@"messageNoSiteError"];
+        titleNoSiteError = [language objectForKey:@"titleNoSiteError"];
+        messageNoDateError = [language objectForKey:@"messageNoDateError"];
+        titleNoDateError = [language objectForKey:@"titleNoDateError"];
+        messageNoPollutantError = [language objectForKey:@"messageNoPollutantError"];
+        titleNoPollutantError = [language objectForKey:@"titleNoPollutantError"];
+        
+        /*
+         * Title menu
+         */
+        titleMenuSite = [language objectForKey:@"titleMenuSite"];
+        titleMenuDate = [language objectForKey:@"titleMenuDate"];
+        titleMenuPollutant = [language objectForKey:@"titleMenuPollutant"];
+        titleMenuSignout = [language objectForKey:@"titleMenuSignout"];
+        
+        /*
+         * Title UIView
+         */
+        titleHeaderAuthent = [language objectForKey:@"titleHeaderAuthent"];
+        titleHeaderSite = [language objectForKey:@"titleHeaderSite"];
+        titleHeaderDate = [language objectForKey:@"titleHeaderDate"];
+        titleHeaderPollutant = [language objectForKey:@"titleHeaderPollutant"];
+        titleHeaderPollution = [language objectForKey:@"titleHeaderPollution"];
+        titleHeaderInterval = [language objectForKey:@"titleHeaderInterval"];
+        
+        /*
+         *  Authentification
+         */
+        loginLabelText = [language objectForKey:@"loginLabelText"];
+        passwordLabelText = [language objectForKey:@"passwordLabelText"];
+        connexionButtonText = [language objectForKey:@"connexionButtonText"];
+        
+        /*
+         *  SW Slide out menu
+         */
+        menuButtonText = @"Menu";
     }
     return self;
 }

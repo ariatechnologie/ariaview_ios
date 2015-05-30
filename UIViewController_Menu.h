@@ -12,7 +12,7 @@
 #import "SWRevealViewController.h"
 #import "UIViewController_Site.h"
 #import "UIViewController_Date.h"
-#import "ViewController.h"
+#import "UIViewController_Auth.h"
 #import "Filtre.h"
 #import "Factory.h"
 

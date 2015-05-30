@@ -14,12 +14,15 @@
 #import "AirModelXml.h"
 
 @interface UIViewController_SW : SWRevealViewController {
+    Factory *factory;
+    __weak IBOutlet UIBarButtonItem *menuButton;
+    __weak IBOutlet UINavigationItem *navBar;
     @public
     Filtre *filtre;
     AirModelXml *airModelXml;
     NSMutableString *pathDirectory;
 }
 @property (weak, nonatomic) IBOutlet UIBarButtonItem *sidebarButton;
-- (id)initWithData: (Filtre*) _filtre;
+- (id)initWithFiltre: (Filtre*) _filtre;
 @end
 #endif

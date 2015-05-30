@@ -12,15 +12,15 @@
 @implementation UIViewController_Menu
 
 -(void) viewDidLoad {
-    factory = [[Factory alloc] init];
+    factory = [[Factory alloc] initWithLanguage:filtre->indexLanguage];
     //set const var
-    CHANGE_SITE = 0; CHANGE_DATE = 1; SIGNOUT = 2; CHANGE_POLLUTANT = 3;
+    CHANGE_SITE = 0; CHANGE_DATE = 1; CHANGE_POLLUTANT = 2; SIGNOUT = 3;
     // set options from slide out menu
     myOptions = [[NSMutableArray alloc] init];
-    [myOptions addObject:@"Modifier le site"];
-    [myOptions addObject:@"Modifier la date"];
-    [myOptions addObject:@"Modifier la poluant"];
-    [myOptions addObject:@"Deconnexion"];
+    [myOptions addObject:factory->titleMenuSite];
+    [myOptions addObject:factory->titleMenuDate];
+    [myOptions addObject:factory->titleMenuPollutant];
+    [myOptions addObject:factory->titleMenuSignout];
     // set date source and listenner(this class)
     [tableViewMenu setDataSource:self];
     [tableViewMenu setDelegate:self];
@@ -35,25 +35,22 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    NSLog(@"%@", filtre);
-    NSLog(@"%@", filtre->site);
-    NSLog(@"%@", filtre->user);
-    NSLog(@"%@", filtre->date);
     
-    if(filtre == nil || filtre->site == nil || filtre->user == nil || filtre->date == nil) {
+    if(filtre == nil) {
         
-        if(indexPath.row == SIGNOUT) {
-            
-            //  Init view and set data in table
-            ViewController *mainView = [self.storyboard instantiateViewControllerWithIdentifier:@"MainView"];
-            
-            [self.navigationController pushViewController:mainView animated:YES];
-            
-        } else {
+        if(indexPath.row != SIGNOUT) {
             [Factory alertMessage:factory->titleTechnicalError:factory->messageTechnicalError:self];
         }
         
+        //  Init view
+        UIViewController_Auth *mainView = [self.storyboard instantiateViewControllerWithIdentifier:@"MainView"];
+        
+        [self.navigationController pushViewController:mainView animated:YES];
+        
     } else {
+        
+    if(filtre != nil)
+        filtre->indexInterval = 0;
         
     if(indexPath.row == CHANGE_SITE) {
         
@@ -80,17 +77,21 @@
         
     } else if(indexPath.row == SIGNOUT) {
         
-        //  Init view and set data in table
-        ViewController *mainView = [self.storyboard instantiateViewControllerWithIdentifier:@"MainView"];
+        //  Init view
+        UIViewController_Auth *mainView = [[self.storyboard instantiateViewControllerWithIdentifier:@"MainView"] initWithFiltre:filtre];
         
         [self.navigationController pushViewController:mainView animated:YES];
         
     }
     else if (indexPath.row == CHANGE_POLLUTANT) {
+        //  Init view and set data in table
+         UIViewController_Pollutant *pollutantView = [[self.storyboard instantiateViewControllerWithIdentifier:@"TableViewPollutant"] initWithFiltre:filtre];
         
+        [self.navigationController pushViewController:pollutantView animated:YES];
     }
         
     }
+    
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
@@ -110,6 +111,24 @@
     NSString *option = (NSString*)[myOptions objectAtIndex:indexPath.row];
     
     cell.textLabel.text = option;
+    
+    if(indexPath.row == CHANGE_SITE) {
+       cell.imageView.image = [UIImage imageNamed:@"multi-site.png"];
+    } else if(indexPath.row == CHANGE_DATE) {
+        cell.imageView.image = [UIImage imageNamed:@"calendar.png"];
+    } else if(indexPath.row == SIGNOUT) {
+        cell.imageView.image = [UIImage imageNamed:@"deconnexion.png"];
+    }
+    else if (indexPath.row == CHANGE_POLLUTANT) {
+        cell.imageView.image = [UIImage imageNamed:@"biohazard.png"];
+    }
+
+    CGSize itemSize = CGSizeMake(32, 32);
+    UIGraphicsBeginImageContextWithOptions(itemSize, NO, UIScreen.mainScreen.scale);
+    CGRect imageRect = CGRectMake(0.0, 0.0, itemSize.width, itemSize.height);
+    [cell.imageView.image drawInRect:imageRect];
+    cell.imageView.image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
     
     return cell;
 

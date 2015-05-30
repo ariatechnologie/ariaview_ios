@@ -18,6 +18,7 @@
 
 @interface UIViewController_Date : UIViewController <UITableViewDelegate, UITableViewDataSource> {
     __weak IBOutlet UITableView *myTable;
+    __weak IBOutlet UINavigationItem *navBar;
     NSString *name, *infosXML, *path;
     NSInteger *intervalTime;
     NSString *modelLocalOffset;
@@ -25,7 +26,7 @@
     @public
     Filtre *filtre;
 }
-
+-(id)initWithFiltre:(Filtre *)_filtre;
 // Create array from content xml
 - (void) createDates:(NSData*) xmlContent;
 

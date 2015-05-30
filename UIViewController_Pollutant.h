@@ -17,6 +17,7 @@
 @interface UIViewController_Pollutant : UIViewController <UITableViewDelegate, UITableViewDataSource>  {
     NSString *infosXML, *path;
     __weak IBOutlet UITableView *myTable;
+    __weak IBOutlet UINavigationItem *navBar;
     Factory *factory;
     @public
     Filtre *filtre;

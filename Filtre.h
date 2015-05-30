@@ -42,7 +42,7 @@
     NSMutableArray *myLocations;
     NSString *date;
     NSString *pollutant;
-    int indexPollutant, indexInterval, indexSite;
+    int indexPollutant, indexInterval, indexSite, indexLanguage;
 }
 @end
 

@@ -11,16 +11,18 @@
  
 @implementation UIViewController_SW
 
-- (id)initWithData:(Filtre*) _filtre {
+- (id)initWithFiltre:(Filtre*) _filtre {
     self = [super init];
-    if(self)
-    {
+    if(self) {
         filtre = _filtre;
     }
     return self;
 }
 
 -(void) viewDidLoad {
+    factory = [[Factory alloc] initWithLanguage:filtre->indexLanguage];
+    [menuButton setTitle:factory->menuButtonText];
+    navBar.title = factory->titleHeaderPollution;
     self.rightViewRevealWidth = (int)(375/2);
     self.navigationItem.hidesBackButton = YES;
     /*
