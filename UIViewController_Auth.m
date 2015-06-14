@@ -14,6 +14,24 @@
 
 @implementation UIViewController_Auth
 
+- (IBAction)onClickPt:(id)sender {
+    filtre->indexLanguage = 3;
+    
+    //  Init view and set data in table
+    UIViewController_Auth *viewAuth = [[self.storyboard instantiateViewControllerWithIdentifier:@"MainView"] initWithFiltre:filtre];
+    
+    [self.navigationController pushViewController:viewAuth animated:YES];
+}
+
+- (IBAction)onClickEs:(id)sender {
+    filtre->indexLanguage = 2;
+    
+    //  Init view and set data in table
+    UIViewController_Auth *viewAuth = [[self.storyboard instantiateViewControllerWithIdentifier:@"MainView"] initWithFiltre:filtre];
+    
+    [self.navigationController pushViewController:viewAuth animated:YES];
+}
+
 - (IBAction)onClickFr:(id)sender {
     filtre->indexLanguage = 0; // by default, language is french
 
@@ -111,17 +129,20 @@
             filtre->user = user;
             
             //  Init view and set data in table
-            UIViewController_Site *viewArraySite = [[self.storyboard instantiateViewControllerWithIdentifier:@"TableViewSite"] initWithFiltre:filtre];
-            
+            UIViewController_Site *viewArraySite = [[self.storyboard instantiateViewControllerWithIdentifier:@"TableViewSite"] initWithFiltre:filtre:true];
             [viewArraySite createLocations:downloadTask->responseData];
+            
+            NSLog(@"%@", self.navigationController);
+            
             [self.navigationController pushViewController:viewArraySite animated:YES];
+            
         } else if(responseCode == 401 || responseCode == 403 || responseCode == 0) {
             [Factory alertMessage:factory->titleAuthError:factory->messageAuthError:self];
         } else {
             [Factory alertMessage:factory->titleTechnicalError:factory->messageTechnicalError:self];
         }
     } else {
-       [Factory alertMessage:factory->titleConnextionError:factory->messageConnextionError:self];
+       [Factory alertMessage:factory->titleConnexionError:factory->messageConnexionError:self];
     }
 }
 @end

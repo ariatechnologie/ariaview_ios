@@ -25,10 +25,12 @@
     Factory *factory;
     @public
     Filtre *filtre;
+    BOOL isFirstTime;
 }
--(id)initWithFiltre:(Filtre *)_filtre;
+-(id)initWithFiltre:(Filtre *)_filtre:(BOOL)_isFirstTime;
 // Create array from content xml
 - (void) createDates:(NSData*) xmlContent;
+-(void) process:(NSString *)_date: (NSIndexPath*)_indexPath;
 
 @end
 

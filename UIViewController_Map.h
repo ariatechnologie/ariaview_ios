@@ -36,9 +36,11 @@
 - (IBAction)zoom:(id)sender;
 - (IBAction)unzoom:(id)sender;
 - (void)playingInterval:(NSTimer*) t;
+-(void)unplayWhilePlaying;
 - (IBAction)moreInterval:(id)sender;
 - (IBAction)lessInterval:(id)sender;
 - (IBAction)changeInterval:(id)sender;
++ (UIImage*) processImage :(UIImage*) image;
 @end
 
 #endif

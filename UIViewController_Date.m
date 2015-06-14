@@ -14,22 +14,28 @@
 
 @implementation UIViewController_Date
 
--(id)initWithFiltre:(Filtre *)_filtre
+-(id)initWithFiltre:(Filtre *)_filtre:(BOOL)_isFirstTime
 {
     if (self) {
         filtre = _filtre;
+        isFirstTime = _isFirstTime;
+        infosXML = @"infos.xml";
+        path = @"/tmp/ariaview/";
+        factory = [[Factory alloc] initWithLanguage:filtre->indexLanguage];
     }
     return self;
 }
 
 - (void) viewDidLoad {
-    infosXML = @"infos.xml";
-    path = @"/tmp/ariaview/";
     [myTable setDataSource:self];
     [myTable setDelegate:self];
-    factory = [[Factory alloc] initWithLanguage:filtre->indexLanguage];
     navBar.title = factory->titleHeaderDate;
     self.navigationItem.hidesBackButton = YES;
+    
+    if(isFirstTime) {
+        NSLog(@"%@", [filtre->myLocations objectAtIndex:0]);
+        [self process:[filtre->site->myDates objectAtIndex:0]:[NSIndexPath indexPathForRow:0 inSection:0]];
+    }
 }
 
 // Create array from content xml
@@ -63,10 +69,10 @@
     return 1;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+-(void) process:(NSString *)_date: (NSIndexPath*)_indexPath  {
     // Get site selected
-    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    NSString *date = cell.textLabel.text;
+//    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+//    NSString *date = cell.textLabel.text;
     
     if([Factory getConnectionState ]) {
         // Create url to get infos and create file path where will be stored data
@@ -77,7 +83,7 @@
         [pathDirectory appendString:@"http://web.aria.fr/awa/destination/ARIAVIEW/"];
         [pathDirectory appendString:filtre->site->libelle];
         [pathDirectory appendString:@"/GEARTH/RESULT_LcS/"];
-        NSString *dateForUrl = (NSString*)[filtre->site->myDates objectAtIndex:indexPath.row];
+        NSString *dateForUrl = (NSString*)[filtre->site->myDates objectAtIndex:_indexPath.row];
         [pathDirectory appendString:dateForUrl];
         [pathDirectory appendString:@"/"];
         [path_to_log appendString:pathDirectory];
@@ -88,8 +94,8 @@
         NSMutableString *path_to_storage = [[NSMutableString alloc] init];
         [path_to_storage appendString:path];
         [path_to_storage appendString:infosXML];
-//        NSLog(@"path_to_storage in %@", path_to_storage);
-
+        //        NSLog(@"path_to_storage in %@", path_to_storage);
+        
         // Download the xml content, to get infos about polution
         [downloadTask executeRequest:path_to_log:path_to_storage];
         XMLToObjectParser *myParser = [XMLToObjectParser alloc];
@@ -102,21 +108,33 @@
          */
         if (airModelXml != nil && airModelXml->myPollutants != nil && [airModelXml->myPollutants count] > 0 && ((Pollutant*)[airModelXml->myPollutants objectAtIndex:0])->polutionInterval != nil && ((Pollutant*)[airModelXml->myPollutants objectAtIndex:0])->polutionInterval->groundOverLayList != nil && [((Pollutant*)[airModelXml->myPollutants objectAtIndex:0])->polutionInterval->groundOverLayList count] > 0) {
             
-            filtre->date = date;
+            filtre->date = _date;
             filtre->site->urlDirectory = pathDirectory;
             filtre->site->modelKml = airModelXml;
             filtre->site->myPollutants = [airModelXml->myPollutants copy];
             
-//         init view and set data in table
-            UIViewController_Pollutant *pollutantView = [[self.storyboard instantiateViewControllerWithIdentifier:@"TableViewPollutant"] initWithFiltre:filtre];
-
+            // Init view and set data in table
+            UIViewController_Pollutant *pollutantView = [[self.storyboard instantiateViewControllerWithIdentifier:@"TableViewPollutant"] initWithFiltre:filtre:isFirstTime];
+            
+            NSLog(@"%@", self.navigationController);
+            
             [self.navigationController pushViewController:pollutantView animated:YES];
+            
         } else {
             [Factory alertMessage:factory->titleNoDateError:factory->messageNoDateError:self];
         }
     } else {
-        [Factory alertMessage:factory->titleConnextionError:factory->messageConnextionError:self];
+        [Factory alertMessage:factory->titleConnexionError:factory->messageConnexionError:self];
     }
+
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    // Get site selected
+    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
+    NSString *date = cell.textLabel.text;
+    
+    [self process:date:indexPath];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

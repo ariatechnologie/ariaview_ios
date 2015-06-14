@@ -25,8 +25,8 @@
         NSArray *languages = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"Languages"];
         NSDictionary *language = [languages objectAtIndex:indexLanguage];
         
-        messageConnextionError = [language objectForKey:@"messageConnextionError"];
-        titleConnextionError = [language objectForKey:@"titleConnextionError"];
+        messageConnexionError = [language objectForKey:@"messageConnexionError"];
+        titleConnexionError = [language objectForKey:@"titleConnexionError"];
         messageAuthError = [language objectForKey:@"messageAuthError"];
         titleAuthError = [language objectForKey:@"titleAuthError"];
         messageWebServiceDownError = [language objectForKey:@"messageWebServiceDownError"];;

@@ -61,13 +61,13 @@
 92100 Boulogne-Billancourt
 FRANCE
 Tél : +33 (0)1 46 08 68 60
-Fax : +33 (0)1 41 41 93 17  http://web.aria.fr/awa/login.php</string>
+Fax : +33 (0)1 41 41 93 17  www.web.aria.fr</string>
                                 <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="12"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                 <dataDetectorType key="dataDetectorTypes" phoneNumber="YES" link="YES"/>
                             </textView>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fFn-Ab-tr7">
-                                <rect key="frame" x="110" y="387" width="61" height="47"/>
+                                <rect key="frame" x="16" y="387" width="61" height="47"/>
                                 <state key="normal" title="Button" image="fr.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -76,7 +76,7 @@ Fax : +33 (0)1 41 41 93 17  http://web.aria.fr/awa/login.php</string>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iJO-kf-b6t">
-                                <rect key="frame" x="215" y="398" width="49" height="26"/>
+                                <rect key="frame" x="115" y="398" width="49" height="26"/>
                                 <state key="normal" title="Button" image="us.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -90,6 +90,24 @@ Fax : +33 (0)1 41 41 93 17  http://web.aria.fr/awa/login.php</string>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ubC-WC-m4L">
+                                <rect key="frame" x="206" y="398" width="49" height="26"/>
+                                <state key="normal" title="Button" image="es.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="onClickEs:" destination="Yjs-kO-9ob" eventType="touchDown" id="wkF-9r-6ld"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hli-2Z-PPK">
+                                <rect key="frame" x="299" y="398" width="49" height="26"/>
+                                <state key="normal" title="Button" image="pt.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="onClickPt:" destination="Yjs-kO-9ob" eventType="touchDown" id="zkX-rw-WxE"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -444,11 +462,13 @@ Fax : +33 (0)1 41 41 93 17  http://web.aria.fr/awa/login.php</string>
         </scene>
     </scenes>
     <resources>
+        <image name="es.png" width="2657" height="1772"/>
         <image name="fr.png" width="600" height="600"/>
         <image name="gps.png" width="512" height="512"/>
         <image name="horloge-icone-4138-128.png" width="128" height="128"/>
         <image name="logo.png" width="686" height="558"/>
         <image name="play.png" width="128" height="128"/>
+        <image name="pt.png" width="550" height="367"/>
         <image name="us.png" width="225" height="118"/>
     </resources>
 </document>

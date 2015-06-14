@@ -54,24 +54,22 @@
         
     if(indexPath.row == CHANGE_SITE) {
         
-        //  Init view and set data in table
-        UIViewController_Site *viewArraySite = [self.storyboard instantiateViewControllerWithIdentifier:@"TableViewSite"];
-        
         // reinit filtre
         filtre->site = nil;
         filtre->date = nil;
-        viewArraySite->filtre = filtre;
+        
+        //  Init view and set data in table
+        UIViewController_Site *viewArraySite = [[self.storyboard instantiateViewControllerWithIdentifier:@"TableViewSite"] initWithFiltre:filtre:false];
         
         [self.navigationController pushViewController:viewArraySite animated:YES];
         
     } else if(indexPath.row == CHANGE_DATE) {
         
-        //  Init view and set data in table
-        UIViewController_Date *viewDates = [self.storyboard instantiateViewControllerWithIdentifier:@"TableViewDate"];
-        
         // reinit filtre and set it to the new view
         filtre->date = nil;
-        viewDates->filtre = filtre;
+       
+        //  Init view and set data in table
+        UIViewController_Date *viewDates = [[self.storyboard instantiateViewControllerWithIdentifier:@"TableViewDate"] initWithFiltre:filtre :false];
         
         [self.navigationController pushViewController:viewDates animated:YES];
         
@@ -85,7 +83,7 @@
     }
     else if (indexPath.row == CHANGE_POLLUTANT) {
         //  Init view and set data in table
-         UIViewController_Pollutant *pollutantView = [[self.storyboard instantiateViewControllerWithIdentifier:@"TableViewPollutant"] initWithFiltre:filtre];
+        UIViewController_Pollutant *pollutantView = [[self.storyboard instantiateViewControllerWithIdentifier:@"TableViewPollutant"] initWithFiltre:filtre:false];
         
         [self.navigationController pushViewController:pollutantView animated:YES];
     }
@@ -123,7 +121,7 @@
         cell.imageView.image = [UIImage imageNamed:@"biohazard.png"];
     }
 
-    CGSize itemSize = CGSizeMake(32, 32);
+    CGSize itemSize = CGSizeMake(26, 26);
     UIGraphicsBeginImageContextWithOptions(itemSize, NO, UIScreen.mainScreen.scale);
     CGRect imageRect = CGRectMake(0.0, 0.0, itemSize.width, itemSize.height);
     [cell.imageView.image drawInRect:imageRect];

@@ -11,22 +11,29 @@
 
 @implementation UIViewController_Pollutant
 
-- (id)initWithFiltre:(Filtre*) _filtre {
+- (id)initWithFiltre:(Filtre*) _filtre:(BOOL)_isFirstTime {
     if(self)
     {
         filtre = _filtre;
+        isFirstTime = _isFirstTime;
+        infosXML = @"infos.xml";
+        path = @"/tmp/ariaview/";
+        factory = [[Factory alloc] initWithLanguage:filtre->indexLanguage];
     }
     return self;
 }
 
 - (void) viewDidLoad {
-    infosXML = @"infos.xml";
-    path = @"/tmp/ariaview/";
+    
     [myTable setDataSource:self];
     [myTable setDelegate:self];
-    factory = [[Factory alloc] initWithLanguage:filtre->indexLanguage];
     navBar.title = factory->titleHeaderPollutant;
     self.navigationItem.hidesBackButton = YES;
+    
+    if(isFirstTime) {
+        [self process:[NSIndexPath indexPathForRow:0 inSection:0]];
+    }
+
 }
 
 
@@ -37,26 +44,31 @@
     return 1;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+-(void) process:(NSIndexPath*)_indexPath {
     NSLog(@"didSelectRowAtIndexPath");
     if([Factory getConnectionState ]) {
         /*
          * Pollutant selection must to exist in table
          */
-        NSLog(@"%@", indexPath);
-        if (filtre->site->myPollutants != nil && [filtre->site->myPollutants count] > (int)indexPath.row && [filtre->site->myPollutants objectAtIndex:(int)indexPath.row] != nil) {
-            filtre->indexPollutant = (int)indexPath.row;
+        NSLog(@"%@", _indexPath);
+        if (filtre->site->myPollutants != nil && [filtre->site->myPollutants count] > (int)_indexPath.row && [filtre->site->myPollutants objectAtIndex:(int)_indexPath.row] != nil) {
+            filtre->indexPollutant = (int)_indexPath.row;
             //  init view and set data
             
             UIViewController_SW *mapView = [[self.storyboard instantiateViewControllerWithIdentifier:@"SWGoogleMapView"] initWithFiltre:filtre];
             
             [self.navigationController pushViewController:mapView animated:YES];
+            
         } else {
             [Factory alertMessage:factory->titleNoDateError:factory->messageNoDateError:self];
         }
     } else {
-        [Factory alertMessage:factory->titleConnextionError:factory->messageConnextionError:self];
+        [Factory alertMessage:factory->titleConnexionError:factory->messageConnexionError:self];
     }
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [self process:indexPath];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

@@ -26,6 +26,8 @@
     __weak IBOutlet UIButton *connexionUIButton;
     __weak IBOutlet UINavigationItem *navBar;
 }
+- (IBAction)onClickPt:(id)sender;
+- (IBAction)onClickEs:(id)sender;
 - (IBAction)onClickFr:(id)sender;
 - (IBAction)onClickUs:(id)sender;
 - (void)awakeFromNib;

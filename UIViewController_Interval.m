@@ -62,9 +62,10 @@
     if([Factory getConnectionState ]) {
         map->filtre->indexInterval = (int)[pickerView selectedRowInComponent:0];
         UIViewController_SW *mapView = [[self.storyboard instantiateViewControllerWithIdentifier:@"SWGoogleMapView"] initWithFiltre:map->filtre];
+        NSLog(@"%@", self.navigationController);
         [self.navigationController pushViewController:mapView animated:YES];
     } else {
-        [Factory alertMessage:factory->titleConnextionError:factory->messageConnextionError:self];
+        [Factory alertMessage:factory->titleConnexionError:factory->messageConnexionError:self];
     }
 }
 

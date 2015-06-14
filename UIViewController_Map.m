@@ -59,16 +59,11 @@
     if(!isPlaying) {
         NSLog(@"playing");
         isPlaying = true;
-        [buttonPlay setImage:nil forState:UIControlStateNormal];
-        [buttonPlay setImage:[UIImage imageNamed:@"play.png"] forState:UIControlStateNormal];
+        [buttonPlay setImage:[UIImage imageNamed:@"stop.png"] forState:UIControlStateNormal];
         myTimer = [NSTimer scheduledTimerWithTimeInterval: 1 target: self
                                                  selector: @selector(playingInterval:) userInfo: nil repeats: YES];
     } else {
-        NSLog(@"stopped");
-        isPlaying = false;
-        [buttonPlay setImage:nil forState:UIControlStateNormal];
-        [buttonPlay setImage:[UIImage imageNamed:@"stop.png"] forState:UIControlStateNormal];
-        [myTimer invalidate];
+        [self unplayWhilePlaying];
     }
 }
 
@@ -101,6 +96,36 @@
     mapView = [GMSMapView mapWithFrame:mapViewSB.bounds camera:camera];
     
     /*
+     * Put the legend on the map
+     */
+
+    /*
+     * Put the legend on the map
+     */
+    NSMutableString *sourceFile = [[NSMutableString alloc] init];
+    [sourceFile appendString:filtre->site->urlDirectory];
+    Pollutant *pollutantSelected = [filtre->site->myPollutants objectAtIndex:filtre->indexPollutant];
+    [sourceFile appendString:pollutantSelected->screenOverLay->iconPath];
+    //You need to specify the frame of the view
+    UIView *catView = [[UIView alloc] initWithFrame:CGRectMake(15, 25,pollutantSelected->screenOverLay->sizeX,pollutantSelected->screenOverLay->sizeY)];
+    
+    UIImage *icon = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:sourceFile]]];
+    
+    icon = [UIViewController_Map processImage:icon];
+    
+    UIImageView *imageView = [[UIImageView alloc] initWithImage:icon];
+    
+    //specify the frame of the imageView in the superview , here it will fill the superview
+    imageView.frame = catView.bounds;
+    
+    // add the imageview to the superview
+    [catView addSubview:imageView];
+    
+    //add the view to the main view
+    
+    [mapView addSubview:catView];
+    
+    /*
      * Put the image on the map
      */
     
@@ -108,15 +133,15 @@
     CLLocationCoordinate2D northEast = CLLocationCoordinate2DMake(interval->latLongNorth, interval->latLongEast);
     GMSCoordinateBounds *overlayBounds = [[GMSCoordinateBounds alloc] initWithCoordinate:southWest
                                                                               coordinate:northEast];
-    NSMutableString *sourceFile = [[NSMutableString alloc] init];
+    sourceFile = [[NSMutableString alloc] init];
     [sourceFile appendString:filtre->site->urlDirectory];
     [sourceFile appendString:interval->iconPath];
     // Image
-    UIImage *icon = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:sourceFile]]];
-    GMSGroundOverlay *overlay =
+    icon = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:sourceFile]]];
+    GMSGroundOverlay *overlayPollutant =
     [GMSGroundOverlay groundOverlayWithBounds:overlayBounds icon:icon];
-    overlay.bearing = 0;
-    overlay.map = mapView;
+    overlayPollutant.bearing = 0;
+    overlayPollutant.map = mapView;
     
     [self->mapViewSB addSubview:mapView];
     
@@ -127,6 +152,7 @@
 }
 
 - (IBAction)recenterCamera:(id)sender {
+    [self unplayWhilePlaying];
     // set latitude and longitude of the first interval
     // Set also the default zoom
     GroundOverLay *firstInterval = [((Pollutant*)[filtre->site->modelKml->myPollutants objectAtIndex:filtre->indexPollutant])->polutionInterval->groundOverLayList objectAtIndex:filtre->indexInterval];
@@ -139,7 +165,19 @@
 
 }
 
+-(void)unplayWhilePlaying {
+    if(isPlaying) {
+        NSLog(@"stopped");
+        isPlaying = false;
+        [buttonPlay setImage:nil forState:UIControlStateNormal];
+        [buttonPlay setImage:[UIImage imageNamed:@"play.png"] forState:UIControlStateNormal];
+        [myTimer invalidate];
+    }
+}
+
 - (IBAction)zoom:(id)sender {
+    [self unplayWhilePlaying];
+    
     if(zoomCurrent+1 <= 20) {
         zoomCurrent = zoomCurrent + 1;
         GMSCameraUpdate *updatedCamera = [GMSCameraUpdate zoomTo:zoomCurrent];
@@ -148,6 +186,8 @@
 }
 
 - (IBAction)unzoom:(id)sender {
+    [self unplayWhilePlaying];
+    
     if(zoomCurrent-1 >= 1) {
         zoomCurrent = zoomCurrent - 1;
         GMSCameraUpdate *updatedCamera = [GMSCameraUpdate zoomTo:zoomCurrent];
@@ -156,7 +196,9 @@
 }
 
 - (IBAction)moreInterval:(id)sender {
-        if([((Pollutant*)[filtre->site->modelKml->myPollutants objectAtIndex:filtre->indexPollutant])->polutionInterval->groundOverLayList count] > filtre->indexInterval+1) {
+    [self unplayWhilePlaying];
+    
+    if([((Pollutant*)[filtre->site->modelKml->myPollutants objectAtIndex:filtre->indexPollutant])->polutionInterval->groundOverLayList count] > filtre->indexInterval+1) {
         filtre->indexInterval = filtre->indexInterval + 1;
         /*
          * remove all ouverlay
@@ -196,6 +238,7 @@
 }
 
 - (IBAction)lessInterval:(id)sender {
+    [self unplayWhilePlaying];
     if(filtre->indexInterval-1 >= 0) {
         filtre->indexInterval = filtre->indexInterval - 1;
         
@@ -236,9 +279,19 @@
 }
 
 - (IBAction)changeInterval:(id)sender {
+    [self unplayWhilePlaying];
     UIViewController_Interval *viewArrayInterval = [self.storyboard instantiateViewControllerWithIdentifier:@"PickerViewDate"];
     viewArrayInterval->map = self;
     [self.navigationController pushViewController:viewArrayInterval animated:YES];
+}
+
++ (UIImage*) processImage :(UIImage*) image
+{
+    const CGFloat colorMasking[6] = {255.0, 255.0, 255.0, 255.0, 255.0, 255.0};
+    CGImageRef imageRef = CGImageCreateWithMaskingColors(image.CGImage, colorMasking);
+    UIImage* imageB = [UIImage imageWithCGImage:imageRef];
+    CGImageRelease(imageRef);
+    return imageB;
 }
 
 @end

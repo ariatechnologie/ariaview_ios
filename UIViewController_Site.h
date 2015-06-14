@@ -22,12 +22,14 @@
      __weak IBOutlet UINavigationItem *navBar;
     NSString *url, *datesXML, *infosXML, *path;
     @public
+    BOOL isFirstTime;
     Filtre *filtre;
     Factory *factory;
 }
--(id)initWithFiltre:(Filtre *)filtre;
+-(id)initWithFiltre:(Filtre *)_filtre:(BOOL)_isFirstTime;
 // Create array from content xml
 - (void) createLocations:(NSData*) xmlContent;
+-(void) process:(Site *)_site:(NSIndexPath*)_indexPath;
 
 @end
 

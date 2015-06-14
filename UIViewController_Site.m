@@ -14,26 +14,33 @@
 
 @implementation UIViewController_Site
 
--(id)initWithFiltre:(Filtre *)_filtre
+-(id)initWithFiltre:(Filtre *)_filtre:(BOOL)_isFirstTime
 {
     if (self) {
         filtre = _filtre;
+        isFirstTime = _isFirstTime;
+        
+        url = @"http://web.aria.fr/webservices/ARIAVIEW/infosite.php";
+        datesXML = @"dates.xml";
+        infosXML = @"infos.xml";
+        path = @"/tmp/ariaview/";
+        
+        factory = [[Factory alloc] initWithLanguage:filtre->indexLanguage];
     }
     return self;
 }
 
 - (void) viewDidLoad {
-    url = @"http://web.aria.fr/webservices/ARIAVIEW/infosite.php";
-    datesXML = @"dates.xml";
-    infosXML = @"infos.xml";
-    path = @"/tmp/ariaview/";
-    
     // Hide previous button
     self.navigationItem.hidesBackButton = YES;
-    factory = [[Factory alloc] initWithLanguage:filtre->indexLanguage];
     navBar.title = factory->titleHeaderSite;
     [myTable setDataSource:self];
     [myTable setDelegate:self];
+    
+    if(isFirstTime) {
+        NSLog(@"%@", [filtre->myLocations objectAtIndex:0]);
+        [self process:[filtre->myLocations objectAtIndex:0]:[NSIndexPath indexPathForRow:0 inSection:0]];
+    }
 }
 
 - (void) createLocations:(NSData*) xmlContent {
@@ -66,56 +73,53 @@
     return 1;
 }
 
-- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
-{
+-(void) process:(Site *)_site : (NSIndexPath*)_indexPath {
     if([Factory getConnectionState ]) {
         // Create url to get infos and create file path where will be stored data
         DownloadTaskSync *downloadTask = [[DownloadTaskSync alloc] init];
         NSMutableString *path_to_log = [[NSMutableString alloc] init];
-        // [path_to_log appendString:url];
         [path_to_log appendString:url];
-//        NSLog(@"Connecting to %@", path_to_log);
+        NSLog(@"Connecting to %@", path_to_log);
         NSMutableString *path_to_storage = [[NSMutableString alloc] init];
         [path_to_storage appendString:path];
         [path_to_storage appendString:infosXML];
-//        NSLog(@"path_to_storage in %@", path_to_storage);
-       
-        // Get site selected
-        UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-        NSString *cellText = cell.textLabel.text;
+        NSLog(@"path_to_storage in %@", path_to_storage);
         
-        Site *siteSelected = [filtre->myLocations objectAtIndex:indexPath.row];
-        
+        Site *siteSelected = _site;
+        NSLog(@"%@", siteSelected.libelle);
+        NSLog(@"%@", filtre->user->login);
+        NSLog(@"%@", filtre->user->password);
+
         // Download the xml content, to get infos from site
-        NSInteger error = [downloadTask executeRequest:path_to_log :filtre->user->login:filtre->user->password:cellText:path_to_storage];
+        NSInteger error = [downloadTask executeRequest:path_to_log :filtre->user->login:filtre->user->password:siteSelected.libelle:path_to_storage];
         
-    //  Parse the xml content
-    //    <?xml version='1.0' encoding='utf-8'?>
-    //    <result>
-    //        <host>http://web.aria.fr</host>
-    //        <url>awa/destination/ARIAVIEW</url>
-    //        <datefile>dates.xml</datefile>
-    //        <model>RESULT</model>
-    //        <site>JUAREZ</site>
-    //        <nest>LcS</nest>
-    //    </result>
+        //  Parse the xml content
+        //    <?xml version='1.0' encoding='utf-8'?>
+        //    <result>
+        //        <host>http://web.aria.fr</host>
+        //        <url>awa/destination/ARIAVIEW</url>
+        //        <datefile>dates.xml</datefile>
+        //        <model>RESULT</model>
+        //        <site>JUAREZ</site>
+        //        <nest>LcS</nest>
+        //    </result>
         
         XMLToObjectParser *myParser = [XMLToObjectParser alloc];
         [myParser parseXml:downloadTask->responseData parseError:nil];
         
         ListTagXml *root = myParser->root;
         
-    //    NSLog(@"root %@", root);
-    //    NSLog(@"root->tags %@", root->tags);
-    //    NSLog(@"root->tags count %lu", (unsigned long)[root->tags count]);
+        NSLog(@"root %@", root);
+        NSLog(@"root->tags %@", root->tags);
+        NSLog(@"root->tags count %lu", (unsigned long)[root->tags count]);
         
-    //    ListTagXml *res =[root->tags objectAtIndex:0];
+        ListTagXml *res =[root->tags objectAtIndex:0];
         
-    //    NSLog(@"res %@", res);
-    //    NSLog(@"res content %@", res->content);
-    //    NSLog(@"res->tags %@", res->tags);
-    //    NSLog(@"res->tags count %lu", (unsigned long)[res->tags count]);
-
+        NSLog(@"res %@", res);
+        NSLog(@"res content %@", res->content);
+        NSLog(@"res->tags %@", res->tags);
+        NSLog(@"res->tags count %lu", (unsigned long)[res->tags count]);
+        
         NSInteger numberOfElements = 6;
         NSInteger indexHost = 0, indexUrl = 1, indexDate = 2, indexModel = 3, indexNest = 5;
         
@@ -131,8 +135,8 @@
             NSString *dateFile = dateParsed->content;
             NSString *model = modelParsed->content;
             NSString *nest = nestParsed->content;
-        
-//            NSLog(@"hote %@, url %@, dateFile %@, model %@, nest %@", hote, urlAriaView, dateFile, model, nest);
+            
+            NSLog(@"hote %@, url %@, dateFile %@, model %@, nest %@", hote, urlAriaView, dateFile, model, nest);
             
             // create url
             path_to_log = [[NSMutableString alloc] init];
@@ -140,33 +144,38 @@
             [path_to_log appendString:@"/"];
             [path_to_log appendString:urlAriaView];
             [path_to_log appendString:@"/"];
-            [path_to_log appendString:cellText];
+            [path_to_log appendString:_site.libelle];
             [path_to_log appendString:@"/GEARTH/"];
             [path_to_log appendString:model];
             [path_to_log appendString:@"_"];
             [path_to_log appendString:nest];
             [path_to_log appendString:@"/"];
             [path_to_log appendString:dateFile];
-        
-//            NSLog(@"Connecting to %@", path_to_log);
+            
+            NSLog(@"Connecting to %@", path_to_log);
             path_to_storage = [[NSMutableString alloc] init];
             [path_to_storage appendString:path];
             [path_to_storage appendString:datesXML];
-//            NSLog(@"path_to_storage in %@", path_to_storage);
-        
+            NSLog(@"path_to_storage in %@", path_to_storage);
+            
             // Download the xml content, to get dates from site
             error = [downloadTask executeRequest:path_to_log :path_to_storage];
-
+            
             if(error == 200 && [downloadTask->responseData length] > 0) {
                 // Set filtre (data)
-                filtre->indexSite = (int)indexPath;
+                filtre->indexSite = (int)_indexPath.row;
                 filtre->site = siteSelected;
                 
                 // init view and set data in table
-                UIViewController_Date *viewArrayDate = [[self.storyboard instantiateViewControllerWithIdentifier:@"TableViewDate"] initWithFiltre:filtre];
+                
+                UIViewController_Date *viewArrayDate = [[self.storyboard instantiateViewControllerWithIdentifier:@"TableViewDate"] initWithFiltre:filtre:isFirstTime];
                 
                 [viewArrayDate createDates:downloadTask->responseData];
+                
+                NSLog(@"%@", self.navigationController);
+                
                 [self.navigationController pushViewController:viewArrayDate animated:YES];
+                
             } else {
                 [Factory alertMessage:factory->titleTechnicalError:factory->messageTechnicalError:self];
             }
@@ -174,8 +183,16 @@
             [Factory alertMessage:factory->titleTechnicalError:factory->messageTechnicalError:self];
         }
     } else {
-        [Factory alertMessage:factory->titleConnextionError:factory->messageConnextionError:self];
+        [Factory alertMessage:factory->titleConnexionError:factory->messageConnexionError:self];
     }
+
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    Site *siteSelected = [filtre->myLocations objectAtIndex:indexPath.row];
+    
+    [self process:siteSelected:indexPath];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

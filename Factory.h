@@ -15,7 +15,7 @@
     
     @public
     
-    NSString *messageConnextionError, *titleConnextionError,*messageAuthError, *titleAuthError,
+    NSString *messageConnexionError, *titleConnexionError,*messageAuthError, *titleAuthError,
     *messageWebServiceDownError, *titleWebServiceDownError, *messageTechnicalError,
     *titleTechnicalError, *messageNoDateError, *titleNoDateError, *messageNoSiteError,
     *titleNoSiteError, *messageNoPollutantError, *titleNoPollutantError, *titleMenuSite,

@@ -21,7 +21,9 @@
     Factory *factory;
     @public
     Filtre *filtre;
+    BOOL isFirstTime;
 }
-- (id)initWithFiltre:(Filtre*) _filtre;
+- (id)initWithFiltre:(Filtre*) _filtre:(BOOL)_isFirstTime;
+-(void) process:(NSIndexPath*)_indexPath;
 @end
 #endif
