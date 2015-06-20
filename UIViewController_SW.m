@@ -22,7 +22,29 @@
 -(void) viewDidLoad {
     factory = [[Factory alloc] initWithLanguage:filtre->indexLanguage];
     [menuButton setTitle:factory->menuButtonText];
-    navBar.title = factory->titleHeaderPollution;
+    NSMutableString *title = [[NSMutableString alloc] init];
+    
+    NSString *date = filtre->date;
+    
+    NSString *year, *month, *day;
+    year = [date substringToIndex:4];
+    month = [[date substringToIndex:6] substringFromIndex:4];
+    day = [date substringFromIndex:6];
+    
+    NSDateComponents *dc = [[NSDateComponents alloc] init];
+    [dc setYear:[year integerValue]];
+    [dc setMonth:[month integerValue]];
+    [dc setDay:[day integerValue]];
+    
+    date = [NSString stringWithFormat:@"%@/%@/%@", day, month, year];
+    
+    Pollutant *pollutant = [filtre->site->myPollutants objectAtIndex:filtre->indexPollutant];
+    [title appendString:@"["];
+    [title appendString:date];
+    [title appendString:@"] : "];
+    [title appendString:pollutant->polutionInterval->name];
+    
+    navBar.title = [NSString stringWithString:title];;
     self.rightViewRevealWidth = (int)(375/2);
     self.navigationItem.hidesBackButton = YES;
     /*

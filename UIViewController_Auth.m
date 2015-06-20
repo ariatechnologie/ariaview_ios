@@ -7,12 +7,22 @@
 //
 
 #import "UIViewController_Auth.h"
+#import "UIViewController_Site.h"
 
 @interface UIViewController_Auth ()
 
 @end
 
 @implementation UIViewController_Auth
+
+- (IBAction)onClickCh:(id)sender {
+    filtre->indexLanguage = 4;
+    
+    //  Init view and set data in table
+    UIViewController_Auth *viewAuth = [[self.storyboard instantiateViewControllerWithIdentifier:@"MainView"] initWithFiltre:filtre];
+    
+    [self.navigationController pushViewController:viewAuth animated:YES];
+}
 
 - (IBAction)onClickPt:(id)sender {
     filtre->indexLanguage = 3;
@@ -108,39 +118,49 @@
 
 - (IBAction)onClick:(id)sender {
     if([Factory getConnectionState ]) {
-        DownloadTaskSync *downloadTask = [[DownloadTaskSync alloc] init];
-        NSMutableString *path_to_log = [[NSMutableString alloc] init];
-        [path_to_log appendString:url];
-        NSLog(@"Connecting to %@", path_to_log);
-        NSMutableString *path_to_storage = [[NSMutableString alloc] init];
-        [path_to_storage appendString:path];
-        [path_to_storage appendString:infosXML];
-        NSLog(@"path_to_storage in %@", path_to_storage);
         
-    //  Download the xml content, to get sites from account(login/password)
-      NSInteger responseCode = [downloadTask executeRequest:path_to_log :login:password:path_to_storage];
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+            DownloadTaskSync *downloadTask = [[DownloadTaskSync alloc] init];
+            NSMutableString *path_to_log = [[NSMutableString alloc] init];
+            [path_to_log appendString:url];
+            NSLog(@"Connecting to %@", path_to_log);
+            NSMutableString *path_to_storage = [[NSMutableString alloc] init];
+            [path_to_storage appendString:path];
+            [path_to_storage appendString:infosXML];
+            NSLog(@"path_to_storage in %@", path_to_storage);
+            
+            //  Download the xml content, to get sites from account(login/password)
+            responseCode = [downloadTask executeRequest:path_to_log :login:password:path_to_storage];
+            
+            if(responseCode == 200) {
+                // Build filtre instance and set in the new view
+                User *user = [[User alloc] init];
+                user->login = login;
+                user->password = password;
+                
+                filtre->user = user;
+                
+                //  Init view and set data in table
+                viewArraySite = [[self.storyboard instantiateViewControllerWithIdentifier:@"TableViewSite"] initWithFiltre:filtre:true];
+                [viewArraySite createLocations:downloadTask->responseData];
+                
+                NSLog(@"%@", self.navigationController);
+                
+            }
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if(responseCode == 200) {
+                    [self.navigationController pushViewController:viewArraySite animated:YES];
+                } else if(responseCode == 401 || responseCode == 403 || responseCode == 0) {
+                    [Factory alertMessage:factory->titleAuthError:factory->messageAuthError:self];
+                } else {
+                [Factory alertMessage:factory->titleTechnicalError:factory->messageTechnicalError:self];
+                }
+                [MBProgressHUD hideHUDForView:self.view animated:YES];
+            });
+        });
         
-        if(responseCode == 200) {
-            // Build filtre instance and set in the new view
-            User *user = [[User alloc] init];
-            user->login = login;
-            user->password = password;
-
-            filtre->user = user;
-            
-            //  Init view and set data in table
-            UIViewController_Site *viewArraySite = [[self.storyboard instantiateViewControllerWithIdentifier:@"TableViewSite"] initWithFiltre:filtre:true];
-            [viewArraySite createLocations:downloadTask->responseData];
-            
-            NSLog(@"%@", self.navigationController);
-            
-            [self.navigationController pushViewController:viewArraySite animated:YES];
-            
-        } else if(responseCode == 401 || responseCode == 403 || responseCode == 0) {
-            [Factory alertMessage:factory->titleAuthError:factory->messageAuthError:self];
-        } else {
-            [Factory alertMessage:factory->titleTechnicalError:factory->messageTechnicalError:self];
-        }
     } else {
        [Factory alertMessage:factory->titleConnexionError:factory->messageConnexionError:self];
     }

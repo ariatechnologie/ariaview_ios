@@ -52,6 +52,9 @@
         pollutant->screenOverLay = [[ScreenOverlay alloc] init];
         pollutant->screenOverLay->name = ((ListTagXml*)[screenOverlay->tags objectAtIndex:0])->content;
         pollutant->screenOverLay->iconPath = ((ListTagXml*)[((ListTagXml*)[screenOverlay->tags objectAtIndex:1])->tags objectAtIndex:0])->content;
+      
+        NSLog(@"%@=%@", pollutant->name, pollutant->screenOverLay->iconPath);
+        
         ListTagXml *overLayXY = ((ListTagXml*)[screenOverlay->tags objectAtIndex:2]);
         pollutant->screenOverLay->overLayX = [(NSString*)[overLayXY->attributes objectForKey:nameAttributesX] doubleValue];
         pollutant->screenOverLay->overLayY = [(NSString*)[overLayXY->attributes objectForKey:nameAttributesY] doubleValue];
@@ -87,6 +90,7 @@
             // Icon
             ListTagXml *iconGroundOverLay = (ListTagXml*)[groundOverLay->tags objectAtIndex:1];
             groundOverLayModel->iconPath = ((ListTagXml*)[iconGroundOverLay->tags objectAtIndex:0])->content;
+            
             groundOverLayModel->iconViewBoundScale = [((ListTagXml*)[iconGroundOverLay->tags objectAtIndex:1])->content doubleValue];
             
             // LatLongBox
@@ -181,8 +185,10 @@ foundCharacters:(NSString *)string
 {
     NSString *found = [string stringByReplacingOccurrencesOfString:@" " withString:@""];
     if([found length] > 0) {
-//        NSLog(@"found caractere c: %@ items tag: %@", string, items);
-        items->content = string;
+        if (!items->content) {
+            items->content = [[NSMutableString alloc] init];
+        }
+        [items->content appendString:string];
     }
 }
 

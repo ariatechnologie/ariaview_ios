@@ -76,7 +76,7 @@ Fax : +33 (0)1 41 41 93 17  www.web.aria.fr</string>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iJO-kf-b6t">
-                                <rect key="frame" x="115" y="398" width="49" height="26"/>
+                                <rect key="frame" x="90" y="397" width="49" height="26"/>
                                 <state key="normal" title="Button" image="us.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -91,7 +91,7 @@ Fax : +33 (0)1 41 41 93 17  www.web.aria.fr</string>
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ubC-WC-m4L">
-                                <rect key="frame" x="206" y="398" width="49" height="26"/>
+                                <rect key="frame" x="163" y="397" width="49" height="26"/>
                                 <state key="normal" title="Button" image="es.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
@@ -100,12 +100,21 @@ Fax : +33 (0)1 41 41 93 17  www.web.aria.fr</string>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hli-2Z-PPK">
-                                <rect key="frame" x="299" y="398" width="49" height="26"/>
+                                <rect key="frame" x="233" y="397" width="49" height="26"/>
                                 <state key="normal" title="Button" image="pt.png">
                                     <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
                                     <action selector="onClickPt:" destination="Yjs-kO-9ob" eventType="touchDown" id="zkX-rw-WxE"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="AdU-84-jpE">
+                                <rect key="frame" x="303" y="397" width="49" height="26"/>
+                                <state key="normal" title="Button" image="china.png">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="onClickCh:" destination="Yjs-kO-9ob" eventType="touchDown" id="NaZ-6Q-hnU"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -462,6 +471,7 @@ Fax : +33 (0)1 41 41 93 17  www.web.aria.fr</string>
         </scene>
     </scenes>
     <resources>
+        <image name="china.png" width="225" height="150"/>
         <image name="es.png" width="2657" height="1772"/>
         <image name="fr.png" width="600" height="600"/>
         <image name="gps.png" width="512" height="512"/>

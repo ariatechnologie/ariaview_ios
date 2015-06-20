@@ -15,7 +15,7 @@
     NSString *name;
     NSMutableArray *tags;
     NSDictionary *attributes;
-    NSString *content;
+    NSMutableString *content;
 }
     
 @end

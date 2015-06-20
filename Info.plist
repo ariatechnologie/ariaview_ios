@@ -278,6 +278,66 @@
 			<key>loginLabelText</key>
 			<string>Apelido</string>
 		</dict>
+		<dict>
+			<key>picture</key>
+			<string>china.png</string>
+			<key>messageConnexionError</key>
+			<string>Connexion internet non fonctionnelle, vérifier votre connexion.</string>
+			<key>titleConnexionError</key>
+			<string>Etat connexion</string>
+			<key>messageAuthError</key>
+			<string>Les identifiants saisis sont incorrectes.</string>
+			<key>titleAuthError</key>
+			<string>Authentification</string>
+			<key>messageWebServiceDownError</key>
+			<string>Impossible d&apos;atteindre le serveur, veuillez réessayer ultérieurement.</string>
+			<key>titleWebServiceDownError</key>
+			<string>Web service</string>
+			<key>messageTechnicalError</key>
+			<string>Une erreur technique est survenue, veuillez réessayer ultérieurement.</string>
+			<key>titleTechnicalError</key>
+			<string>Web service</string>
+			<key>messageNoSiteError</key>
+			<string>Il n&apos;existe pas de site repertorié pour votre compte.</string>
+			<key>titleNoSiteError</key>
+			<string>Avertissement</string>
+			<key>messageNoDateError</key>
+			<string>Il n&apos;existe pas d&apos;historisation de poluant pour ce site.</string>
+			<key>titleNoDateError</key>
+			<string>Avertissement</string>
+			<key>messageNoPollutantError</key>
+			<string>Il n&apos;existe pas d&apos;historisation de poluant pour ce site.</string>
+			<key>titleNoPollutantError</key>
+			<string>Avertissement</string>
+			<key>titleMenuSignout</key>
+			<string>Deconnexion</string>
+			<key>titleMenuPollutant</key>
+			<string>Les polluants</string>
+			<key>titleMenuDate</key>
+			<string>Les dates</string>
+			<key>titleMenuSite</key>
+			<string>Les sites</string>
+			<key>titleHeaderPollution</key>
+			<string>Carte : nuage de pollution</string>
+			<key>titleHeaderPollutant</key>
+			<string>Selection du polluant</string>
+			<key>titleHeaderDate</key>
+			<string>Selection de la date</string>
+			<key>titleHeaderSite</key>
+			<string>Selection du site</string>
+			<key>titleHeaderInterval</key>
+			<string>Selection de l&apos;interval</string>
+			<key>titleHeaderAuthent</key>
+			<string>Authentification</string>
+			<key>menuButtonText</key>
+			<string>Menu</string>
+			<key>connexionButtonText</key>
+			<string>Se connecter</string>
+			<key>passwordLabelText</key>
+			<string>Mot de passe</string>
+			<key>loginLabelText</key>
+			<string>Pseudo</string>
+		</dict>
 	</array>
 	<key>UISupportedInterfaceOrientations~ipad</key>
 	<array>

@@ -9,12 +9,15 @@
 #ifndef test_UIViewController_Date_h
 #define test_UIViewController_Date_h
 #import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 #import "XMLToObjectParser.h"
 #import "Filtre.h"
 #import "Factory.h"
 #import "UIViewController_Map.h"
-#import "UIViewController_Pollutant.h"
 #import "AirModelXml.h"
+
+#import "MBProgressHUD.h"
+@class UIViewController_Pollutant;
 
 @interface UIViewController_Date : UIViewController <UITableViewDelegate, UITableViewDataSource> {
     __weak IBOutlet UITableView *myTable;
@@ -23,6 +26,7 @@
     NSInteger *intervalTime;
     NSString *modelLocalOffset;
     Factory *factory;
+    UIViewController_Pollutant *pollutantView;
     @public
     Filtre *filtre;
     BOOL isFirstTime;

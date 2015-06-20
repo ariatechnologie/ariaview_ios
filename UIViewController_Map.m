@@ -19,6 +19,7 @@
         filtre->indexInterval = filtre->indexInterval + 1;
     else
         filtre->indexInterval = 0;
+    
     /*
      * remove all ouverlay
      */
@@ -47,8 +48,19 @@
     NSMutableString *sourceFile = [[NSMutableString alloc] init];
     [sourceFile appendString:filtre->site->urlDirectory];
     [sourceFile appendString:interval->iconPath];
+    
+    NSLog(@"img sourceFile ==%@", sourceFile);
+    
+    [mapView clear];
+    
     // Image
-    UIImage *icon = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:sourceFile]]];
+    NSString *ImageURL = [sourceFile mutableCopy];
+    
+    ImageURL =[ImageURL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    
+    NSData *data = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:ImageURL]];
+    UIImage *icon = [UIImage imageWithData:data];
+    
     GMSGroundOverlay *overlay =
     [GMSGroundOverlay groundOverlayWithBounds:overlayBounds icon:icon];
     overlay.bearing = 0;
@@ -98,10 +110,6 @@
     /*
      * Put the legend on the map
      */
-
-    /*
-     * Put the legend on the map
-     */
     NSMutableString *sourceFile = [[NSMutableString alloc] init];
     [sourceFile appendString:filtre->site->urlDirectory];
     Pollutant *pollutantSelected = [filtre->site->myPollutants objectAtIndex:filtre->indexPollutant];
@@ -109,7 +117,12 @@
     //You need to specify the frame of the view
     UIView *catView = [[UIView alloc] initWithFrame:CGRectMake(15, 25,pollutantSelected->screenOverLay->sizeX,pollutantSelected->screenOverLay->sizeY)];
     
-    UIImage *icon = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:sourceFile]]];
+    NSString *ImageURL = [sourceFile mutableCopy];
+    
+    ImageURL =[ImageURL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    
+    NSData *data = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:ImageURL]];
+    UIImage *icon = [UIImage imageWithData:data];
     
     icon = [UIViewController_Map processImage:icon];
     
@@ -136,8 +149,16 @@
     sourceFile = [[NSMutableString alloc] init];
     [sourceFile appendString:filtre->site->urlDirectory];
     [sourceFile appendString:interval->iconPath];
+    
+    ImageURL = [sourceFile mutableCopy];
+    
+    ImageURL =[ImageURL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+    
+    data = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:ImageURL]];
+    
     // Image
-    icon = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:sourceFile]]];
+    icon = [UIImage imageWithData:data];
+    
     GMSGroundOverlay *overlayPollutant =
     [GMSGroundOverlay groundOverlayWithBounds:overlayBounds icon:icon];
     overlayPollutant.bearing = 0;
@@ -228,8 +249,16 @@
         NSMutableString *sourceFile = [[NSMutableString alloc] init];
         [sourceFile appendString:filtre->site->urlDirectory];
         [sourceFile appendString:interval->iconPath];
+        [mapView clear];
+        
         // Image
-        UIImage *icon = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:sourceFile]]];
+        NSString *ImageURL = [sourceFile mutableCopy];
+        
+        ImageURL =[ImageURL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        
+        NSData *data = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:ImageURL]];
+        UIImage *icon = [UIImage imageWithData:data];
+        
         GMSGroundOverlay *overlay =
         [GMSGroundOverlay groundOverlayWithBounds:overlayBounds icon:icon];
         overlay.bearing = 0;
@@ -268,8 +297,15 @@
         NSMutableString *sourceFile = [[NSMutableString alloc] init];
         [sourceFile appendString:filtre->site->urlDirectory];
         [sourceFile appendString:interval->iconPath];
+        [mapView clear];
+        
         // Image
-        UIImage *icon = [UIImage imageWithData:[NSData dataWithContentsOfURL:[NSURL URLWithString:sourceFile]]];
+        NSString *ImageURL = [sourceFile mutableCopy];
+        
+        ImageURL =[ImageURL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
+        
+        NSData *data = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:ImageURL]];
+        UIImage *icon = [UIImage imageWithData:data];
         GMSGroundOverlay *overlay =
         [GMSGroundOverlay groundOverlayWithBounds:overlayBounds icon:icon];
         overlay.bearing = 0;

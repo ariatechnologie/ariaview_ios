@@ -7,18 +7,21 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "UIViewController_Site.h"
 #import "DownloadTaskSync.h"
 #import "Factory.h"
 #import "UIViewController_Error.h"
 #import "Filtre.h"
+#import "MBProgressHUD.h"
 
+@class UIViewController_Site;
 @interface UIViewController_Auth : UIViewController {
     NSString *path, *url, *infosXML;
     NSFileManager *ariaDirectory;
     Factory *factory;
     NSString *login, *password;
     Filtre *filtre;
+    UIViewController_Site *viewArraySite;
+    NSInteger responseCode;
     __weak IBOutlet UIButton *usButton;
     __weak IBOutlet UIButton *frButton;
     __weak IBOutlet UILabel *loginUILabel;
@@ -26,6 +29,7 @@
     __weak IBOutlet UIButton *connexionUIButton;
     __weak IBOutlet UINavigationItem *navBar;
 }
+- (IBAction)onClickCh:(id)sender;
 - (IBAction)onClickPt:(id)sender;
 - (IBAction)onClickEs:(id)sender;
 - (IBAction)onClickFr:(id)sender;

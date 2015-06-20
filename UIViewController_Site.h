@@ -14,13 +14,17 @@
 #import "DownloadTaskSync.h"
 #import "Factory.h"
 #import "XMLToObjectParser.h"
-#import "UIViewController_Date.h"
 #import "Filtre.h"
+#import "MBProgressHUD.h"
+
+@class UIViewController_Date;
 
 @interface UIViewController_Site : UIViewController <UITableViewDelegate, UITableViewDataSource> {
     __weak IBOutlet UITableView *myTable;
      __weak IBOutlet UINavigationItem *navBar;
     NSString *url, *datesXML, *infosXML, *path;
+    UIViewController_Date *viewArrayDate;
+    NSInteger error;
     @public
     BOOL isFirstTime;
     Filtre *filtre;

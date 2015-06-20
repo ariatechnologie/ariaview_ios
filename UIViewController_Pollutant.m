@@ -6,7 +6,6 @@
 //  Copyright (c) 2015 BOUSSAADIA AMIR. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 #import "UIViewController_Pollutant.h"
 
 @implementation UIViewController_Pollutant
@@ -51,17 +50,25 @@
          * Pollutant selection must to exist in table
          */
         NSLog(@"%@", _indexPath);
-        if (filtre->site->myPollutants != nil && [filtre->site->myPollutants count] > (int)_indexPath.row && [filtre->site->myPollutants objectAtIndex:(int)_indexPath.row] != nil) {
-            filtre->indexPollutant = (int)_indexPath.row;
-            //  init view and set data
+        [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+            if (filtre->site->myPollutants != nil && [filtre->site->myPollutants count] > (int)_indexPath.row && [filtre->site->myPollutants objectAtIndex:(int)_indexPath.row] != nil) {
+                filtre->indexPollutant = (int)_indexPath.row;
+                //  init view and set data
+                
+                mapView = [[self.storyboard instantiateViewControllerWithIdentifier:@"SWGoogleMapView"] initWithFiltre:filtre];
+                
+            }
             
-            UIViewController_SW *mapView = [[self.storyboard instantiateViewControllerWithIdentifier:@"SWGoogleMapView"] initWithFiltre:filtre];
-            
-            [self.navigationController pushViewController:mapView animated:YES];
-            
-        } else {
-            [Factory alertMessage:factory->titleNoDateError:factory->messageNoDateError:self];
-        }
+            dispatch_async(dispatch_get_main_queue(), ^{
+                if (filtre->site->myPollutants != nil && [filtre->site->myPollutants count] > (int)_indexPath.row && [filtre->site->myPollutants objectAtIndex:(int)_indexPath.row] != nil) {
+                    [self.navigationController pushViewController:mapView animated:YES];
+                } else {
+                    [Factory alertMessage:factory->titleNoDateError:factory->messageNoDateError:self];
+                }
+                [MBProgressHUD hideHUDForView:self.view animated:YES];
+            });
+        });
     } else {
         [Factory alertMessage:factory->titleConnexionError:factory->messageConnexionError:self];
     }
@@ -88,7 +95,7 @@
     
     Pollutant *pollutant = (Pollutant*)[filtre->site->myPollutants objectAtIndex:indexPath.row];
     
-    cell.textLabel.text = pollutant->name;
+    cell.textLabel.text = pollutant->polutionInterval->name;
     
     NSLog(@"cellForRowAtIndexPath");
     
