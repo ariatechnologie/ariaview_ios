@@ -80,9 +80,17 @@
     infosXML = @"infos.xml";
     
     navBar.title = factory->titleHeaderAuthent;
+    [textSwitchRemember setText:factory->messageRememberConnection];
     [loginUILabel setText:factory->loginLabelText];
     [passwordUILabel setText:factory->passwordLabelText];
     [connexionUIButton setTitle:factory->connexionButtonText forState:UIControlStateNormal];
+    
+    // set login and password from xml if exist
+    User *u = [Factory getSaveLogin];
+    if(u != nil) {
+        [UITextFieldLogin setText:u->login];
+        [UITextFieldPassword setText:u->password];
+    }
     
     // Hide previous button
     self.navigationItem.hidesBackButton = YES;
@@ -118,7 +126,8 @@
 
 - (IBAction)onClick:(id)sender {
     if([Factory getConnectionState ]) {
-        
+        login = [UITextFieldLogin text];
+        password = [UITextFieldPassword text];
         [MBProgressHUD showHUDAddedTo:self.view animated:YES];
         dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
             DownloadTaskSync *downloadTask = [[DownloadTaskSync alloc] init];
@@ -134,12 +143,19 @@
             responseCode = [downloadTask executeRequest:path_to_log :login:password:path_to_storage];
             
             if(responseCode == 200) {
+
                 // Build filtre instance and set in the new view
                 User *user = [[User alloc] init];
                 user->login = login;
                 user->password = password;
                 
                 filtre->user = user;
+                
+                if([UISwitchRemember isOn]) {
+                    [Factory createSaveLogin:user];
+                } else {
+                    [Factory uncreateSaveLogin];
+                }
                 
                 //  Init view and set data in table
                 viewArraySite = [[self.storyboard instantiateViewControllerWithIdentifier:@"TableViewSite"] initWithFiltre:filtre:true];

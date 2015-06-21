@@ -41,6 +41,8 @@
 		<dict>
 			<key>picture</key>
 			<string>fr.png</string>
+			<key>messageRememberConnection</key>
+			<string>mémoriser</string>
 			<key>messageConnexionError</key>
 			<string>Connexion internet non fonctionnelle, vérifier votre connexion.</string>
 			<key>titleConnexionError</key>
@@ -100,7 +102,9 @@
 		</dict>
 		<dict>
 			<key>picture</key>
-			<string>fr.png</string>
+			<string>en.png</string>
+			<key>messageRememberConnection</key>
+			<string>memorize</string>
 			<key>messageConnexionError</key>
 			<string>Internet connection down, check your connection.</string>
 			<key>titleConnexionError</key>
@@ -161,6 +165,8 @@
 		<dict>
 			<key>picture</key>
 			<string>es.png</string>
+			<key>messageRememberConnection</key>
+			<string>memorizar</string>
 			<key>messageConnexionError</key>
 			<string>Accede a Internet no funcional, compruebe la conexión.</string>
 			<key>titleConnexionError</key>
@@ -221,6 +227,8 @@
 		<dict>
 			<key>picture</key>
 			<string>pt.png</string>
+			<key>messageRememberConnection</key>
+			<string>memorizar</string>
 			<key>messageConnexionError</key>
 			<string>Entre internet não funcional, verifique sua conexão.</string>
 			<key>titleConnexionError</key>
@@ -281,6 +289,8 @@
 		<dict>
 			<key>picture</key>
 			<string>china.png</string>
+			<key>messageRememberConnection</key>
+			<string>記憶</string>
 			<key>messageConnexionError</key>
 			<string>Connexion internet non fonctionnelle, vérifier votre connexion.</string>
 			<key>titleConnexionError</key>

@@ -39,7 +39,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="EVL-mM-ueI">
-                                <rect key="frame" x="110" y="305" width="154" height="51"/>
+                                <rect key="frame" x="110" y="287" width="154" height="51"/>
                                 <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                                 <state key="normal" title="Se connecter">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -117,6 +117,15 @@ Fax : +33 (0)1 41 41 93 17  www.web.aria.fr</string>
                                     <action selector="onClickCh:" destination="Yjs-kO-9ob" eventType="touchDown" id="NaZ-6Q-hnU"/>
                                 </connections>
                             </button>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pnf-RA-itc">
+                                <rect key="frame" x="120" y="352" width="51" height="31"/>
+                            </switch>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Memoriser" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="g8R-KV-0CS">
+                                <rect key="frame" x="189" y="357" width="82" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -126,11 +135,15 @@ Fax : +33 (0)1 41 41 93 17  www.web.aria.fr</string>
                     <simulatedOrientationMetrics key="simulatedOrientationMetrics"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
+                        <outlet property="UISwitchRemember" destination="pnf-RA-itc" id="ekc-H2-Rme"/>
+                        <outlet property="UITextFieldLogin" destination="pFW-bJ-EI5" id="SLG-e6-gUY"/>
+                        <outlet property="UITextFieldPassword" destination="yll-mm-R8x" id="y09-jC-rZV"/>
                         <outlet property="connexionUIButton" destination="EVL-mM-ueI" id="so0-ez-ifk"/>
                         <outlet property="frButton" destination="fFn-Ab-tr7" id="9yK-Oy-SFZ"/>
                         <outlet property="loginUILabel" destination="eVJ-3A-AjT" id="201-WV-APj"/>
                         <outlet property="navBar" destination="jV8-kx-dLq" id="aIj-HV-azL"/>
                         <outlet property="passwordUILabel" destination="Dld-tg-owq" id="zax-kS-TIS"/>
+                        <outlet property="textSwitchRemember" destination="g8R-KV-0CS" id="ZCw-xb-bH0"/>
                         <outlet property="usButton" destination="iJO-kf-b6t" id="Tc6-qX-rCv"/>
                     </connections>
                 </viewController>

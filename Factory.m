@@ -17,6 +17,8 @@
     self = [super init];
     if(self)
     {
+        pathToWriteSaveLogin = @"";
+        
         /*
          * 0 = French
          * 1 = English
@@ -39,6 +41,11 @@
         titleNoDateError = [language objectForKey:@"titleNoDateError"];
         messageNoPollutantError = [language objectForKey:@"messageNoPollutantError"];
         titleNoPollutantError = [language objectForKey:@"titleNoPollutantError"];
+        
+        /*
+         * Title remeber
+         */
+        messageRememberConnection = [language objectForKey:@"messageRememberConnection"];
         
         /*
          * Title menu
@@ -156,6 +163,80 @@
     double time = [[[NSCalendar currentCalendar] dateFromComponents:dc] timeIntervalSince1970];
     
     return [NSDate dateWithTimeIntervalSince1970:time];
+}
+
++(NSString*) getPathToWriteSaveLogin {
+    NSError *error;
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0]; // Get documents folder
+    NSString *dataPath = [documentsDirectory stringByAppendingPathComponent:@"/ariaview/"];
+    
+    if (![[NSFileManager defaultManager] fileExistsAtPath:dataPath])
+        [[NSFileManager defaultManager] createDirectoryAtPath:dataPath withIntermediateDirectories:NO attributes:nil error:&error]; //Create folder
+    
+    NSString *filePath = [dataPath stringByAppendingPathComponent:@"connexion.xml"];
+    
+    return filePath;
+}
+
++(User*) getSaveLogin {
+    
+    BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:[self getPathToWriteSaveLogin]];
+    
+    if(!fileExists)
+        return nil;
+    
+    NSData* data;
+    NSFileManager *filemgr = [[NSFileManager alloc] init];
+    data = [filemgr contentsAtPath: [self getPathToWriteSaveLogin] ];
+    NSString *content = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    
+    NSArray* foo = [content componentsSeparatedByString: @";"];
+    
+    User *u = [User alloc];
+    u->login = [foo objectAtIndex: 0];
+    u->password = [foo objectAtIndex: 1];
+    
+    return u;
+}
+
++(void) createSaveLogin:(User*) user {
+    BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:[self getPathToWriteSaveLogin]];
+    
+    if(fileExists)
+        [self uncreateSaveLogin];
+    
+    NSMutableString *content = [[NSMutableString alloc] init];
+    [content appendString:user->login];
+    [content appendString:@";"];
+    [content appendString:user->password];
+    
+    NSData* dataResult = [[NSString stringWithString:content] dataUsingEncoding:NSUTF8StringEncoding];
+    
+    [self writeInFile:dataResult];
+    
+}
+
++(void)uncreateSaveLogin {
+    [self removeFile];
+}
+
++ (void)removeFile
+{
+    NSError *error;
+    NSFileManager *fileManager = [NSFileManager defaultManager];
+    BOOL success = [fileManager removeItemAtPath:[self getPathToWriteSaveLogin] error:&error];
+    if (!success) {
+        NSLog(@"Could not delete file -:%@ ",[error localizedDescription]);
+    }
+}
+
++(void)writeInFile:(NSData *)content {
+    NSError *error;
+    NSString *txt = [[NSString alloc] initWithData:content encoding: NSASCIIStringEncoding];
+    [txt writeToFile:[self getPathToWriteSaveLogin] atomically:YES
+            encoding:NSUTF8StringEncoding error:&error];
+    NSLog(@"%@", error);
 }
 
 @end

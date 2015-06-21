@@ -28,6 +28,10 @@
     __weak IBOutlet UILabel *passwordUILabel;
     __weak IBOutlet UIButton *connexionUIButton;
     __weak IBOutlet UINavigationItem *navBar;
+    __weak IBOutlet UISwitch *UISwitchRemember;
+    __weak IBOutlet UILabel *textSwitchRemember;
+    __weak IBOutlet UITextField *UITextFieldLogin;
+    __weak IBOutlet UITextField *UITextFieldPassword;
 }
 - (IBAction)onClickCh:(id)sender;
 - (IBAction)onClickPt:(id)sender;

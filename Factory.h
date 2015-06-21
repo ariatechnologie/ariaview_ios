@@ -10,12 +10,14 @@
 #define test_Factory_h
 
 #import <UIKit/UIKit.h>
+#import "Filtre.h"
 
 @interface Factory : NSObject {
+    NSString *pathToWriteSaveLogin;
     
     @public
     
-    NSString *messageConnexionError, *titleConnexionError,*messageAuthError, *titleAuthError,
+    NSString *messageRememberConnection, *messageConnexionError, *titleConnexionError,*messageAuthError, *titleAuthError,
     *messageWebServiceDownError, *titleWebServiceDownError, *messageTechnicalError,
     *titleTechnicalError, *messageNoDateError, *titleNoDateError, *messageNoSiteError,
     *titleNoSiteError, *messageNoPollutantError, *titleNoPollutantError, *titleMenuSite,
@@ -23,7 +25,13 @@
     *titleHeaderDate, *titleHeaderPollutant, *titleHeaderPollution, *titleHeaderInterval,
     *loginLabelText, *passwordLabelText, *connexionButtonText, *menuButtonText;
 }
-
++ (void)removeFile;
++(NSString*) getNameFileSaveLogin;
++(NSString*) getPathToWriteSaveLogin;
++(User*) getSaveLogin;
++(void) uncreateSaveLogin;
++(void) createSaveLogin:(User*) user;
++(void)writeInFile:(NSData *)content : (NSString*) nameFile;
 -(id) initWithLanguage:(int) indexLanguage;
 + (BOOL) getConnectionState;
 + (void) alertMessage : (NSString*) title : (NSString*) message : (UIViewController*) delegate;
