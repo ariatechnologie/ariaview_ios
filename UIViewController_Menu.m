@@ -49,8 +49,10 @@
         
     } else {
         
-    if(filtre != nil)
+    if(filtre != nil) {
         filtre->indexInterval = 0;
+        filtre->site->markers = [[NSMutableArray alloc] init];
+    }
         
     if(indexPath.row == CHANGE_SITE) {
         

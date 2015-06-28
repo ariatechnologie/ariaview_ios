@@ -61,12 +61,12 @@
             }
             
             dispatch_async(dispatch_get_main_queue(), ^{
+                [MBProgressHUD hideHUDForView:self.view animated:YES];
                 if (filtre->site->myPollutants != nil && [filtre->site->myPollutants count] > (int)_indexPath.row && [filtre->site->myPollutants objectAtIndex:(int)_indexPath.row] != nil) {
                     [self.navigationController pushViewController:mapView animated:YES];
                 } else {
                     [Factory alertMessage:factory->titleNoDateError:factory->messageNoDateError:self];
                 }
-                [MBProgressHUD hideHUDForView:self.view animated:YES];
             });
         });
     } else {

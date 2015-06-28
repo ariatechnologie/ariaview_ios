@@ -236,7 +236,7 @@
     NSString *txt = [[NSString alloc] initWithData:content encoding: NSASCIIStringEncoding];
     [txt writeToFile:[self getPathToWriteSaveLogin] atomically:YES
             encoding:NSUTF8StringEncoding error:&error];
-    NSLog(@"%@", error);
+//    NSLog(@"%@", error);
 }
 
 @end

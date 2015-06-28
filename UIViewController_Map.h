@@ -17,7 +17,7 @@
 #import "UISubView_Map.h"
 #import "UIViewController_Interval.h"
 
-@interface UIViewController_Map : UIViewController<SWRevealViewControllerDelegate>  {
+@interface UIViewController_Map : UIViewController<SWRevealViewControllerDelegate, GMSMapViewDelegate>  {
     __weak IBOutlet UILabel *intervalTitle;
     __weak IBOutlet UIButton *buttonPlay;
     BOOL isPlaying;
@@ -28,8 +28,18 @@
     int zoomDefault, zoomCurrent;
     __weak IBOutlet UIView *mapViewSB;
     double latitude, longitude;
+    BOOL isMarkerActive;
+    int maxMarkers;
+    GMSGroundOverlay *overlay;
+    GMSCoordinateBounds *overlayBounds;
+    __weak IBOutlet UIButton *buttonMarker;
     __weak IBOutlet UIPickerView *pickerView;
 }
+- (void) reloadView;
+- (void) changeIconMarkers:(BOOL)isActive;
+- (IBAction)cleanMarkers:(id)sender;
+- (IBAction)onClickGraph:(id)sender;
+- (IBAction)onClickMarker:(id)sender;
 - (id)initWith:(Filtre*)_filtre;
 - (IBAction)play:(id)sender;
 - (IBAction)recenterCamera:(id)sender;

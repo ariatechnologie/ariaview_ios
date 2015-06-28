@@ -94,7 +94,7 @@
             NSLog(@"%@", filtre->user->password);
             
             // Download the xml content, to get infos from site
-            error = [downloadTask executeRequest:path_to_log :filtre->user->login:filtre->user->password:siteSelected.libelle:path_to_storage];
+            error = [downloadTask executeRequest:path_to_log :filtre->user->login:filtre->user->password:siteSelected.libelle:nil];
             
             //  Parse the xml content
             //    <?xml version='1.0' encoding='utf-8'?>
@@ -163,7 +163,7 @@
                 NSLog(@"path_to_storage in %@", path_to_storage);
                 
                 // Download the xml content, to get dates from site
-                error = [downloadTask executeRequest:path_to_log :path_to_storage];
+                error = [downloadTask executeRequest:path_to_log :nil];
                 
                 if(error == 200 && [downloadTask->responseData length] > 0) {
                     // Set filtre (data)

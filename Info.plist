@@ -292,61 +292,61 @@
 			<key>messageRememberConnection</key>
 			<string>記憶</string>
 			<key>messageConnexionError</key>
-			<string>Connexion internet non fonctionnelle, vérifier votre connexion.</string>
+			<string>登錄互聯網不起作用，請檢查您的連接。</string>
 			<key>titleConnexionError</key>
-			<string>Etat connexion</string>
+			<string>連接狀態</string>
 			<key>messageAuthError</key>
-			<string>Les identifiants saisis sont incorrectes.</string>
+			<string>輸入的密碼不正確。</string>
 			<key>titleAuthError</key>
-			<string>Authentification</string>
+			<string>認證</string>
 			<key>messageWebServiceDownError</key>
-			<string>Impossible d&apos;atteindre le serveur, veuillez réessayer ultérieurement.</string>
+			<string>無法到達服務器，請稍後再試。</string>
 			<key>titleWebServiceDownError</key>
-			<string>Web service</string>
+			<string>捲筒紙 服務</string>
 			<key>messageTechnicalError</key>
-			<string>Une erreur technique est survenue, veuillez réessayer ultérieurement.</string>
+			<string>發生了技術錯誤，請稍後再試。</string>
 			<key>titleTechnicalError</key>
-			<string>Web service</string>
+			<string>捲筒紙 服務</string>
 			<key>messageNoSiteError</key>
-			<string>Il n&apos;existe pas de site repertorié pour votre compte.</string>
+			<string>有一個在您的帳戶中沒有列出的網站。</string>
 			<key>titleNoSiteError</key>
-			<string>Avertissement</string>
+			<string>警告</string>
 			<key>messageNoDateError</key>
-			<string>Il n&apos;existe pas d&apos;historisation de poluant pour ce site.</string>
+			<string>沒有污染物歸檔這個網站。</string>
 			<key>titleNoDateError</key>
-			<string>Avertissement</string>
+			<string>警告</string>
 			<key>messageNoPollutantError</key>
-			<string>Il n&apos;existe pas d&apos;historisation de poluant pour ce site.</string>
+			<string>沒有污染物歸檔這個網站。</string>
 			<key>titleNoPollutantError</key>
-			<string>Avertissement</string>
+			<string>警告</string>
 			<key>titleMenuSignout</key>
-			<string>Deconnexion</string>
+			<string>登出</string>
 			<key>titleMenuPollutant</key>
-			<string>Les polluants</string>
+			<string>污染物</string>
 			<key>titleMenuDate</key>
-			<string>Les dates</string>
+			<string>日期</string>
 			<key>titleMenuSite</key>
-			<string>Les sites</string>
+			<string>本網站</string>
 			<key>titleHeaderPollution</key>
-			<string>Carte : nuage de pollution</string>
+			<string>地圖：煙霧</string>
 			<key>titleHeaderPollutant</key>
-			<string>Selection du polluant</string>
+			<string>選擇的污染物</string>
 			<key>titleHeaderDate</key>
-			<string>Selection de la date</string>
+			<string>選擇日期</string>
 			<key>titleHeaderSite</key>
-			<string>Selection du site</string>
+			<string>選址</string>
 			<key>titleHeaderInterval</key>
-			<string>Selection de l&apos;interval</string>
+			<string>選擇時間</string>
 			<key>titleHeaderAuthent</key>
-			<string>Authentification</string>
+			<string>認證</string>
 			<key>menuButtonText</key>
-			<string>Menu</string>
+			<string>菜單</string>
 			<key>connexionButtonText</key>
-			<string>Se connecter</string>
+			<string>要登錄</string>
 			<key>passwordLabelText</key>
-			<string>Mot de passe</string>
+			<string>密碼</string>
 			<key>loginLabelText</key>
-			<string>Pseudo</string>
+			<string>綽號</string>
 		</dict>
 	</array>
 	<key>UISupportedInterfaceOrientations~ipad</key>

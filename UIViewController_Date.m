@@ -99,7 +99,7 @@
             //        NSLog(@"path_to_storage in %@", path_to_storage);
             
             // Download the xml content, to get infos about polution
-            [downloadTask executeRequest:path_to_log:path_to_storage];
+            [downloadTask executeRequest:path_to_log:nil];
             XMLToObjectParser *myParser = [XMLToObjectParser alloc];
             
             [myParser parseXml:downloadTask->responseData parseError:nil];

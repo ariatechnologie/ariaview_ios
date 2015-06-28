@@ -15,6 +15,7 @@
     NSString *name, *iconPath;
     double iconViewBoundScale, latLongNorth, latLongSouth, latLongEast, latLongWest;
     NSDate *timeStampBegin, *timeStampEnd;
+    NSString *timeStampBeginNotFormated, *timeStampEndNotFormated;
 }
 
 @end

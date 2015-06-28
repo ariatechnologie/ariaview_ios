@@ -108,6 +108,8 @@
             NSString *timeStampEndNotFormated = ((ListTagXml*)[timeStamp->tags objectAtIndex:1])->content;
             groundOverLayModel->timeStampBegin = [Factory getDateFromFormatKml:timeStampStartNotFormated];
             groundOverLayModel->timeStampEnd = [Factory getDateFromFormatKml:timeStampEndNotFormated];
+            groundOverLayModel->timeStampBeginNotFormated = timeStampStartNotFormated;
+            groundOverLayModel->timeStampEndNotFormated = timeStampEndNotFormated;
             
             // Add GroundOverLay into list
             [pollutant->polutionInterval->groundOverLayList addObject:groundOverLayModel];

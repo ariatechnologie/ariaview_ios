@@ -20,12 +20,15 @@
 }
 
 -(void)writeInFile:(NSData *)content {
-    NSString *txt = [[NSString alloc] initWithData:responseData encoding: NSASCIIStringEncoding];
-    NSData* data = [txt dataUsingEncoding:NSUTF8StringEncoding];
-    NSFileManager *filemgr = [[NSFileManager alloc] init];
-    [filemgr createFileAtPath: pathToWrite contents: data attributes: nil];
-    data = [filemgr contentsAtPath: pathToWrite ];
-    reponseEncode = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    NSLog(@"Write=%d", (pathToWrite != nil) ? true : false);
+    if(pathToWrite != nil) {
+        NSString *txt = [[NSString alloc] initWithData:responseData encoding: NSASCIIStringEncoding];
+        NSData* data = [txt dataUsingEncoding:NSUTF8StringEncoding];
+        NSFileManager *filemgr = [[NSFileManager alloc] init];
+        [filemgr createFileAtPath: pathToWrite contents: data attributes: nil];
+        data = [filemgr contentsAtPath: pathToWrite ];
+        reponseEncode = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    }
 }
 
 - (NSURLConnection*)executeRequest:(NSString*) url : (NSString*) login : (NSString*) password : (NSString*) pathToWrite_  {

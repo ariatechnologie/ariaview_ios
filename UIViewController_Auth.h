@@ -38,7 +38,6 @@
 - (IBAction)onClickEs:(id)sender;
 - (IBAction)onClickFr:(id)sender;
 - (IBAction)onClickUs:(id)sender;
-- (void)awakeFromNib;
 -(id)initWithFiltre:(Filtre *)filtre;
 - (IBAction)onKeyLogin:(UITextField *)sender;
 - (IBAction)onKeyPassword:(UITextField *)sender;

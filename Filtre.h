@@ -17,6 +17,7 @@
     NSMutableArray *myDates;
     NSMutableArray *myPollutants;
     NSString *urlDirectory;
+    NSMutableArray *markers;
     AirModelXml *modelKml;
 }
 
@@ -37,6 +38,7 @@
 
 @interface Filtre : NSObject {
     @public
+    BOOL pastScreen;
     Site *site;
     User *user;
     NSMutableArray *myLocations;

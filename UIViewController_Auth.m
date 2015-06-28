@@ -63,6 +63,7 @@
 -(id)initWithFiltre:(Filtre *)_filtre
 {
     if (self) {
+        _filtre->pastScreen = FALSE;
         filtre = _filtre;
     }
     return self;
@@ -71,9 +72,12 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     if (filtre == nil) {
+        NSLog(@"init");
         filtre = [[Filtre alloc] init];
+        filtre->pastScreen = TRUE;
         filtre->indexLanguage = 0; // by default, language is french
     }
+    NSLog(@"past=%d", filtre->pastScreen);
     factory = [[Factory alloc] initWithLanguage:filtre->indexLanguage];
     path = @"/tmp/ariaview/";
     url = @"http://web.aria.fr/webservices/ARIAVIEW/login.php";
@@ -140,8 +144,8 @@
             NSLog(@"path_to_storage in %@", path_to_storage);
             
             //  Download the xml content, to get sites from account(login/password)
-            responseCode = [downloadTask executeRequest:path_to_log :login:password:path_to_storage];
-            
+            responseCode = [downloadTask executeRequest:path_to_log :login:password:nil];
+           
             if(responseCode == 200) {
 
                 // Build filtre instance and set in the new view
@@ -161,13 +165,15 @@
                 viewArraySite = [[self.storyboard instantiateViewControllerWithIdentifier:@"TableViewSite"] initWithFiltre:filtre:true];
                 [viewArraySite createLocations:downloadTask->responseData];
                 
-                NSLog(@"%@", self.navigationController);
+//                NSLog(@"%@", self.navigationController);
                 
             }
             
             dispatch_async(dispatch_get_main_queue(), ^{
-                if(responseCode == 200) {
+//                NSLog(@"filtre->pastScreen=%d", filtre->pastScreen);
+                if(responseCode == 200 /* && filtre->pastScreen == FALSE*/) {
                     [self.navigationController pushViewController:viewArraySite animated:YES];
+                } else if(responseCode == 200) {
                 } else if(responseCode == 401 || responseCode == 403 || responseCode == 0) {
                     [Factory alertMessage:factory->titleAuthError:factory->messageAuthError:self];
                 } else {

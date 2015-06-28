@@ -20,62 +20,93 @@
     else
         filtre->indexInterval = 0;
     
-    /*
-     * remove all ouverlay
-     */
-    [mapView clear];
-    
-    NSLog(@"Index interval = %d", filtre->indexInterval);
-    GroundOverLay *interval = [((Pollutant*)[filtre->site->modelKml->myPollutants objectAtIndex:filtre->indexPollutant])->polutionInterval->groundOverLayList objectAtIndex:filtre->indexInterval];
-    NSLog(@"date start = %@", interval->timeStampBegin);
-    intervalTitle.text = [Factory getFormatSelectionDateString:interval->timeStampBegin :interval->timeStampEnd];
-    
-    /*
-     * Put the image on the map
-     */
-    
-    CLLocationCoordinate2D southWest = CLLocationCoordinate2DMake(interval->latLongSouth,interval->latLongWest);
-    CLLocationCoordinate2D northEast = CLLocationCoordinate2DMake(interval->latLongNorth, interval->latLongEast);
-    GMSCoordinateBounds *overlayBounds = [[GMSCoordinateBounds alloc] initWithCoordinate:southWest
-                                                                              coordinate:northEast];
-    //        /*
-    //         *  Set new position of the camera
-    //         */
-    //        CLLocationCoordinate2D coordinates =  CLLocationCoordinate2DMake(latitude,longitude);
-    //        GMSCameraUpdate *updatedCamera = [GMSCameraUpdate setTarget:coordinates zoom:zoomDefault];
-    //        [mapView animateWithCameraUpdate:updatedCamera];
-    
-    NSMutableString *sourceFile = [[NSMutableString alloc] init];
-    [sourceFile appendString:filtre->site->urlDirectory];
-    [sourceFile appendString:interval->iconPath];
-    
-    NSLog(@"img sourceFile ==%@", sourceFile);
-    
-    [mapView clear];
-    
-    // Image
-    NSString *ImageURL = [sourceFile mutableCopy];
-    
-    ImageURL =[ImageURL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-    
-    NSData *data = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:ImageURL]];
-    UIImage *icon = [UIImage imageWithData:data];
-    
-    GMSGroundOverlay *overlay =
-    [GMSGroundOverlay groundOverlayWithBounds:overlayBounds icon:icon];
-    overlay.bearing = 0;
-    overlay.map = mapView;
+    [self reloadView];
 }
 
 - (IBAction)play:(id)sender {
     if(!isPlaying) {
         NSLog(@"playing");
-        isPlaying = true;
+        isPlaying = TRUE;
+        isMarkerActive = FALSE;
+        filtre->site->markers = [[NSMutableArray alloc] init];
         [buttonPlay setImage:[UIImage imageNamed:@"stop.png"] forState:UIControlStateNormal];
-        myTimer = [NSTimer scheduledTimerWithTimeInterval: 1 target: self
+        myTimer = [NSTimer scheduledTimerWithTimeInterval: 2 target: self
                                                  selector: @selector(playingInterval:) userInfo: nil repeats: YES];
     } else {
         [self unplayWhilePlaying];
+    }
+}
+
+- (IBAction)cleanMarkers:(id)sender {
+    if([filtre->site->markers count] > 0) {
+        
+        filtre->site->markers = [[NSMutableArray alloc] init];
+        
+        [self reloadView];
+    }
+    
+}
+
+- (IBAction)onClickGraph:(id)sender {
+    if(filtre->site->markers != nil && [filtre->site->markers count] >= 1) {
+        if([Factory getConnectionState ]) {
+            [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+            dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+                GMSMarker *marker = [filtre->site->markers objectAtIndex:0];
+                // Create url to get infos and create file path where will be stored data
+                DownloadTaskSync *downloadTask = [[DownloadTaskSync alloc] init];
+                NSMutableString *path_to_log = [[NSMutableString alloc] init];
+                // Build structure url
+                NSMutableString *pathDirectory  = [[NSMutableString alloc] init];
+                
+//                http://web.aria.fr/OpenDapServicesRESTAT/GridGetTimeSerieByPointDomainVariablePeriod?longitude=-106,40675&latitude=31,7142&domainid=_LENVIS_CHIMERE_JUAREZDEV_reference_p02_dataset&variableid=M001S001&startdate=2013-2-25%201:30:00&enddate=2013-2-26%200:0:00
+                
+                Pollutant *p = [filtre->site->myPollutants objectAtIndex:filtre->indexPollutant];
+                GroundOverLay *firstGol = [p->polutionInterval->groundOverLayList objectAtIndex:0];
+                GroundOverLay *lastGol = [p->polutionInterval->groundOverLayList lastObject];
+                
+                [path_to_log appendString:@"http://web.aria.fr/OpenDapServicesRESTAT/GridGetTimeSerieByPointDomainVariablePeriod?longitude="];
+                [path_to_log appendString:[NSString stringWithFormat:@"%f", marker.position.longitude]];
+                [path_to_log appendString:@"&lattitude="];
+                [path_to_log appendString:[NSString stringWithFormat:@"%f", marker.position.latitude]];
+                [path_to_log appendString:@"&variableid="];
+                [path_to_log appendString:p->name];
+                [path_to_log appendString:@"&startdate="];
+                [path_to_log appendString:firstGol->timeStampBeginNotFormated];
+                [path_to_log appendString:@"&enddate="];
+                [path_to_log appendString:firstGol->timeStampEndNotFormated];
+                
+                NSLog(@"Connecting to %@", path_to_log);
+                
+                // Download the xml content, to get infos about polution
+                [downloadTask executeRequest:path_to_log:nil];
+                XMLToObjectParser *myParser = [XMLToObjectParser alloc];
+                
+                [myParser parseXml:downloadTask->responseData parseError:nil];
+                // [myParser parseKml:myParser->root];
+                
+                dispatch_async(dispatch_get_main_queue(), ^{
+                    [MBProgressHUD hideHUDForView:self.view animated:YES];
+                });
+            });
+        }
+    }
+}
+
+- (void) changeIconMarkers:(BOOL)isActive {
+    UIImage *btnImage;
+    if(isActive) {
+        btnImage = [UIImage imageNamed:@"icone_stop.jpg"];
+    } else {
+        btnImage = [UIImage imageNamed:@"multi.png"];
+    }
+    [buttonMarker setImage:btnImage forState:UIControlStateNormal];
+}
+
+- (IBAction)onClickMarker:(id)sender {
+    if(filtre->site->markers != nil && [filtre->site->markers count] < maxMarkers && !isPlaying) {
+        isMarkerActive = !isMarkerActive;
+        [self changeIconMarkers:isMarkerActive];
     }
 }
 
@@ -85,13 +116,16 @@
         isPlaying = false;
         zoomDefault = 15;
         filtre = _filtre;
+        maxMarkers = 1;
+        if(filtre->site->markers == nil)
+            filtre->site->markers = [[NSMutableArray alloc] init];
     }
     return self;
 }
 
 - (void) viewDidLoad {
     [super viewDidLoad];
-    
+    isMarkerActive = FALSE;
     zoomCurrent = zoomDefault;
     NSLog(@"Index interval = %d", filtre->indexInterval);
     
@@ -106,6 +140,7 @@
     GMSCameraPosition *camera = [GMSCameraPosition cameraWithLatitude:latitude longitude:longitude zoom:zoomDefault];
     
     mapView = [GMSMapView mapWithFrame:mapViewSB.bounds camera:camera];
+    mapView.delegate = self;
     
     /*
      * Put the legend on the map
@@ -216,15 +251,21 @@
     }
 }
 
-- (IBAction)moreInterval:(id)sender {
-    [self unplayWhilePlaying];
+- (void) reloadView {
     
-    if([((Pollutant*)[filtre->site->modelKml->myPollutants objectAtIndex:filtre->indexPollutant])->polutionInterval->groundOverLayList count] > filtre->indexInterval+1) {
-        filtre->indexInterval = filtre->indexInterval + 1;
-        /*
-         * remove all ouverlay
-         */
-        [mapView clear];
+    /*
+     * Reload title interval
+     */
+    GroundOverLay *interval = [((Pollutant*)[filtre->site->modelKml->myPollutants objectAtIndex:filtre->indexPollutant])->polutionInterval->groundOverLayList objectAtIndex:filtre->indexInterval];
+    
+    intervalTitle.text = [Factory getFormatSelectionDateString:interval->timeStampBegin :interval->timeStampEnd];
+    
+    /*
+     * remove all ouverlay
+     */
+    [mapView clear];
+    [MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    dispatch_async(dispatch_get_global_queue( DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
         
         NSLog(@"Index interval = %d", filtre->indexInterval);
         GroundOverLay *interval = [((Pollutant*)[filtre->site->modelKml->myPollutants objectAtIndex:filtre->indexPollutant])->polutionInterval->groundOverLayList objectAtIndex:filtre->indexInterval];
@@ -237,19 +278,18 @@
         
         CLLocationCoordinate2D southWest = CLLocationCoordinate2DMake(interval->latLongSouth,interval->latLongWest);
         CLLocationCoordinate2D northEast = CLLocationCoordinate2DMake(interval->latLongNorth, interval->latLongEast);
-        GMSCoordinateBounds *overlayBounds = [[GMSCoordinateBounds alloc] initWithCoordinate:southWest
+        overlayBounds = [[GMSCoordinateBounds alloc] initWithCoordinate:southWest
                                                                                   coordinate:northEast];
-//        /*
-//         *  Set new position of the camera
-//         */
-//        CLLocationCoordinate2D coordinates =  CLLocationCoordinate2DMake(latitude,longitude);
-//        GMSCameraUpdate *updatedCamera = [GMSCameraUpdate setTarget:coordinates zoom:zoomDefault];
-//        [mapView animateWithCameraUpdate:updatedCamera];
+        //        /*
+        //         *  Set new position of the camera
+        //         */
+        //        CLLocationCoordinate2D coordinates =  CLLocationCoordinate2DMake(latitude,longitude);
+        //        GMSCameraUpdate *updatedCamera = [GMSCameraUpdate setTarget:coordinates zoom:zoomDefault];
+        //        [mapView animateWithCameraUpdate:updatedCamera];
         
         NSMutableString *sourceFile = [[NSMutableString alloc] init];
         [sourceFile appendString:filtre->site->urlDirectory];
         [sourceFile appendString:interval->iconPath];
-        [mapView clear];
         
         // Image
         NSString *ImageURL = [sourceFile mutableCopy];
@@ -259,10 +299,23 @@
         NSData *data = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:ImageURL]];
         UIImage *icon = [UIImage imageWithData:data];
         
-        GMSGroundOverlay *overlay =
-        [GMSGroundOverlay groundOverlayWithBounds:overlayBounds icon:icon];
-        overlay.bearing = 0;
-        overlay.map = mapView;
+        dispatch_async(dispatch_get_main_queue(), ^{
+                [MBProgressHUD hideHUDForView:self.view animated:YES];
+                overlay = [GMSGroundOverlay groundOverlayWithBounds:overlayBounds icon:icon];
+                overlay.bearing = 0;
+                overlay.map = mapView;
+        });
+    });
+}
+
+- (IBAction)moreInterval:(id)sender {
+    [self unplayWhilePlaying];
+    
+    if([((Pollutant*)[filtre->site->modelKml->myPollutants objectAtIndex:filtre->indexPollutant])->polutionInterval->groundOverLayList count] > filtre->indexInterval+1) {
+        filtre->indexInterval = filtre->indexInterval + 1;
+        isMarkerActive = FALSE;
+        filtre->site->markers = [[NSMutableArray alloc] init];
+        [self reloadView];
     }
 }
 
@@ -270,52 +323,33 @@
     [self unplayWhilePlaying];
     if(filtre->indexInterval-1 >= 0) {
         filtre->indexInterval = filtre->indexInterval - 1;
-        
-        /*
-         * remove all ouverlay
-         */
-        [mapView clear];
-        NSLog(@"Index interval = %d", filtre->indexInterval);
-        GroundOverLay *interval = [((Pollutant*)[filtre->site->modelKml->myPollutants objectAtIndex:filtre->indexPollutant])->polutionInterval->groundOverLayList objectAtIndex:filtre->indexInterval];
-        NSLog(@"date start = %@", interval->timeStampBegin);
-        intervalTitle.text = [Factory getFormatSelectionDateString:interval->timeStampBegin :interval->timeStampEnd];
-        
-        /*
-         * Put the image on the map
-         */
-        
-        CLLocationCoordinate2D southWest = CLLocationCoordinate2DMake(interval->latLongSouth,interval->latLongWest);
-        CLLocationCoordinate2D northEast = CLLocationCoordinate2DMake(interval->latLongNorth, interval->latLongEast);
-        GMSCoordinateBounds *overlayBounds = [[GMSCoordinateBounds alloc] initWithCoordinate:southWest
-                                                                                  coordinate:northEast];
-//        /*
-//         *  Set new position of the camera
-//         */
-//        CLLocationCoordinate2D coordinates =  CLLocationCoordinate2DMake(latitude,longitude);
-//        GMSCameraUpdate *updatedCamera = [GMSCameraUpdate setTarget:coordinates zoom:zoomDefault];
-//        [mapView animateWithCameraUpdate:updatedCamera];
-        NSMutableString *sourceFile = [[NSMutableString alloc] init];
-        [sourceFile appendString:filtre->site->urlDirectory];
-        [sourceFile appendString:interval->iconPath];
-        [mapView clear];
-        
-        // Image
-        NSString *ImageURL = [sourceFile mutableCopy];
-        
-        ImageURL =[ImageURL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
-        
-        NSData *data = [[NSData alloc] initWithContentsOfURL:[NSURL URLWithString:ImageURL]];
-        UIImage *icon = [UIImage imageWithData:data];
-        GMSGroundOverlay *overlay =
-        [GMSGroundOverlay groundOverlayWithBounds:overlayBounds icon:icon];
-        overlay.bearing = 0;
-        overlay.map = mapView;
+        isMarkerActive = FALSE;
+        filtre->site->markers = [[NSMutableArray alloc] init];
+        [self reloadView];
     }
 
 }
 
+- (void)mapView:(GMSMapView *)mapView didTapAtCoordinate:(CLLocationCoordinate2D)coordinate {
+    // add annotation
+    if([filtre->site->markers count] < maxMarkers && isMarkerActive && !isPlaying) {
+        GMSMarker *marker = [GMSMarker markerWithPosition:coordinate];
+        marker.title = @"Marker";
+        marker.map = mapView;
+        [filtre->site->markers addObject:marker];
+        
+        if([filtre->site->markers count] >= maxMarkers) {
+            [self changeIconMarkers:FALSE];
+            isMarkerActive = !isMarkerActive;
+        }
+
+    }
+}
+
 - (IBAction)changeInterval:(id)sender {
     [self unplayWhilePlaying];
+    isMarkerActive = FALSE;
+    filtre->site->markers = [[NSMutableArray alloc] init];
     UIViewController_Interval *viewArrayInterval = [self.storyboard instantiateViewControllerWithIdentifier:@"PickerViewDate"];
     viewArrayInterval->map = self;
     [self.navigationController pushViewController:viewArrayInterval animated:YES];
