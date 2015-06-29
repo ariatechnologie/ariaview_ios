@@ -9,12 +9,51 @@
 #import <Foundation/Foundation.h>
 #import "XMLToObjectParser.h"
 #import "ListTagXml.h"
+#import "Filtre.h"
 
 @implementation XMLToObjectParser
 
 - (ListTagXml *)items
 {
     return items;
+}
+
+- (NSMutableArray *) parseJson:(NSData*) jsonContent parseError:(NSError **)error {
+    
+    NSError *errorJson = nil;
+    
+    id jsonObjects = [NSJSONSerialization JSONObjectWithData:jsonContent options:NSJSONReadingMutableContainers error:&errorJson];
+    
+    NSDictionary *GetDataResult = [jsonObjects objectForKey:@"GetDataResult"];
+    NSArray *entries = [GetDataResult objectForKey:@"dataValuesField"];
+    
+    NSMutableArray *array = [[NSMutableArray alloc] init];
+    
+    for (NSDictionary *item in entries)
+    {
+        NSString *time = [item objectForKey:@"dateTimeField"];
+        NSString *valueField = [item objectForKey:@"valueField"];
+        
+        NSRange rangeStart = [time rangeOfString:@"("];
+        time = [time substringFromIndex:rangeStart.location + 1];
+        NSRange rangeEnd = [time rangeOfString:@")"];
+        time = [time substringToIndex:rangeEnd.location];
+        
+        NSDate *date = [NSDate dateWithTimeIntervalSince1970: [time doubleValue]];
+        double value = [valueField doubleValue];
+        
+//        NSCalendar *calendar = [NSCalendar currentCalendar];
+//        NSDateComponents *components = [calendar components:(NSCalendarUnitHour | NSCalendarUnitMinute) fromDate:date];
+//        NSInteger hour = [components hour];
+//        NSInteger minute = [components minute];
+//        
+//        NSLog(@"%d:%d", hour, minute);
+        
+        Coordinate *coordinate = [[Coordinate alloc] initWithData:date:value];
+        [array addObject:coordinate];
+    }
+    
+    return array;
 }
 
 /*

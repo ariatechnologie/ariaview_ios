@@ -16,24 +16,33 @@
 #import "AirModelXml.h"
 #import "UISubView_Map.h"
 #import "UIViewController_Interval.h"
+#import "UIViewController_Graph.h"
+#import "Factory.h"
 
 @interface UIViewController_Map : UIViewController<SWRevealViewControllerDelegate, GMSMapViewDelegate>  {
     __weak IBOutlet UILabel *intervalTitle;
     __weak IBOutlet UIButton *buttonPlay;
     BOOL isPlaying;
     NSTimer* myTimer;
+    UIViewController_Graph *viewGraph;
+    Factory *factory;
+    NSInteger error;
+    
     @public
+    
+    __weak IBOutlet UIView *mapViewSB;
+    __weak IBOutlet UIButton *buttonMarker;
+    __weak IBOutlet UIPickerView *pickerView;
+    
     Filtre *filtre;
     GMSMapView *mapView;
     int zoomDefault, zoomCurrent;
-    __weak IBOutlet UIView *mapViewSB;
     double latitude, longitude;
     BOOL isMarkerActive;
     int maxMarkers;
     GMSGroundOverlay *overlay;
     GMSCoordinateBounds *overlayBounds;
-    __weak IBOutlet UIButton *buttonMarker;
-    __weak IBOutlet UIPickerView *pickerView;
+    
 }
 - (void) reloadView;
 - (void) changeIconMarkers:(BOOL)isActive;
@@ -46,7 +55,7 @@
 - (IBAction)zoom:(id)sender;
 - (IBAction)unzoom:(id)sender;
 - (void)playingInterval:(NSTimer*) t;
--(void)unplayWhilePlaying;
+- (void)unplayWhilePlaying;
 - (IBAction)moreInterval:(id)sender;
 - (IBAction)lessInterval:(id)sender;
 - (IBAction)changeInterval:(id)sender;

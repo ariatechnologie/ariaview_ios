@@ -12,6 +12,7 @@
 #import <Foundation/Foundation.h>
 #import "ListTagXml.h"
 #import "AirModelXml.h"
+#import "Coordinate.h"
 #import "Factory.h"
 
 @interface XMLToObjectParser : NSObject <NSXMLParserDelegate> {
@@ -25,6 +26,7 @@
 
 }
 - (NSArray *)items;
+- (NSMutableArray *) parseJson:(NSData*) jsonContent parseError:(NSError **)error;
 - (NSMutableArray*) parseXml:(NSData*) xmlContent parseError:(NSError **)error;
 - (AirModelXml*) parseKml:(ListTagXml*) kmlContent;
 

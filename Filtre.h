@@ -13,11 +13,8 @@
 
 @interface Site : NSObject {
     @public
-    NSString *libelle;
-    NSMutableArray *myDates;
-    NSMutableArray *myPollutants;
-    NSString *urlDirectory;
-    NSMutableArray *markers;
+    NSString *libelle, *urlDirectory, *domain;
+    NSMutableArray *myDates, *myPollutants, *markers, *coordinates;
     AirModelXml *modelKml;
 }
 

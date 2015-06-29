@@ -489,10 +489,10 @@ Fax : +33 (0)1 41 41 93 17  www.web.aria.fr</string>
             </objects>
             <point key="canvasLocation" x="3298.5" y="1111.5"/>
         </scene>
-        <!--View Controller-->
+        <!--View Controller Graph-->
         <scene sceneID="vzr-oq-reG">
             <objects>
-                <viewController id="Wyo-yd-9ed" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="GraphView" id="Wyo-yd-9ed" customClass="UIViewController_Graph" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="KQe-qi-rxm"/>
                         <viewControllerLayoutGuide type="bottom" id="Vzb-MB-evi"/>

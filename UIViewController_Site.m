@@ -124,12 +124,15 @@
             NSLog(@"res->tags count %lu", (unsigned long)[res->tags count]);
             
             NSInteger numberOfElements = 6;
-            NSInteger indexHost = 0, indexUrl = 1, indexDate = 2, indexModel = 3, indexNest = 5;
+            NSInteger indexHost = 0, indexUrl = 1, indexDate = 2, indexType = 3, indexScale = 4,
+            indexModel = 5, indexNest = 7;
             
             if(error == 200 && root != nil && root->tags != nil && [root->tags count] >= numberOfElements)
             {
                 ListTagXml *hostParsed = [root->tags objectAtIndex:indexHost];
                 ListTagXml *urlParsed = [root->tags objectAtIndex:indexUrl];
+                ListTagXml *typeParsed = [root->tags objectAtIndex:indexType];
+                ListTagXml *scaleParsed = [root->tags objectAtIndex:indexScale];
                 ListTagXml *dateParsed = [root->tags objectAtIndex:indexDate];
                 ListTagXml *modelParsed = [root->tags objectAtIndex:indexModel];
                 ListTagXml *nestParsed = [root->tags objectAtIndex:indexNest];
@@ -137,8 +140,18 @@
                 NSString *hote = hostParsed->content;
                 NSString *urlAriaView = urlParsed->content;
                 NSString *dateFile = dateParsed->content;
+                NSString *type = typeParsed->content;
+                NSString *scale = scaleParsed->content;
                 NSString *model = modelParsed->content;
                 NSString *nest = nestParsed->content;
+                NSMutableString *domain = [[NSMutableString alloc] init];
+                [domain appendString:@"_LENVIS_"];
+                [domain appendString:model];
+                [domain appendString:@"_"];
+                [domain appendString:siteSelected->libelle];
+                [domain appendString:@"_reference_"];
+                [domain appendString:nest];
+                [domain appendString:@"_dataset"];
                 
                 NSLog(@"hote %@, url %@, dateFile %@, model %@, nest %@", hote, urlAriaView, dateFile, model, nest);
                 
@@ -150,9 +163,9 @@
                 [path_to_log appendString:@"/"];
                 [path_to_log appendString:_site.libelle];
                 [path_to_log appendString:@"/GEARTH/"];
-                [path_to_log appendString:model];
+                [path_to_log appendString:type];
                 [path_to_log appendString:@"_"];
-                [path_to_log appendString:nest];
+                [path_to_log appendString:scale];
                 [path_to_log appendString:@"/"];
                 [path_to_log appendString:dateFile];
                 
@@ -166,6 +179,9 @@
                 error = [downloadTask executeRequest:path_to_log :nil];
                 
                 if(error == 200 && [downloadTask->responseData length] > 0) {
+                    // Insert domain
+                    siteSelected->domain = domain;
+                    
                     // Set filtre (data)
                     filtre->indexSite = (int)_indexPath.row;
                     filtre->site = siteSelected;

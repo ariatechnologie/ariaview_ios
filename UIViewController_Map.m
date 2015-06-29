@@ -56,37 +56,54 @@
                 // Create url to get infos and create file path where will be stored data
                 DownloadTaskSync *downloadTask = [[DownloadTaskSync alloc] init];
                 NSMutableString *path_to_log = [[NSMutableString alloc] init];
-                // Build structure url
-                NSMutableString *pathDirectory  = [[NSMutableString alloc] init];
-                
-//                http://web.aria.fr/OpenDapServicesRESTAT/GridGetTimeSerieByPointDomainVariablePeriod?longitude=-106,40675&latitude=31,7142&domainid=_LENVIS_CHIMERE_JUAREZDEV_reference_p02_dataset&variableid=M001S001&startdate=2013-2-25%201:30:00&enddate=2013-2-26%200:0:00
                 
                 Pollutant *p = [filtre->site->myPollutants objectAtIndex:filtre->indexPollutant];
                 GroundOverLay *firstGol = [p->polutionInterval->groundOverLayList objectAtIndex:0];
                 GroundOverLay *lastGol = [p->polutionInterval->groundOverLayList lastObject];
+                NSLog(@"%@", firstGol->timeStampBeginNotFormated);
+                NSString *timeStampDebutFormated = [firstGol->timeStampBeginNotFormated stringByReplacingOccurrencesOfString:@"T" withString:@"%20"];
+                NSString *timeStampFinFormated = [lastGol->timeStampEndNotFormated stringByReplacingOccurrencesOfString:@"T" withString:@"%20"];
+                NSRange rangeStart = [timeStampDebutFormated rangeOfString:@"+"];
+                NSRange rangeEnd = [timeStampFinFormated rangeOfString:@"+"];
+                timeStampDebutFormated = [timeStampDebutFormated substringToIndex:rangeStart.location];
+                timeStampFinFormated = [timeStampFinFormated substringToIndex:rangeEnd.location];
                 
                 [path_to_log appendString:@"http://web.aria.fr/OpenDapServicesRESTAT/GridGetTimeSerieByPointDomainVariablePeriod?longitude="];
                 [path_to_log appendString:[NSString stringWithFormat:@"%f", marker.position.longitude]];
-                [path_to_log appendString:@"&lattitude="];
+                [path_to_log appendString:@"&latitude="];
                 [path_to_log appendString:[NSString stringWithFormat:@"%f", marker.position.latitude]];
+                [path_to_log appendString:@"&domainid="];
+                [path_to_log appendString:filtre->site->domain];
                 [path_to_log appendString:@"&variableid="];
                 [path_to_log appendString:p->name];
                 [path_to_log appendString:@"&startdate="];
-                [path_to_log appendString:firstGol->timeStampBeginNotFormated];
+                [path_to_log appendString:timeStampDebutFormated];
                 [path_to_log appendString:@"&enddate="];
-                [path_to_log appendString:firstGol->timeStampEndNotFormated];
+                [path_to_log appendString:timeStampFinFormated];
                 
                 NSLog(@"Connecting to %@", path_to_log);
                 
                 // Download the xml content, to get infos about polution
-                [downloadTask executeRequest:path_to_log:nil];
+                error = [downloadTask executeRequest:path_to_log:nil];
                 XMLToObjectParser *myParser = [XMLToObjectParser alloc];
                 
-                [myParser parseXml:downloadTask->responseData parseError:nil];
-                // [myParser parseKml:myParser->root];
+                filtre->site->coordinates = [myParser parseJson:downloadTask->responseData parseError:nil];
+                
+                for (int i = 0; i < [filtre->site->coordinates count]; i++) {
+                    Coordinate *c = [filtre->site->coordinates objectAtIndex:i];
+                    NSLog(@"%@=%f", c->xValue, c->yValue);
+                }
+                
+                //  Init view and set data in table
+                viewGraph = [[self.storyboard instantiateViewControllerWithIdentifier:@"GraphView"] initWithFiltre:filtre];
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
                     [MBProgressHUD hideHUDForView:self.view animated:YES];
+                    if(error == 200) {
+                        [self.navigationController pushViewController:viewGraph animated:YES];
+                    } else {
+                        [Factory alertMessage:factory->titleTechnicalError:factory->messageTechnicalError:self];
+                    }
                 });
             });
         }
@@ -116,6 +133,7 @@
         isPlaying = false;
         zoomDefault = 15;
         filtre = _filtre;
+        factory = [[Factory alloc] init];
         maxMarkers = 1;
         if(filtre->site->markers == nil)
             filtre->site->markers = [[NSMutableArray alloc] init];
