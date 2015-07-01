@@ -14,6 +14,8 @@
 @interface UIViewController_Graph : UIViewController {
     Filtre *filtre;
 }
+
 @end
 
 #endif
+

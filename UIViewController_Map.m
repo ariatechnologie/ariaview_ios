@@ -8,9 +8,6 @@
 
 #import "UIViewController_Map.h"
 
-@interface UIViewController_Map ()
-@end
-
 @implementation UIViewController_Map
 
 - (void)playingInterval:(NSTimer*) t  {

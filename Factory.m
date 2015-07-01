@@ -195,8 +195,8 @@
     
     User *u = [User alloc];
     u->login = [foo objectAtIndex: 0];
-    u->password = [foo objectAtIndex: 1];
-    
+    u->password = [FBEncryptorAES decryptBase64String:[foo objectAtIndex: 1]
+                                                                  keyString:@"ariaviewKEY"];
     return u;
 }
 
@@ -209,7 +209,12 @@
     NSMutableString *content = [[NSMutableString alloc] init];
     [content appendString:user->login];
     [content appendString:@";"];
-    [content appendString:user->password];
+    
+    NSString* encryptedPassword = [FBEncryptorAES encryptBase64String:user->password
+                                                    keyString:@"ariaviewKEY"
+                                                separateLines:NO];
+    
+    [content appendString:encryptedPassword];
     
     NSData* dataResult = [[NSString stringWithString:content] dataUsingEncoding:NSUTF8StringEncoding];
     

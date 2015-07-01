@@ -39,15 +39,10 @@
         NSRange rangeEnd = [time rangeOfString:@")"];
         time = [time substringToIndex:rangeEnd.location];
         
-        NSDate *date = [NSDate dateWithTimeIntervalSince1970: [time doubleValue]];
-        double value = [valueField doubleValue];
+        NSTimeInterval timestamp = (NSTimeInterval)([time doubleValue]/1000);
         
-//        NSCalendar *calendar = [NSCalendar currentCalendar];
-//        NSDateComponents *components = [calendar components:(NSCalendarUnitHour | NSCalendarUnitMinute) fromDate:date];
-//        NSInteger hour = [components hour];
-//        NSInteger minute = [components minute];
-//        
-//        NSLog(@"%d:%d", hour, minute);
+        NSDate *date = [NSDate dateWithTimeIntervalSince1970:timestamp];
+        double value = [valueField doubleValue];
         
         Coordinate *coordinate = [[Coordinate alloc] initWithData:date:value];
         [array addObject:coordinate];

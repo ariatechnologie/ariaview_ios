@@ -6,9 +6,11 @@
 //  Copyright (c) 2015 BOUSSAADIA AMIR. All rights reserved.
 //
 
+
 #import <Foundation/Foundation.h>
 #import "UIViewController_Graph.h"
 #import "Filtre.h"
+
 
 @implementation UIViewController_Graph
 
@@ -17,8 +19,11 @@
     {
         filtre = _filtre;
     }
+    
     return self;
+    
 }
+
 
 - (void) viewDidLoad {
     

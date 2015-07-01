@@ -489,26 +489,25 @@ Fax : +33 (0)1 41 41 93 17  www.web.aria.fr</string>
             </objects>
             <point key="canvasLocation" x="3298.5" y="1111.5"/>
         </scene>
-        <!--View Controller Graph-->
-        <scene sceneID="vzr-oq-reG">
+        <!--View Controller-->
+        <scene sceneID="3J5-FJ-VSp">
             <objects>
-                <viewController storyboardIdentifier="GraphView" id="Wyo-yd-9ed" customClass="UIViewController_Graph" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="GraphView" id="IN7-tt-6QH" sceneMemberID="viewController">
                     <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="KQe-qi-rxm"/>
-                        <viewControllerLayoutGuide type="bottom" id="Vzb-MB-evi"/>
+                        <viewControllerLayoutGuide type="top" id="X3Z-ro-MaS"/>
+                        <viewControllerLayoutGuide type="bottom" id="Vnw-0h-6cH"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="enl-yO-dLz">
+                    <view key="view" contentMode="scaleToFill" id="hjh-uY-s6L">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
-                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="blackOpaque"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ZZj-CB-SfV" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="UQM-b8-QF3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3777.5" y="1111.5"/>
+            <point key="canvasLocation" x="3810.5" y="1111.5"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="MAl-gg-GLm">

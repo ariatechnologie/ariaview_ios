@@ -11,6 +11,8 @@
 
 #import <UIKit/UIKit.h>
 #import "Filtre.h"
+#import "FBEncryptorAES.h"
+#import "NSData+Base64.h"
 
 @interface Factory : NSObject {
     NSString *pathToWriteSaveLogin;
