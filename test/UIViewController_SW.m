@@ -12,7 +12,6 @@
 @implementation UIViewController_SW
 
 - (id)initWithFiltre:(Filtre*) _filtre {
-    self = [super init];
     if(self) {
         filtre = _filtre;
     }
@@ -21,7 +20,7 @@
 
 -(void) viewDidLoad {
     factory = [[Factory alloc] initWithLanguage:filtre->indexLanguage];
-    [menuButton setTitle:factory->menuButtonText];
+//    [button setTitle:factory->menuButtonText];
     
     NSString *date = filtre->date;
     
@@ -44,29 +43,32 @@
     [title appendString:@"] : "];
     [title appendString:pollutant->polutionInterval->name];
     
-    navBar.title = [NSString stringWithString:title];
-    self.rightViewRevealWidth = (int)(375/2);
-    self.navigationItem.hidesBackButton = YES;
     /*
      * Add action event list button (slide out menu)
      */
-    SWRevealViewController *revealViewController = self;
+    SWRevealViewController *revealViewController = self->map.revealViewController;
+    NSLog(@"revealViewController=%@", revealViewController);
     if ( revealViewController )
     {
-        [self.sidebarButton setTarget: self.revealViewController];
-        [self.sidebarButton setAction: @selector( revealToggle: )];
-        [self.view addGestureRecognizer:self.panGestureRecognizer];
+        [self.button setTarget: revealViewController];
+        [self.button setAction: @selector( revealToggle: )];
+        [self.view addGestureRecognizer:revealViewController.panGestureRecognizer];
     }
+
+    [self.navigationItem setTitle:[NSString stringWithString:title]];
+    self.rearViewRevealWidth = (200);
+    self.navigationItem.hidesBackButton = YES;
 }
 
 -(void) prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender
 {
     // set data for views
-    if ([[segue identifier] isEqualToString:@"sw_right"]) {
-        UIViewController_Menu *uivMenu = (UIViewController_Menu*)[segue destinationViewController];
+    if ([[segue identifier] isEqualToString:@"sw_rear"]) {
+        uivMenu = (UIViewController_Menu*)[segue destinationViewController];
         uivMenu->filtre = filtre;
     } else if ([[segue identifier] isEqualToString:@"sw_front"]) {
-        UIViewController_Map *uivMap = [(UIViewController_Map*)[segue destinationViewController] initWith:filtre];
+         map = (UIViewController_Map *)segue.destinationViewController;
+        [map initWith:filtre];
     }
 }
 

@@ -220,6 +220,7 @@
     [self.view addGestureRecognizer:self.revealViewController.panGestureRecognizer];
     
     self.navigationItem.hidesBackButton = YES;
+
 }
 
 - (IBAction)recenterCamera:(id)sender {

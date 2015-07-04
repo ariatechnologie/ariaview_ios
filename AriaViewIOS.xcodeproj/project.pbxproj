@@ -34,6 +34,9 @@
 		A83D034D1AF009B7004131E5 /* Factory.m in Sources */ = {isa = PBXBuildFile; fileRef = A83D034C1AF009B7004131E5 /* Factory.m */; };
 		A83D03511AF00B28004131E5 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = A83D03501AF00B28004131E5 /* Reachability.m */; };
 		A84EFA0A1AF508DD00AF09B8 /* menu.png in Resources */ = {isa = PBXBuildFile; fileRef = A84EFA091AF508DD00AF09B8 /* menu.png */; };
+		A865B1731B4862E30051F571 /* snp.png in Resources */ = {isa = PBXBuildFile; fileRef = A865B1721B4862E30051F571 /* snp.png */; };
+		A865B1751B4864810051F571 /* snp.jpg in Resources */ = {isa = PBXBuildFile; fileRef = A865B1741B4864810051F571 /* snp.jpg */; };
+		A865B1771B4865830051F571 /* connexionButton.png in Resources */ = {isa = PBXBuildFile; fileRef = A865B1761B4865830051F571 /* connexionButton.png */; };
 		A87287D61B35682F000D05D3 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = A87287B81B35682F000D05D3 /* MBProgressHUD.m */; };
 		A87639511B45BCE800BA07A4 /* BEMAverageLine.m in Sources */ = {isa = PBXBuildFile; fileRef = A87639481B45BCE800BA07A4 /* BEMAverageLine.m */; };
 		A87639521B45BCE800BA07A4 /* BEMCircle.m in Sources */ = {isa = PBXBuildFile; fileRef = A876394A1B45BCE800BA07A4 /* BEMCircle.m */; };
@@ -142,6 +145,9 @@
 		A83D034F1AF00B17004131E5 /* Reachability.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		A83D03501AF00B28004131E5 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		A84EFA091AF508DD00AF09B8 /* menu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu.png; sourceTree = "<group>"; };
+		A865B1721B4862E30051F571 /* snp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = snp.png; sourceTree = "<group>"; };
+		A865B1741B4864810051F571 /* snp.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = snp.jpg; sourceTree = "<group>"; };
+		A865B1761B4865830051F571 /* connexionButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = connexionButton.png; sourceTree = "<group>"; };
 		A87287B71B35682F000D05D3 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		A87287B81B35682F000D05D3 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		A87639471B45BCE800BA07A4 /* BEMAverageLine.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BEMAverageLine.h; sourceTree = "<group>"; };
@@ -272,6 +278,9 @@
 		A84EFA081AF508A600AF09B8 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				A865B1761B4865830051F571 /* connexionButton.png */,
+				A865B1741B4864810051F571 /* snp.jpg */,
+				A865B1721B4862E30051F571 /* snp.png */,
 				A81D09B31B46045F006D8083 /* br.png */,
 				A81D09B41B46045F006D8083 /* cn.png */,
 				A81D09B51B46045F006D8083 /* es.png */,
@@ -648,6 +657,7 @@
 				A805D2D01B1271480094C758 /* calendar.png in Resources */,
 				A805D2D71B1274290094C758 /* reload.gif in Resources */,
 				A8DBA01F1B0D0F2B00B6D9CD /* value_list.png in Resources */,
+				A865B1731B4862E30051F571 /* snp.png in Resources */,
 				A805D2D51B1273BE0094C758 /* reload.png in Resources */,
 				A805D2D21B1271480094C758 /* logo.png in Resources */,
 				A805D2D11B1271480094C758 /* gps.png in Resources */,
@@ -655,6 +665,7 @@
 				A87FA3281B1A741D00A84E75 /* multi-site.png in Resources */,
 				A8DBA01D1B0D082C00B6D9CD /* horloge-icone-4138-128.png in Resources */,
 				A87639591B45CEF800BA07A4 /* stopwatch-icon-vector-illustration-flat-design-style_194576642.jpg in Resources */,
+				A865B1751B4864810051F571 /* snp.jpg in Resources */,
 				A81D09B91B46045F006D8083 /* br.png in Resources */,
 				A8BF4B8C1B3ED811006C6A92 /* clean.png in Resources */,
 				A805D2D31B1271480094C758 /* multi.png in Resources */,
@@ -666,6 +677,7 @@
 				A81D09BB1B46045F006D8083 /* es.png in Resources */,
 				A84EFA0A1AF508DD00AF09B8 /* menu.png in Resources */,
 				A81D09BC1B46045F006D8083 /* fr.png in Resources */,
+				A865B1771B4865830051F571 /* connexionButton.png in Resources */,
 				A8901DDE1ACB4FCF0064E736 /* LaunchScreen.xib in Resources */,
 				A8BF4B891B3EA9D1006C6A92 /* stop.jpg in Resources */,
 				A8901DDB1ACB4FCF0064E736 /* Images.xcassets in Resources */,

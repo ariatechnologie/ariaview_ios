@@ -11,7 +11,6 @@
 
 #import <UIKit/UIKit.h>
 #import <GoogleMaps/GoogleMaps.h>
-#import "SWRevealViewController.h"
 #import "Filtre.h"
 #import "AirModelXml.h"
 #import "UISubView_Map.h"
@@ -19,6 +18,7 @@
 #import "Factory.h"
 #import "BEMSimpleLineGraphView.h"
 #import "UIViewController_Graph.h"
+#import "SWRevealViewController.h"
 
 @interface UIViewController_Map : UIViewController<SWRevealViewControllerDelegate, GMSMapViewDelegate>  {
     __weak IBOutlet UILabel *intervalTitle;
@@ -46,6 +46,9 @@
     GMSCoordinateBounds *overlayBounds;
     
 }
+
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *sidebarButton;
+
 - (void) reloadView;
 - (void) changeIconMarkers:(BOOL)isActive;
 - (IBAction)cleanMarkers:(id)sender;

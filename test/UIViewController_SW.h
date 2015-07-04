@@ -15,14 +15,14 @@
 
 @interface UIViewController_SW : SWRevealViewController {
     Factory *factory;
-    __weak IBOutlet UIBarButtonItem *menuButton;
-    __weak IBOutlet UINavigationItem *navBar;
     @public
     Filtre *filtre;
     AirModelXml *airModelXml;
     NSMutableString *pathDirectory;
+    UIViewController_Menu *uivMenu;
+    UIViewController_Map *map;
 }
-@property (weak, nonatomic) IBOutlet UIBarButtonItem *sidebarButton;
+@property (weak, nonatomic) IBOutlet UIBarButtonItem *button;
 - (id)initWithFiltre: (Filtre*) _filtre;
 @end
 #endif
