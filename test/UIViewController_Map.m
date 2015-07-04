@@ -130,7 +130,7 @@
         isPlaying = false;
         zoomDefault = 15;
         filtre = _filtre;
-        factory = [[Factory alloc] init];
+        factory = [[Factory alloc] initWithLanguage:filtre->indexLanguage];
         maxMarkers = 1;
         if(filtre->site->markers == nil)
             filtre->site->markers = [[NSMutableArray alloc] init];

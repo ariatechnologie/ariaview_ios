@@ -33,7 +33,6 @@
     self.navigationItem.hidesBackButton = YES;
     
     if(isFirstTime) {
-        NSLog(@"%@", [filtre->myLocations objectAtIndex:0]);
         [self process:[filtre->site->myDates objectAtIndex:0]:[NSIndexPath indexPathForRow:0 inSection:0]];
     }
 }
@@ -52,7 +51,7 @@
 //        NSLog(@"root: %@", root->tags);
         ListTagXml *xmlParsed = [root->tags objectAtIndex:indexDates];
 //        NSLog(@"Count: %lu", (unsigned long)[xmlParsed->tags count]);
-        for(int i = 0; i < [xmlParsed->tags count]; i++) {
+        for(int i = ([xmlParsed->tags count]-1); i >= 0; i--) {
             ListTagXml *tag = [xmlParsed->tags objectAtIndex:i];
 //            NSLog(@"Libelle: %@", tag->content);
             [liste addObject:tag->content];
@@ -142,11 +141,7 @@
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
-    // Get site selected
-    UITableViewCell *cell = [tableView cellForRowAtIndexPath:indexPath];
-    NSString *date = cell.textLabel.text;
-    
-    [self process:date:indexPath];
+    [self process:[filtre->site->myDates objectAtIndex:indexPath.row]:[NSIndexPath indexPathForRow:indexPath.row inSection:0]];
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section

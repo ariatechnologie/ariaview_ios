@@ -13,9 +13,11 @@
 #import "BEMSimpleLineGraphView.h"
 #import "Filtre.h"
 #import "Coordinate.h"
+#import "Factory.h"
 
 @interface UIViewController_Graph : UIViewController <BEMSimpleLineGraphDataSource, BEMSimpleLineGraphDelegate> {
     Filtre *filtre;
+    Factory *factory;
 }
 
 @property (weak, nonatomic) IBOutlet BEMSimpleLineGraphView *myGraph;

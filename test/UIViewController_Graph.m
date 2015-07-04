@@ -18,7 +18,36 @@
     return self;
 }
 
-- (void) viewDidLoad {[super viewDidLoad];
+- (void) viewDidLoad {
+    
+    [super viewDidLoad];
+    
+    factory = [[Factory alloc] initWithLanguage:filtre->indexLanguage];
+    
+    NSString *date = filtre->date;
+    
+    NSString *year, *month, *day;
+    year = [date substringToIndex:4];
+    month = [[date substringToIndex:6] substringFromIndex:4];
+    day = [date substringFromIndex:6];
+    
+    NSDateComponents *dc = [[NSDateComponents alloc] init];
+    [dc setYear:[year integerValue]];
+    [dc setMonth:[month integerValue]];
+    [dc setDay:[day integerValue]];
+    
+    date = [NSString stringWithFormat:@"%@/%@/%@", day, month, year];
+    
+    NSMutableString *title = [[NSMutableString alloc] init];
+    Pollutant *pollutant = [filtre->site->myPollutants objectAtIndex:filtre->indexPollutant];
+    [title appendString:@"["];
+    [title appendString:date];
+    [title appendString:@"] : "];
+    [title appendString:pollutant->polutionInterval->name];
+    
+    [self.navigationItem setTitle:[NSString stringWithString:title]];
+
+    
     // Do any additional setup after loading the view, typically from a nib.
     
     [self hydrateDatasets];
@@ -31,6 +60,8 @@
         1.0, 1.0, 1.0, 1.0,
         1.0, 1.0, 1.0, 0.0
     };
+    
+    self.myGraph.enableBezierCurve = FALSE;
     
     // Apply the gradient to the bottom portion of the graph
     self.myGraph.gradientBottom = CGGradientCreateWithColorComponents(colorspace, components, locations, num_locations);
@@ -91,10 +122,11 @@
     // Add objects to the array based on the stepper value
     for (int i = 0; i < [filtre->site->coordinates count]; i++) {
         Coordinate *c = [filtre->site->coordinates objectAtIndex:i];
-        if(c->yValue >= 0) {
-            [self.arrayOfValues addObject:@(c->yValue)]; // Random values for the graph
-            [self.arrayOfDates addObject:c->xValue]; // Dates for the X-Axis of the graph
+        if(c->yValue < 0) {
+            c->yValue = 0;
         }
+        [self.arrayOfValues addObject:@(c->yValue)]; // Random values for the graph
+        [self.arrayOfDates addObject:c->xValue]; // Dates for the X-Axis of the graph
     }
 }
 

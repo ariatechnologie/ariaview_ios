@@ -49,9 +49,6 @@
                                     <action selector="onClick:" destination="Yjs-kO-9ob" eventType="touchUpInside" id="1Sn-pT-6yl"/>
                                 </connections>
                             </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="cLZ-rI-uM2">
-                                <rect key="frame" x="67" y="20" width="240" height="128"/>
-                            </imageView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" editable="NO" textAlignment="center" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qNM-4L-2qg">
                                 <rect key="frame" x="0.0" y="434" width="375" height="168.5"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -126,6 +123,9 @@ Fax : +33 (0)1 41 41 93 17  www.web.aria.fr</string>
                                 <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="logo.png" translatesAutoresizingMaskIntoConstraints="NO" id="cLZ-rI-uM2">
+                                <rect key="frame" x="91" y="36" width="180" height="120"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -461,12 +461,12 @@ Fax : +33 (0)1 41 41 93 17  www.web.aria.fr</string>
                         <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="stopwatch-icon-vector-illustration-flat-design-style_194576642.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="RLq-eP-KVg">
-                                <rect key="frame" x="137" y="15" width="101" height="93"/>
-                            </imageView>
                             <pickerView contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="pK4-47-ECz">
                                 <rect key="frame" x="0.0" y="99" width="374" height="162"/>
                             </pickerView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="stopwatch-icon-vector-illustration-flat-design-style_194576642.jpg" translatesAutoresizingMaskIntoConstraints="NO" id="RLq-eP-KVg">
+                                <rect key="frame" x="137" y="32" width="101" height="93"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
