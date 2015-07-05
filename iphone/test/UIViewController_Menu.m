@@ -11,6 +11,14 @@
 
 @implementation UIViewController_Menu
 
+- (id) initWith: (Filtre*) _filtre : (UIViewController_SW*) _sw {
+    if(self) {
+        filtre = _filtre;
+        sw = _sw;
+    }
+    return self;
+}
+
 -(void) viewDidLoad {
     factory = [[Factory alloc] initWithLanguage:filtre->indexLanguage];
     //set const var
@@ -35,6 +43,10 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    
+    if(sw->map != nil) {
+        [sw->map unplayWhilePlaying];
+    }
     
     if(filtre == nil) {
         

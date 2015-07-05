@@ -234,7 +234,9 @@ Fax : +33 (0)1 41 41 93 17  www.web.aria.fr</string>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="aGh-kB-cGa">
-                        <barButtonItem key="rightBarButtonItem" image="menu.png" width="32" id="RYj-WN-Kdg"/>
+                        <barButtonItem key="rightBarButtonItem" title="Menu" width="32" id="RYj-WN-Kdg">
+                            <color key="tintColor" red="0.086827467073367304" green="0.18611680421360952" blue="0.39149305555555558" alpha="1" colorSpace="calibratedRGB"/>
+                        </barButtonItem>
                     </navigationItem>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" translucent="NO" prompted="NO"/>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
@@ -336,8 +338,7 @@ Fax : +33 (0)1 41 41 93 17  www.web.aria.fr</string>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nbA-e5-wQU">
                                 <rect key="frame" x="0.0" y="0.0" width="20" height="25"/>
-                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                <state key="normal" title="-">
+                                <state key="normal" title="-" backgroundImage="connexionButton.png">
                                     <color key="titleShadowColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -346,8 +347,7 @@ Fax : +33 (0)1 41 41 93 17  www.web.aria.fr</string>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RoG-Lu-6lQ">
                                 <rect key="frame" x="355" y="0.0" width="20" height="25"/>
-                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                <state key="normal" title="+">
+                                <state key="normal" title="+" backgroundImage="connexionButton.png">
                                     <color key="titleShadowColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -356,8 +356,7 @@ Fax : +33 (0)1 41 41 93 17  www.web.aria.fr</string>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e1O-r5-Tjn">
                                 <rect key="frame" x="307" y="0.0" width="20" height="25"/>
-                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                <state key="normal" title="-">
+                                <state key="normal" title="-" backgroundImage="connexionButton.png">
                                     <color key="titleShadowColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -385,8 +384,7 @@ Fax : +33 (0)1 41 41 93 17  www.web.aria.fr</string>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vH6-at-fx7">
                                 <rect key="frame" x="47" y="1" width="20" height="25"/>
-                                <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
-                                <state key="normal" title="+">
+                                <state key="normal" title="+" backgroundImage="connexionButton.png">
                                     <color key="titleShadowColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <connections>
@@ -614,7 +612,6 @@ Fax : +33 (0)1 41 41 93 17  www.web.aria.fr</string>
         <image name="gps.png" width="512" height="512"/>
         <image name="horloge-icone-4138-128.png" width="128" height="128"/>
         <image name="logo.png" width="686" height="558"/>
-        <image name="menu.png" width="28" height="20"/>
         <image name="multi.png" width="128" height="128"/>
         <image name="play.png" width="128" height="128"/>
         <image name="st.jpg" width="633" height="428"/>

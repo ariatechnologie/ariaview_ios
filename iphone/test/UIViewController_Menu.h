@@ -15,14 +15,23 @@
 #import "UIViewController_Auth.h"
 #import "Filtre.h"
 #import "Factory.h"
+#import "UIViewController_SW.h"
+
+@class UIViewController_SW;
 
 @interface UIViewController_Menu : UIViewController  <UITableViewDelegate, UITableViewDataSource> {
+    
     __weak IBOutlet UITableView *tableViewMenu;
     NSMutableArray *myOptions;
     int CHANGE_SITE, CHANGE_DATE, SIGNOUT, CHANGE_POLLUTANT;
     Factory *factory;
+    UIViewController_SW *sw;
+    
     @public
     Filtre *filtre;
 }
+
+- (id) initWith: (Filtre*) _filtre : (UIViewController_SW*) _sw;
+
 @end
 #endif

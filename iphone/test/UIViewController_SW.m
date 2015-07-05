@@ -65,7 +65,7 @@
     // set data for views
     if ([[segue identifier] isEqualToString:@"sw_rear"]) {
         uivMenu = (UIViewController_Menu*)[segue destinationViewController];
-        uivMenu->filtre = filtre;
+        [uivMenu initWith:filtre :self];
     } else if ([[segue identifier] isEqualToString:@"sw_front"]) {
          map = (UIViewController_Map *)segue.destinationViewController;
         [map initWith:filtre];

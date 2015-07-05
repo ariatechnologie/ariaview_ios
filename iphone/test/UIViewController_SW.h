@@ -13,6 +13,8 @@
 #import "UIViewController_Menu.h"
 #import "AirModelXml.h"
 
+@class UIViewController_Menu;
+
 @interface UIViewController_SW : SWRevealViewController {
     Factory *factory;
     @public
