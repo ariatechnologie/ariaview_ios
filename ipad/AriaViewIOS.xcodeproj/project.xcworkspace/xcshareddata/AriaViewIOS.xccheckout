@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>491EA8BB-5C18-40DA-8B9A-79A5C3DA999B</string>
+	<key>IDESourceControlProjectName</key>
+	<string>AriaViewIOS</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>FBBC3E6F27E5750F44AB78D826C34D637845CD36</key>
+		<string>https://github.com/ariatechnologie/ariaview_ios.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>ipad/AriaViewIOS.xcodeproj</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>FBBC3E6F27E5750F44AB78D826C34D637845CD36</key>
+		<string>../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://github.com/ariatechnologie/ariaview_ios.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>111</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>FBBC3E6F27E5750F44AB78D826C34D637845CD36</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>FBBC3E6F27E5750F44AB78D826C34D637845CD36</string>
+			<key>IDESourceControlWCCName</key>
+			<string>ariaview_ios</string>
+		</dict>
+	</array>
+</dict>
+</plist>
