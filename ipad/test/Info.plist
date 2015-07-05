@@ -1,0 +1,360 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDevelopmentRegion</key>
+	<string>fr_FR</string>
+	<key>CFBundleExecutable</key>
+	<string>$(EXECUTABLE_NAME)</string>
+	<key>CFBundleIdentifier</key>
+	<string>com.esgi.$(PRODUCT_NAME:rfc1034identifier)</string>
+	<key>CFBundleInfoDictionaryVersion</key>
+	<string>6.0</string>
+	<key>CFBundleName</key>
+	<string>$(PRODUCT_NAME)</string>
+	<key>CFBundlePackageType</key>
+	<string>APPL</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.0</string>
+	<key>CFBundleSignature</key>
+	<string>????</string>
+	<key>CFBundleVersion</key>
+	<string>1</string>
+	<key>LSRequiresIPhoneOS</key>
+	<true/>
+	<key>UILaunchStoryboardName</key>
+	<string>LaunchScreen</string>
+	<key>UIMainStoryboardFile</key>
+	<string>Main</string>
+	<key>UIRequiredDeviceCapabilities</key>
+	<array>
+		<string>armv7</string>
+	</array>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+	<key>Languages</key>
+	<array>
+		<dict>
+			<key>picture</key>
+			<string>fr.png</string>
+			<key>messageRememberConnection</key>
+			<string>mémoriser</string>
+			<key>messageConnexionError</key>
+			<string>Connexion internet non fonctionnelle, vérifier votre connexion.</string>
+			<key>titleConnexionError</key>
+			<string>Etat connexion</string>
+			<key>messageAuthError</key>
+			<string>Les identifiants saisis sont incorrectes.</string>
+			<key>titleAuthError</key>
+			<string>Authentification</string>
+			<key>messageWebServiceDownError</key>
+			<string>Impossible d&apos;atteindre le serveur, veuillez réessayer ultérieurement.</string>
+			<key>titleWebServiceDownError</key>
+			<string>Web service</string>
+			<key>messageTechnicalError</key>
+			<string>Une erreur technique est survenue, veuillez réessayer ultérieurement.</string>
+			<key>titleTechnicalError</key>
+			<string>Web service</string>
+			<key>messageNoSiteError</key>
+			<string>Il n&apos;existe pas de site repertorié pour votre compte.</string>
+			<key>titleNoSiteError</key>
+			<string>Avertissement</string>
+			<key>messageNoDateError</key>
+			<string>Il n&apos;existe pas d&apos;historisation de poluant pour ce site.</string>
+			<key>titleNoDateError</key>
+			<string>Avertissement</string>
+			<key>messageNoPollutantError</key>
+			<string>Il n&apos;existe pas d&apos;historisation de poluant pour ce site.</string>
+			<key>titleNoPollutantError</key>
+			<string>Avertissement</string>
+			<key>titleMenuSignout</key>
+			<string>Deconnexion</string>
+			<key>titleMenuPollutant</key>
+			<string>Les polluants</string>
+			<key>titleMenuDate</key>
+			<string>Les dates</string>
+			<key>titleMenuSite</key>
+			<string>Les sites</string>
+			<key>titleHeaderPollution</key>
+			<string>Carte : nuage de pollution</string>
+			<key>titleHeaderPollutant</key>
+			<string>Selection du polluant</string>
+			<key>titleHeaderDate</key>
+			<string>Selection de la date</string>
+			<key>titleHeaderSite</key>
+			<string>Selection du site</string>
+			<key>titleHeaderInterval</key>
+			<string>Selection de l&apos;interval</string>
+			<key>titleHeaderAuthent</key>
+			<string>Authentification</string>
+			<key>menuButtonText</key>
+			<string>Menu</string>
+			<key>connexionButtonText</key>
+			<string>Se connecter</string>
+			<key>passwordLabelText</key>
+			<string>Mot de passe</string>
+			<key>loginLabelText</key>
+			<string>Pseudo</string>
+		</dict>
+		<dict>
+			<key>picture</key>
+			<string>en.png</string>
+			<key>messageRememberConnection</key>
+			<string>memorize</string>
+			<key>messageConnexionError</key>
+			<string>Internet connection down, check your connection.</string>
+			<key>titleConnexionError</key>
+			<string>Connection State</string>
+			<key>messageAuthError</key>
+			<string>bad login or passsword.</string>
+			<key>titleAuthError</key>
+			<string>Authentification</string>
+			<key>messageWebServiceDownError</key>
+			<string>Unable access server, sorry for disagreement.</string>
+			<key>titleWebServiceDownError</key>
+			<string>Web service</string>
+			<key>messageTechnicalError</key>
+			<string>An internal error occured, please try later.</string>
+			<key>titleTechnicalError</key>
+			<string>Web service</string>
+			<key>messageNoSiteError</key>
+			<string>There is no one site for your account.</string>
+			<key>titleNoSiteError</key>
+			<string>Warning</string>
+			<key>messageNoDateError</key>
+			<string>No pollutant history for this site.</string>
+			<key>titleNoDateError</key>
+			<string>Warning</string>
+			<key>messageNoPollutantError</key>
+			<string>No pollutant history for this site.</string>
+			<key>titleNoPollutantError</key>
+			<string>Warning</string>
+			<key>titleMenuSignout</key>
+			<string>Sign out</string>
+			<key>titleMenuPollutant</key>
+			<string>Pollutants</string>
+			<key>titleMenuDate</key>
+			<string>Dates</string>
+			<key>titleMenuSite</key>
+			<string>Locations</string>
+			<key>titleHeaderPollution</key>
+			<string>Map : pollutant sky</string>
+			<key>titleHeaderPollutant</key>
+			<string>Select a pollutant</string>
+			<key>titleHeaderDate</key>
+			<string>Select a date</string>
+			<key>titleHeaderSite</key>
+			<string>Select a site</string>
+			<key>titleHeaderInterval</key>
+			<string>Select an interval</string>
+			<key>titleHeaderAuthent</key>
+			<string>Authentification</string>
+			<key>menuButtonText</key>
+			<string>Menu</string>
+			<key>connexionButtonText</key>
+			<string>Sign in</string>
+			<key>passwordLabelText</key>
+			<string>Password</string>
+			<key>loginLabelText</key>
+			<string>Login</string>
+		</dict>
+		<dict>
+			<key>picture</key>
+			<string>es.png</string>
+			<key>messageRememberConnection</key>
+			<string>memorizar</string>
+			<key>messageConnexionError</key>
+			<string>Accede a Internet no funcional, compruebe la conexión.</string>
+			<key>titleConnexionError</key>
+			<string>Conexión de Estado</string>
+			<key>messageAuthError</key>
+			<string>La contraseña introducida no es correcta.</string>
+			<key>titleAuthError</key>
+			<string>Autenticación</string>
+			<key>messageWebServiceDownError</key>
+			<string>No se ha podido alcanzar el servidor, por favor, inténtelo de nuevo más tarde.</string>
+			<key>titleWebServiceDownError</key>
+			<string>Servicio web</string>
+			<key>messageTechnicalError</key>
+			<string>Se ha producido un error técnico, por favor intente de nuevo más tarde.</string>
+			<key>titleTechnicalError</key>
+			<string>Servicio we</string>
+			<key>messageNoSiteError</key>
+			<string>No hay sitio en la lista en su cuenta.</string>
+			<key>titleNoSiteError</key>
+			<string>Advertencia</string>
+			<key>messageNoDateError</key>
+			<string>No hay y es apos; archivado de cuero crudo para este sitio.</string>
+			<key>titleNoDateError</key>
+			<string>Advertencia</string>
+			<key>messageNoPollutantError</key>
+			<string>No hay y es apos; archivado de cuero crudo para este sitio.</string>
+			<key>titleNoPollutantError</key>
+			<string>Advertencia</string>
+			<key>titleMenuSignout</key>
+			<string>Cerrar sesión</string>
+			<key>titleMenuPollutant</key>
+			<string>Contaminantes</string>
+			<key>titleMenuDate</key>
+			<string>Las fechas</string>
+			<key>titleMenuSite</key>
+			<string>Los sitios</string>
+			<key>titleHeaderPollution</key>
+			<string>Mapa : el smog</string>
+			<key>titleHeaderPollutant</key>
+			<string>Selección del contaminante</string>
+			<key>titleHeaderDate</key>
+			<string>Seleccione la fecha</string>
+			<key>titleHeaderSite</key>
+			<string>Selección del Sitio</string>
+			<key>titleHeaderInterval</key>
+			<string>Selección del intervalo</string>
+			<key>titleHeaderAuthent</key>
+			<string>Autenticación</string>
+			<key>menuButtonText</key>
+			<string>Menú</string>
+			<key>connexionButtonText</key>
+			<string>Para iniciar la sesión</string>
+			<key>passwordLabelText</key>
+			<string>Contraseña</string>
+			<key>loginLabelText</key>
+			<string>Apodo</string>
+		</dict>
+		<dict>
+			<key>picture</key>
+			<string>pt.png</string>
+			<key>messageRememberConnection</key>
+			<string>memorizar</string>
+			<key>messageConnexionError</key>
+			<string>Entre internet não funcional, verifique sua conexão.</string>
+			<key>titleConnexionError</key>
+			<string>Conexão Estado</string>
+			<key>messageAuthError</key>
+			<string>A senha digitada está incorreta.</string>
+			<key>titleAuthError</key>
+			<string>Autenticação</string>
+			<key>messageWebServiceDownError</key>
+			<string>Não é possível alcançar o servidor, por favor, tente novamente mais tarde.</string>
+			<key>titleWebServiceDownError</key>
+			<string>Serviço web</string>
+			<key>messageTechnicalError</key>
+			<string>Um erro técnico ocorreu, por favor, tente novamente mais tarde.</string>
+			<key>titleTechnicalError</key>
+			<string>Serviço web</string>
+			<key>messageNoSiteError</key>
+			<string>Não há local alistado em sua conta.</string>
+			<key>titleNoSiteError</key>
+			<string>Aviso</string>
+			<key>messageNoDateError</key>
+			<string>Não há arquivamento poluente para este site.</string>
+			<key>titleNoDateError</key>
+			<string>Aviso</string>
+			<key>messageNoPollutantError</key>
+			<string>Não há registro de couro cru para este site.</string>
+			<key>titleNoPollutantError</key>
+			<string>Aviso</string>
+			<key>titleMenuSignout</key>
+			<string>Sair</string>
+			<key>titleMenuPollutant</key>
+			<string>Poluentes</string>
+			<key>titleMenuDate</key>
+			<string>As datas</string>
+			<key>titleMenuSite</key>
+			<string>Os locais</string>
+			<key>titleHeaderPollution</key>
+			<string>Mapa: poluição atmosférica</string>
+			<key>titleHeaderPollutant</key>
+			<string>Seleção de Poluentes</string>
+			<key>titleHeaderDate</key>
+			<string>Data de selecção</string>
+			<key>titleHeaderSite</key>
+			<string>Seleção do Site</string>
+			<key>titleHeaderInterval</key>
+			<string>Seleção do intervalo</string>
+			<key>titleHeaderAuthent</key>
+			<string>Autenticação</string>
+			<key>menuButtonText</key>
+			<string>Menu</string>
+			<key>connexionButtonText</key>
+			<string>Para efetuar login</string>
+			<key>passwordLabelText</key>
+			<string>Senha</string>
+			<key>loginLabelText</key>
+			<string>Apelido</string>
+		</dict>
+		<dict>
+			<key>picture</key>
+			<string>china.png</string>
+			<key>messageRememberConnection</key>
+			<string>記憶</string>
+			<key>messageConnexionError</key>
+			<string>登錄互聯網不起作用，請檢查您的連接。</string>
+			<key>titleConnexionError</key>
+			<string>連接狀態</string>
+			<key>messageAuthError</key>
+			<string>輸入的密碼不正確。</string>
+			<key>titleAuthError</key>
+			<string>認證</string>
+			<key>messageWebServiceDownError</key>
+			<string>無法到達服務器，請稍後再試。</string>
+			<key>titleWebServiceDownError</key>
+			<string>捲筒紙 服務</string>
+			<key>messageTechnicalError</key>
+			<string>發生了技術錯誤，請稍後再試。</string>
+			<key>titleTechnicalError</key>
+			<string>捲筒紙 服務</string>
+			<key>messageNoSiteError</key>
+			<string>有一個在您的帳戶中沒有列出的網站。</string>
+			<key>titleNoSiteError</key>
+			<string>警告</string>
+			<key>messageNoDateError</key>
+			<string>沒有污染物歸檔這個網站。</string>
+			<key>titleNoDateError</key>
+			<string>警告</string>
+			<key>messageNoPollutantError</key>
+			<string>沒有污染物歸檔這個網站。</string>
+			<key>titleNoPollutantError</key>
+			<string>警告</string>
+			<key>titleMenuSignout</key>
+			<string>登出</string>
+			<key>titleMenuPollutant</key>
+			<string>污染物</string>
+			<key>titleMenuDate</key>
+			<string>日期</string>
+			<key>titleMenuSite</key>
+			<string>本網站</string>
+			<key>titleHeaderPollution</key>
+			<string>地圖：煙霧</string>
+			<key>titleHeaderPollutant</key>
+			<string>選擇的污染物</string>
+			<key>titleHeaderDate</key>
+			<string>選擇日期</string>
+			<key>titleHeaderSite</key>
+			<string>選址</string>
+			<key>titleHeaderInterval</key>
+			<string>選擇時間</string>
+			<key>titleHeaderAuthent</key>
+			<string>認證</string>
+			<key>menuButtonText</key>
+			<string>菜單</string>
+			<key>connexionButtonText</key>
+			<string>要登錄</string>
+			<key>passwordLabelText</key>
+			<string>密碼</string>
+			<key>loginLabelText</key>
+			<string>綽號</string>
+		</dict>
+	</array>
+	<key>UISupportedInterfaceOrientations~ipad</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+		<string>UIInterfaceOrientationPortraitUpsideDown</string>
+		<string>UIInterfaceOrientationLandscapeLeft</string>
+		<string>UIInterfaceOrientationLandscapeRight</string>
+	</array>
+</dict>
+</plist>
